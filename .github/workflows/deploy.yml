@@ -42,7 +42,8 @@ jobs:
           echo "DOCKE_HUB_USERNAME=${{ secrets.DOCKE_HUB_USERNAME }}" >> .env
           echo "EC2_INSTANCE_IPADDRESS= ${{ secrets.EC2_INSTANCE_IPADDRESS }}" >> .env
           echo "EC2_INSTANCE_PRIVATEKEY=${{ secrets.EC2_INSTANCE_PRIVATEKEY }}" >> .env
-          echo "EC2_SERVER_USER= ${{ secrets.EC2_SERVER_USER }}" >> .env
+          echo "EC2_SERVER_USER=${{ secrets.EC2_SERVER_USER }}" >> .env
+          echo "DOCKE_HUB_REPOSITORY=${{secrets.DOCKE_HUB_REPOSITORY}}" >> .env
         
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKE_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKE_HUB_USERNAME }}" --password-stdin
