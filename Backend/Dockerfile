@@ -1,14 +1,11 @@
-# Use an official JDK runtime as a parent image
+# Use a minimal base image for running Java applications
 FROM openjdk:17-jdk-alpine
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
-COPY . .
-
-# Build the application
-RUN ./gradlew build
+# Copy the built .jar file from the host machine to the container
+COPY build/libs/your-spring-boot-app.jar /app/your-spring-boot-app.jar
 
 # Run the application
-CMD ["java", "-jar", "build/libs/your-spring-boot-app.jar"]
+CMD ["java", "-jar", "your-spring-boot-app.jar"]
