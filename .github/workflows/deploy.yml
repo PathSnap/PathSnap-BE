@@ -24,11 +24,11 @@ jobs:
     # 여러개의 환경 변수를 .env 파일에 저장   
     - name: Set up environment variables
       run: |
-          echo "DOCKE_HUB_PASSWORD = $DOCKE_HUB_PASSWORD" >> .env
-          echo "DOCKE_HUB_USERNAME = $DOCKE_HUB_USERNAME" >> .env
-          echo "EC2_INSTANCE_IPADDRESS = $EC2_INSTANCE_IPADDRESS" >> .env
-          echo "EC2_INSTANCE_PRIVATEKEY = $EC2_INSTANCE_PRIVATEKEY" >> .env
-          echo "EC2_SERVER_USER = $EC2_SERVER_USER" >> .env
+          echo "DOCKE_HUB_PASSWORD=$DOCKE_HUB_PASSWORD" >> .env
+          echo "DOCKE_HUB_USERNAME=$DOCKE_HUB_USERNAME" >> .env
+          echo "EC2_INSTANCE_IPADDRESS=$EC2_INSTANCE_IPADDRESS" >> .env
+          echo "EC2_INSTANCE_PRIVATEKEY=$EC2_INSTANCE_PRIVATEKEY" >> .env
+          echo "EC2_SERVER_USER=$EC2_SERVER_USER" >> .env
 			
       env:
           DOCKE_HUB_PASSWORD: ${{ secrets.DOCKE_HUB_PASSWORD }}
@@ -55,8 +55,8 @@ jobs:
       uses: appleboy/ssh-action@v0.1.4
       with:
         host: ${{ secrets.EC2_INSTANCE_IPADDRESS }}
-	      username: ${{ secrets.EC2_SERVER_USERD    }}
-        key: ${{ secrets. EC2_INSTANCE_PRIVATEKEY }}
+	username: ${{ secrets.EC2_SERVER_USER    }}
+        key: ${{ secrets.EC2_INSTANCE_PRIVATEKEY }}
         script: |
           docker pull your_dockerhub_username/spring-boot-app:latest
           docker stop spring-boot-app || true
