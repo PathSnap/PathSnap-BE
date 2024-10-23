@@ -17,11 +17,9 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: '17'
-
-    - name: Ensure Gradle wrapper exists
-      run: gradle wrapper
     
     - name: Build with Gradle
+      working-directory: ./backend
       run: ./gradlew build
       
     # 여러개의 환경 변수를 .env 파일에 저장   
