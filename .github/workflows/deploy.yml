@@ -46,7 +46,10 @@ jobs:
           echo "DOCKE_HUB_REPOSITORY=${{secrets.DOCKE_HUB_REPOSITORY}}" >> .env
         
     - name: Log in to Docker Hub
-      run: echo "${{ secrets.DOCKE_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKE_HUB_USERNAME }}" --password-stdin
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKE_HUB_USERNAME }}
+        password: ${{ secrets.DOCKE_HUB_PASSWORD }}
 
     - name: Build Docker image
       run: docker build -t your_dockerhub_username/spring-boot-app:latest .
