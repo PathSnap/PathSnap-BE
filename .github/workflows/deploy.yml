@@ -17,6 +17,9 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: '17'
+
+    - name: Ensure Gradle wrapper exists
+      run: gradle wrapper
     
     - name: Build with Gradle
       run: ./gradlew build
