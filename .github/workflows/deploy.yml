@@ -35,7 +35,7 @@ jobs:
           DOCKE_HUB_USERNAME: ${{ secrets.DOCKE_HUB_USERNAME }}
           EC2_INSTANCE_IPADDRESS: ${{ secrets.EC2_INSTANCE_IPADDRESS }}
           EC2_INSTANCE_PRIVATEKEY: ${{ secrets.EC2_INSTANCE_PRIVATEKEY }}
-          EC2_SERVER_USERD: ${{ secrets.EC2_SERVER_USER }} 
+          EC2_SERVER_USER: ${{ secrets.EC2_SERVER_USER }} 
         
     - name: Log in to Docker Hub
       run: echo "${{ secrets.DOCKE_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKE_HUB_USERNAME }}" --password-stdin
