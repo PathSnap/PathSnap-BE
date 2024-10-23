@@ -52,10 +52,10 @@ jobs:
         password: ${{ secrets.DOCKE_HUB_PASSWORD }}
 
     - name: Build Docker image
-      run: docker build -t your_dockerhub_username/spring-boot-app:latest .
+      run: docker build -t ${{ secrets.DOCKE_HUB_USERNAME }}/${{secrets.DOCKE_HUB_REPOSITORY}}:latest .
 
     - name: Push Docker image to Docker Hub
-      run: docker push your_dockerhub_username/spring-boot-app:latest
+      run: docker push ${{ secrets.DOCKE_HUB_USERNAME }}/${{secrets.DOCKE_HUB_REPOSITORY}}:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -69,8 +69,8 @@ jobs:
        username: ${{ secrets.EC2_SERVER_USER    }}
        key: ${{ secrets.EC2_INSTANCE_PRIVATEKEY }}
        script: |
-          docker pull your_dockerhub_username/spring-boot-app:latest
-          docker stop spring-boot-app || true
-          docker rm spring-boot-app || true
-          docker run -d -p 8080:8080 --name spring-boot-app your_dockerhub_username/spring-boot-app:latest
+          docker pull ${{ secrets.DOCKE_HUB_USERNAME }}/${{secrets.DOCKE_HUB_REPOSITORY}}:latest
+          docker stop ${{secrets.DOCKE_HUB_REPOSITORY} || true
+          docker rm ${{secrets.DOCKE_HUB_REPOSITORY}} || true
+          docker run -d -p 8080:8080 --name ${{secrets.DOCKE_HUB_REPOSITORY}} ${{ secrets.DOCKE_HUB_USERNAME }}/${{secrets.DOCKE_HUB_REPOSITORY}}:latest
 
