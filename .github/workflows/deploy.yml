@@ -45,6 +45,11 @@ jobs:
           echo "EC2_SERVER_USER=${{ secrets.EC2_SERVER_USER }}" >> .env
           echo "DOCKE_HUB_REPOSITORY=${{secrets.DOCKE_HUB_REPOSITORY}}" >> .env
 
+           # DB 관련 환경 변수 추가
+          echo "DB_URL=${{ secrets.DB_URL }}" >> .env
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+
     - name: Build with Jib
       run: |
         source .env
