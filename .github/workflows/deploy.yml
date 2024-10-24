@@ -52,13 +52,12 @@ jobs:
 
     - name: Build with Jib
       run: |
-        source .env
-        
-        # .env 파일을 사용하여 Jib로 빌드
         ./gradlew jib
-        
-        # .env 파일 제거
-        rm .env 
+        rm .env  #.env 파일 제거
+      env:
+        DB_URL: ${{ secrets.DB_URL }}
+        DB_USERNAME: ${{ secrets.DB_USERNAME }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         
     - name: Log in to Docker Hub
       uses: docker/login-action@v1
