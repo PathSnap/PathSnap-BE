@@ -38,24 +38,24 @@ jobs:
     # 여러개의 환경 변수를 .env 파일에 저장   
     - name: Set up environment variables
       run: |
-          echo "DOCKE_HUB_PASSWORD=${{ secrets.DOCKE_HUB_PASSWORD }}" >> Backend/.env
-          echo "DOCKE_HUB_USERNAME=${{ secrets.DOCKE_HUB_USERNAME }}" >> Backend/.env
-          echo "EC2_INSTANCE_IPADDRESS= ${{ secrets.EC2_INSTANCE_IPADDRESS }}" >> Backend/.env
-          echo "EC2_INSTANCE_PRIVATEKEY=${{ secrets.EC2_INSTANCE_PRIVATEKEY }}" >> Backend/.env
-          echo "EC2_SERVER_USER=${{ secrets.EC2_SERVER_USER }}" >> Backend/.env
-          echo "DOCKE_HUB_REPOSITORY=${{secrets.DOCKE_HUB_REPOSITORY}}" >> Backend/.env
+          echo "DOCKE_HUB_PASSWORD=${{ secrets.DOCKE_HUB_PASSWORD }}" >> .env
+          echo "DOCKE_HUB_USERNAME=${{ secrets.DOCKE_HUB_USERNAME }}" >> .env
+          echo "EC2_INSTANCE_IPADDRESS= ${{ secrets.EC2_INSTANCE_IPADDRESS }}" >> .env
+          echo "EC2_INSTANCE_PRIVATEKEY=${{ secrets.EC2_INSTANCE_PRIVATEKEY }}" >> .env
+          echo "EC2_SERVER_USER=${{ secrets.EC2_SERVER_USER }}" >> .env
+          echo "DOCKE_HUB_REPOSITORY=${{secrets.DOCKE_HUB_REPOSITORY}}" >> .env
 
            # DB 관련 환경 변수 추가
-          echo "DB_URL=${{ secrets.DB_URL }}" >> Backend/.env
-          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> Backend/.env
-          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> Backend/.env
+          echo "DB_URL=${{ secrets.DB_URL }}" >> .env
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
 
     - name: Build with Jib
       run: |
         source Backend/.bashrc  # .bashrc 파일을 source하여 환경 변수로 설정
         ./gradlew jib
-        rm Backend/.env  #.env 파일 제거
-        rm Backend.bashrc
+        rm .env  #.env 파일 제거
+        rm Backend/.bashrc
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v1
