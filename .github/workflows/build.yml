@@ -26,12 +26,10 @@ jobs:
           echo "${{ secrets.ENV }}" > .env
 
       - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2.6.0  # Gradle 빌드 액션 사용
-        with:
-          arguments: build  # 테스트 포함하여 빌드
+        run: ./Backend/gradlew build
 
       - name: Run Unit Tests
-        run: ./gradlew test  # 유닛 테스트 실행
+        run: ./Backend/gradlew test  # 유닛 테스트 실행
 
       - name: Remove .env file
         run: rm .env
