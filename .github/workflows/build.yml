@@ -26,10 +26,10 @@ jobs:
           echo "${{ secrets.ENV }}" > .env
 
       - name: Build with Gradle
-        run: ./Backend/gradlew build
+        run: ./gradlew build
 
       - name: Run Unit Tests
-        run: ./Backend/gradlew test  # 유닛 테스트 실행
+        run: ./gradlew test  # 유닛 테스트 실행
 
       - name: Remove .env file
         run: rm .env
