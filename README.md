@@ -1,1 +1,1 @@
-# PathSnap-BE
+# PathSnapBE
