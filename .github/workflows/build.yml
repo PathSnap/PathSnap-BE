@@ -26,10 +26,18 @@ jobs:
           echo "${{ secrets.ENV }}" > .env
 
       - name: Build with Gradle
-        run: ./gradlew build -x test  # JAR 파일을 빌드
+        uses: gradle/gradle-build-action@v3  # Gradle 빌드 액션 사용
+        with:
+          arguments: build  # 테스트 포함하여 빌드
 
       - name: Build Docker image
-        run: docker build -t test-image .
+        run: |
+          docker build -t test-image .  # Docker 이미지 빌드
+          docker run -d --name test-container -p 8080:8080 test-image  # 포트 8080을 노출하여 컨테이너 실행
+          sleep 5  # 대기하여 서비스가 시작될 시간을 확보
+          curl http://localhost:8080  # 서버가 실행되는지 확인
+          docker stop test-container  # 테스트 완료 후 컨테이너 정지
+          docker rm test-container  # 정리
 
       - name: Remove .env file
         run: rm .env
