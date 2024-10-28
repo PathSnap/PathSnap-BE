@@ -31,6 +31,7 @@ public class RouteRecordEntity {
     private List<CoordinateEntity> coordinates;
 
     private int seq;
+    @Enumerated(EnumType.STRING)
     private TransportMode transportMode;
     private Date startDate;
     private Date endDate;
