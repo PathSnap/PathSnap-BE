@@ -1,10 +1,12 @@
-package com.pathsnap.Backend.User.domain;
+package com.pathsnap.Backend.User.Entity;
 
-import com.pathsnap.Backend.Image.domain.ImageEntity;
-import com.pathsnap.Backend.PhotoRecord.domain.PhotoRecordEntity;
-import com.pathsnap.Backend.Record.domain.RecordEntity;
+import com.pathsnap.Backend.Image.Entity.ImageEntity;
+import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.List;
@@ -12,6 +14,9 @@ import java.util.List;
 @Entity
 @Table(name = "User")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserEntity {
     @Id
     private String userId;
@@ -20,7 +25,7 @@ public class UserEntity {
     @JoinColumn(name = "image_id")
     private ImageEntity image;
 
-    @OneToMany(mappedBy = "user")  // 양방향 관계 설정
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)  // 양방향 관계 설정
     private List<RecordEntity> records;
 
     private String phoneNumber;

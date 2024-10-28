@@ -1,12 +1,18 @@
-package com.pathsnap.Backend.Coordinate.domain;
+package com.pathsnap.Backend.Coordinate.Entitiy;
 
-import com.pathsnap.Backend.RouteRecord.domain.RouteRecordEntity;
+import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "Coordinate")
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CoordinateEntity {
     @Id
     private String coordinateId;
