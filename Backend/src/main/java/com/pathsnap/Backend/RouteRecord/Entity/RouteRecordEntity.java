@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
+
+
 @Entity
 @Table(name = "RouteRecord")
 @Data
@@ -29,8 +31,7 @@ public class RouteRecordEntity {
     private List<CoordinateEntity> coordinates;
 
     private int seq;
-    @Enumerated(EnumType.STRING)
-    private Enum transportMode;
+    private TransportMode transportMode;
     private Date startDate;
     private Date endDate;
 }

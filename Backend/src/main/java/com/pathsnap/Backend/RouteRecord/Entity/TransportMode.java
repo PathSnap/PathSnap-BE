@@ -1,2 +1,5 @@
-package com.pathsnap.Backend.RouteRecord.Entity;public enum TransportMode {
+package com.pathsnap.Backend.RouteRecord.Entity;
+
+public enum TransportMode {
+    WALK,CAR
 }
