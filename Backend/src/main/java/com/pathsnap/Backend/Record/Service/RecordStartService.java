@@ -1,0 +1,44 @@
+package com.pathsnap.Backend.Record.Service;
+
+import com.pathsnap.Backend.Exception.UserNotFoundException;
+import com.pathsnap.Backend.Record.Controller.RecordStartController;
+import com.pathsnap.Backend.Record.Entity.RecordEntity;
+import com.pathsnap.Backend.Record.Repository.RecordStartRepository;
+import com.pathsnap.Backend.User.Entity.UserEntity;
+import com.pathsnap.Backend.User.Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.Optional;
+import java.util.UUID;
+
+@Service
+public class RecordStartService {
+
+    @Autowired
+    private RecordStartRepository recordStartRepository;
+    @Autowired
+    private UserRepository userRepository;
+
+    public String startNewRecord(String userId,boolean recordIsGroup) {
+
+        // 유저가 존재하지 않을 겨우 예외를 발생
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+
+        RecordEntity record = new RecordEntity();
+        record.setRecordId(UUID.randomUUID().toString());
+        record.setUser(user);
+        record.setRecordIsGroup(recordIsGroup);
+        Date startDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
+        record.setStartDate(startDate);
+
+        record = recordStartRepository.save(record);
+
+        return record.getRecordId();
+    }
+}
