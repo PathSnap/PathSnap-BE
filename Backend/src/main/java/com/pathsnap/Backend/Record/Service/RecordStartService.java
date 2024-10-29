@@ -1,26 +1,23 @@
 package com.pathsnap.Backend.Record.Service;
 
 import com.pathsnap.Backend.Exception.UserNotFoundException;
-import com.pathsnap.Backend.Record.Controller.RecordStartController;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
-import com.pathsnap.Backend.Record.Repository.RecordStartRepository;
+import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.User.Entity.UserEntity;
 import com.pathsnap.Backend.User.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class RecordStartService {
 
     @Autowired
-    private RecordStartRepository recordStartRepository;
+    private RecordRepository recordRepository;
     @Autowired
     private UserRepository userRepository;
 
@@ -34,10 +31,11 @@ public class RecordStartService {
         record.setRecordId(UUID.randomUUID().toString());
         record.setUser(user);
         record.setRecordIsGroup(recordIsGroup);
+
         Date startDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
         record.setStartDate(startDate);
 
-        record = recordStartRepository.save(record);
+        record = recordRepository.save(record);
 
         return record.getRecordId();
     }
