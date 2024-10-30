@@ -8,6 +8,7 @@ import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +19,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@PropertySource("classpath:application.yml")
 public class ImageService {
 
     private final AmazonS3 amazonS3;
