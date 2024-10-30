@@ -26,8 +26,6 @@ public class ImageController {
         try {
             List<S3UploadResDTO> uploadResponses = imageService.uploadImages(imageReqDTO);
             return ResponseEntity.ok(new ImageListResDTO(uploadResponses)); // 성공적인 응답
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(null); //null 확인
         } catch (IOException e) {
             throw new RuntimeException(e);  // 파일업로드 중 문제
         }catch (UserNotFoundException e) {
