@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.Record.Dto.Get.Res;
+package com.pathsnap.Backend.Record.Dto.Res;
 
 import lombok.Builder;
 import lombok.Getter;
