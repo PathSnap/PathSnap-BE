@@ -6,13 +6,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ImageResDTO {
+public class S3UploadResDTO {
     private String imageId;
-    private String imageUrl;
+    private String url;
 
-    public ImageResDTO(String imageId, String imageUrl) {
+    public S3UploadResDTO(String imageId, String url) {
         this.imageId = imageId;
-        this.imageUrl = imageUrl;
+        this.url = url;
     }
 
 }
