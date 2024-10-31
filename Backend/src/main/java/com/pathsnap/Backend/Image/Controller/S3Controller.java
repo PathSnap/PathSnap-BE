@@ -32,6 +32,8 @@ public class S3Controller {
             throw new RuntimeException(e);  // 파일업로드 중 문제
         }catch (UserNotFoundException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        } catch (S3NotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -45,12 +47,10 @@ public class S3Controller {
         } catch (IOException e) {
             // 파일업로드 중 문제 발생
             throw new RuntimeException("Error occurred during file upload: " + e.getMessage());
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         } catch (S3NotFoundException e) {
-            // 이미지가 없을 때의 처리
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        } catch (IllegalArgumentException e) {
-            // 잘못된 인자 처리 (ID나 이미지가 없을 때)
-            return ResponseEntity.badRequest().body(null);
         }
     }
 

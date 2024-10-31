@@ -30,10 +30,10 @@ public class S3Service {
 
 
     // S3 이미지 업로드
-    public List<S3ResDTO> uploadImages(S3UploadReqDTO imageReqDTO) throws IOException {
+    public List<S3ResDTO> uploadImages(S3UploadReqDTO imageReqDTO) throws IOException, S3NotFoundException{
         List<S3ResDTO> response = new ArrayList<>();
 
-        //예외처리
+        //유효성검사
         S3NotFoundException.validateImages(imageReqDTO);
 
         for (MultipartFile image : imageReqDTO.getImages()) {
@@ -62,11 +62,15 @@ public class S3Service {
 
     // S3 이미지 수정
     public List<S3ResDTO> updateImages(String imageId, S3UpdateReqDTO updateReqDTO) throws IOException, S3NotFoundException {
+
+        // 유효성 검사
+        S3NotFoundException.validateImageId(imageId);
+
         List<S3ResDTO> response = new ArrayList<>();
 
         for (S3UpdateReqDTO.ImageUpdate update : updateReqDTO.getImages()) {
-            // 기존 이미지 찾기 (imageId로)
-            ImageEntity existingImage = imageRepository.findById(imageId)
+            // 기존 이미지 찾기 (Id가 없으면 예외처리)
+            ImageEntity updateImage = imageRepository.findById(imageId)
                     .orElseThrow(() -> new S3NotFoundException("Image not found"));
 
             // 새로운 이미지 업로드
@@ -80,10 +84,10 @@ public class S3Service {
             String newUrl = amazonS3.getUrl(bucketName, fileName).toString();
 
             // 데이터베이스 업데이트
-            existingImage.setUrl(newUrl);
-            imageRepository.save(existingImage);
+            updateImage.setUrl(newUrl);
+            imageRepository.save(updateImage);
 
-            response.add(new S3ResDTO(existingImage.getImageId(), newUrl)); // 업데이트된 이미지 응답
+            response.add(new S3ResDTO(updateImage.getImageId(), newUrl));
         }
 
         return response; // 응답 리스트 반환
