@@ -90,6 +90,7 @@ public class S3Service {
 
             // 데이터베이스 업데이트
             updateImage.setUrl(newUrl);
+            updateImage.setFileKey(fileName);
             imageRepository.save(updateImage);
 
             response.add(new S3ResDTO(updateImage.getImageId(), newUrl));
