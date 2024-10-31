@@ -2,13 +2,13 @@ package com.pathsnap.Backend.Image.Service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.pathsnap.Backend.Exception.ImageNotFoundException;
 import com.pathsnap.Backend.Image.Dto.S3UploadReqDTO;
 import com.pathsnap.Backend.Image.Dto.S3UploadResDTO;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,15 +30,11 @@ public class ImageService {
     public List<S3UploadResDTO> uploadImages(S3UploadReqDTO imageReqDTO) throws IOException {
         List<S3UploadResDTO> response = new ArrayList<>();
 
-        // 이미지가 null이거나 비어있는지 확인
-        if (imageReqDTO.getImages() == null || imageReqDTO.getImages().isEmpty()) {
-            throw new IllegalArgumentException("No images provided."); // 예외 발생
-        }
+        //예외처리
+        ImageNotFoundException.validateImages(imageReqDTO);
 
         for (MultipartFile image : imageReqDTO.getImages()) {
-            if (image.isEmpty()) {
-                throw new IllegalArgumentException("Empty image file provided."); // 예외 발생
-            }
+
 
             String fileName = System.currentTimeMillis() + "_" + image.getOriginalFilename(); // 이미지 ID 생성
             ObjectMetadata metadata = new ObjectMetadata();
