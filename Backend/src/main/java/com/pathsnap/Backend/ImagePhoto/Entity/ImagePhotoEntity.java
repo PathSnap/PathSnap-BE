@@ -17,8 +17,8 @@ public class ImagePhotoEntity {
     @Id
     private String imagePhotoId;
 
-    @ManyToOne
-    @JoinColumn(name = "image_id")
+    @OneToOne
+    @JoinColumn(name = "image_id", referencedColumnName = "imageId") // 외래 키 설정
     private ImageEntity image;
 
     @ManyToOne
