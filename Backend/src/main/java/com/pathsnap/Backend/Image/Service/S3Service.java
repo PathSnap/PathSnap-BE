@@ -90,12 +90,29 @@ public class S3Service {
 
             // 데이터베이스 업데이트
             updateImage.setUrl(newUrl);
+            updateImage.setFileKey(fileName);
             imageRepository.save(updateImage);
 
             response.add(new S3ResDTO(updateImage.getImageId(), newUrl));
         }
 
         return response; // 응답 리스트 반환
+    }
+
+    // S3 이미지 삭제
+    public void deleteImage(String imageId) throws S3NotFoundException {
+        // 유효성 검사
+        S3NotFoundException.validateImageId(imageId);
+
+        // 이미지 정보 가져오기 (Id가 없으면 예외처리)
+        ImageEntity imageEntity = imageRepository.findById(imageId)
+                .orElseThrow(() -> new S3NotFoundException("Image not found"));
+
+        // S3에서 이미지 삭제
+        amazonS3.deleteObject(bucketName, imageEntity.getFileKey());
+
+        // 데이터베이스에서 이미지 삭제
+        imageRepository.delete(imageEntity);
     }
 
 
