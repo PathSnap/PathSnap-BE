@@ -52,6 +52,7 @@ public class S3Service {
             String imageId = UUID.randomUUID().toString();
             newImage.setImageId(imageId);
             newImage.setUrl(url);
+            newImage.setFileKey(fileName);
             imageRepository.save(newImage);
 
             response.add(new S3ResDTO(imageId, url));
@@ -68,10 +69,14 @@ public class S3Service {
 
         List<S3ResDTO> response = new ArrayList<>();
 
+        // 기존 이미지 찾기 (Id가 없으면 예외처리)
+        ImageEntity updateImage = imageRepository.findById(imageId)
+                .orElseThrow(() -> new S3NotFoundException("Image not found"));
+
+        // S3에서 기존 이미지 삭제
+        amazonS3.deleteObject(bucketName, updateImage.getFileKey());
+
         for (S3UpdateReqDTO.ImageUpdate update : updateReqDTO.getImages()) {
-            // 기존 이미지 찾기 (Id가 없으면 예외처리)
-            ImageEntity updateImage = imageRepository.findById(imageId)
-                    .orElseThrow(() -> new S3NotFoundException("Image not found"));
 
             // 새로운 이미지 업로드
             MultipartFile newFile = update.getNewFile();
