@@ -19,7 +19,6 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-@PropertySource("classpath:application.yml")
 public class ImageService {
 
     private final AmazonS3 amazonS3;

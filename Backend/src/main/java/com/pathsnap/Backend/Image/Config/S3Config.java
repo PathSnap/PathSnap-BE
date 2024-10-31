@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("classpath:application.yml")
 public class S3Config {
 
     @Value("${S3_ACCESS_KEY_ID}")
