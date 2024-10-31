@@ -113,6 +113,7 @@ public class S3Service {
 
         // 데이터베이스에서 이미지 삭제
         imageRepository.delete(imageEntity);
+
     }
 
 

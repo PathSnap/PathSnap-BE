@@ -54,7 +54,7 @@ public class S3Controller {
     public ResponseEntity<Void> deleteImage(@PathVariable String imageId) {
         try {
             imageService.deleteImage(imageId);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build(); 
         } catch (S3NotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
