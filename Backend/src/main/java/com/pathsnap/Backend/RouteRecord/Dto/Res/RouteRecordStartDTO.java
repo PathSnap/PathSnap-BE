@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.RouteRecord.Dto;
+package com.pathsnap.Backend.RouteRecord.Dto.Res;
 
 import lombok.Builder;
 import lombok.Data;

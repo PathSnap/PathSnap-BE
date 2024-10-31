@@ -1,10 +1,7 @@
 package com.pathsnap.Backend.RouteRecord.Controller;
 
-import com.pathsnap.Backend.RouteRecord.Dto.RouteRecordStartDTO;
-import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
+import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordStartDTO;
 import com.pathsnap.Backend.RouteRecord.Service.RouteRecordStartService;
-import lombok.Builder;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
