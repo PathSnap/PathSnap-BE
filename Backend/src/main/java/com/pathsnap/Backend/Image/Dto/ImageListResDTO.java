@@ -8,9 +8,9 @@ import java.util.List;
 @Getter
 @Setter
 public class ImageListResDTO {
-    private List<S3UploadResDTO> images;
+    private List<S3ResDTO> images;
 
-    public ImageListResDTO(List<S3UploadResDTO> images) {
+    public ImageListResDTO(List<S3ResDTO> images) {
         this.images = images;
     }
 }

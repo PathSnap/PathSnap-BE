@@ -4,7 +4,11 @@ import com.pathsnap.Backend.Image.Dto.S3UploadReqDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 // 이미지가 null이거나 비어있는지 확인
-public class ImageNotFoundException extends Exception {
+public class S3NotFoundException extends Exception {
+
+    public S3NotFoundException(String message) {
+        super(message);
+    }
 
     public static void validateImages(S3UploadReqDTO imageReqDTO) {
         if (imageReqDTO.getImages() == null || imageReqDTO.getImages().isEmpty()) {
@@ -17,4 +21,13 @@ public class ImageNotFoundException extends Exception {
             }
         }
     }
+
+    // 이미지 ID가 유효한지 확인
+    public static void validateImageId(String imageId) {
+        if (imageId == null || imageId.isEmpty()) {
+            throw new IllegalArgumentException("Invalid image ID provided.");
+        }
+    }
 }
+
+
