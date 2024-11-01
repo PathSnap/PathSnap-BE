@@ -10,6 +10,8 @@ import java.util.List;
 
 @Data
 public class PhotoRecordReqDto {
+
+    private String photoId;
     private int seq;
     private List<ImageReqDto> images = new ArrayList<>();
     private String photoTitle;
