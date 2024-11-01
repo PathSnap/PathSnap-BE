@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.Image.Config;
+package com.pathsnap.Backend.S3.Config;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;

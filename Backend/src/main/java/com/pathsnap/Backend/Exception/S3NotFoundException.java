@@ -1,6 +1,6 @@
 package com.pathsnap.Backend.Exception;
 
-import com.pathsnap.Backend.Image.Dto.S3UploadReqDTO;
+import com.pathsnap.Backend.S3.Dto.Req.S3UploadReqDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 public class S3NotFoundException extends Exception {

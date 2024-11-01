@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.Image.Dto;
+package com.pathsnap.Backend.S3.Dto.Req;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;

@@ -1,11 +1,11 @@
-package com.pathsnap.Backend.Image.Service;
+package com.pathsnap.Backend.S3.Service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.pathsnap.Backend.Exception.S3NotFoundException;
-import com.pathsnap.Backend.Image.Dto.S3UpdateReqDTO;
-import com.pathsnap.Backend.Image.Dto.S3UploadReqDTO;
-import com.pathsnap.Backend.Image.Dto.S3ResDTO;
+import com.pathsnap.Backend.S3.Dto.Req.S3UpdateReqDTO;
+import com.pathsnap.Backend.S3.Dto.Req.S3UploadReqDTO;
+import com.pathsnap.Backend.S3.Dto.Res.S3ResDTO;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
 import lombok.RequiredArgsConstructor;

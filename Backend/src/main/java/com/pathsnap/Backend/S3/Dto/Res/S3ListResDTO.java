@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.Image.Dto;
+package com.pathsnap.Backend.S3.Dto.Res;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ImageListResDTO {
+public class S3ListResDTO {
     private List<S3ResDTO> images;
 
 }
