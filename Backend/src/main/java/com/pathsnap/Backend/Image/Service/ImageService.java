@@ -2,7 +2,7 @@ package com.pathsnap.Backend.Image.Service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.pathsnap.Backend.Exception.ImageNotFoundException;
+import com.pathsnap.Backend.Exception.S3NotFoundException;
 import com.pathsnap.Backend.Image.Dto.S3UploadReqDTO;
 import com.pathsnap.Backend.Image.Dto.S3UploadResDTO;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
@@ -31,7 +31,7 @@ public class ImageService {
         List<S3UploadResDTO> response = new ArrayList<>();
 
         //예외처리
-        ImageNotFoundException.validateImages(imageReqDTO);
+        S3NotFoundException.validateImages(imageReqDTO);
 
         for (MultipartFile image : imageReqDTO.getImages()) {
 
