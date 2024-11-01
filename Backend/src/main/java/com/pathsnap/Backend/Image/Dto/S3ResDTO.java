@@ -12,9 +12,5 @@ public class S3ResDTO {
     private String imageId;
     private String url;
 
-    public S3UploadResDTO(String imageId, String url) {
-        this.imageId = imageId;
-        this.url = url;
-    }
 
 }

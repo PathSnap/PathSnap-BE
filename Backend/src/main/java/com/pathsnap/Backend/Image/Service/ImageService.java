@@ -3,8 +3,8 @@ package com.pathsnap.Backend.Image.Service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.pathsnap.Backend.Exception.S3NotFoundException;
+import com.pathsnap.Backend.Image.Dto.S3ResDTO;
 import com.pathsnap.Backend.Image.Dto.S3UploadReqDTO;
-import com.pathsnap.Backend.Image.Dto.S3UploadResDTO;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,8 +27,8 @@ public class ImageService {
     @Value("${S3_BUCKET_NAME}")
     private String bucketName;
 
-    public List<S3UploadResDTO> uploadImages(S3UploadReqDTO imageReqDTO) throws IOException {
-        List<S3UploadResDTO> response = new ArrayList<>();
+    public List<S3ResDTO> uploadImages(S3UploadReqDTO imageReqDTO) throws IOException, S3NotFoundException {
+        List<S3ResDTO> response = new ArrayList<>();
 
         //예외처리
         S3NotFoundException.validateImages(imageReqDTO);
@@ -51,7 +51,7 @@ public class ImageService {
             newImage.setUrl(url);
             imageRepository.save(newImage);
 
-            response.add(new S3UploadResDTO(imageId, url));
+            response.add(new S3ResDTO(imageId, url));
         }
 
         return response; // 응답 리스트 반환
