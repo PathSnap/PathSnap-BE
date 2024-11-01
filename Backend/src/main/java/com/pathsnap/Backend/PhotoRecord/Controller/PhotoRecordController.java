@@ -3,6 +3,7 @@ package com.pathsnap.Backend.PhotoRecord.Controller;
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.CreatePhotoService;
+import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.DeletePhotoService;
 import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.UpdatePhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +23,10 @@ public class PhotoRecordController {
     @Qualifier("updatePhotoService")
     private UpdatePhotoService updatePhotoService;
 
+    @Autowired
+    @Qualifier("deletePhotoService")
+    private DeletePhotoService deletePhotoService;
+
     @PostMapping("/create/{recordId}")
     public ResponseEntity<PhotoRecordResDto> addPhoto(@PathVariable String recordId,
                                                       @RequestBody PhotoRecordReqDto request) {
@@ -38,4 +43,11 @@ public class PhotoRecordController {
 
     }
 
+    @DeleteMapping("/delete/{photoId}")
+    public ResponseEntity<Void> deletePhoto(@PathVariable String photoId){
+
+        deletePhotoService.deletePhoto(photoId);
+        return ResponseEntity.ok().build();
+
+    }
 }
