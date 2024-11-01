@@ -10,6 +10,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class ImageListResDTO {
-    private List<S3UploadResDTO> images;
+    private List<S3ResDTO> images;
 
 }

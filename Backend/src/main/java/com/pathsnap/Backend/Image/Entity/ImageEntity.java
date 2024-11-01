@@ -20,6 +20,7 @@ public class ImageEntity {
     @Id
     private String imageId;
     private String url;
+    private String fileKey;
 
     @OneToOne(mappedBy = "image")
     private UserEntity user;
