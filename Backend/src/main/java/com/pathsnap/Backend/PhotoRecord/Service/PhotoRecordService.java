@@ -14,6 +14,7 @@ import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import lombok.Builder;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@Builder
 public class PhotoRecordService {
 
     @Autowired
@@ -42,32 +44,31 @@ public class PhotoRecordService {
         RecordEntity record = recordRepository.findById(recordId)
                 .orElseThrow(() -> new RecordNotFoundException(recordId));
 
-        PhotoRecordEntity photoRecord = new PhotoRecordEntity();
-
         String photoId = UUID.randomUUID().toString();
-        photoRecord.setPhotoRecordId(photoId);
-        photoRecord.setRecord(record);
 
-        photoRecord.setPhotoTitle(request.getPhotoTitle());
-        photoRecord.setSeq(request.getSeq());
-        photoRecord.setPhotoContent(request.getPhotoContent());
-        photoRecord.setLng(request.getLng());
-        photoRecord.setLat(request.getLat());
-
-        Date date = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        photoRecord.setPhotoDate(date);
+        PhotoRecordEntity photoRecord = PhotoRecordEntity.builder()
+                .photoRecordId(photoId)
+                .record(record)
+                .photoTitle(request.getPhotoTitle())
+                .seq(request.getSeq())
+                .photoContent(request.getPhotoContent())
+                .lng(request.getLng())
+                .lat(request.getLat())
+                .photoDate(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .build();
 
         List<ImagePhotoEntity> imagePhotos = new ArrayList<>();
         for (ImageReqDto imageReqDto : request.getImages()) {
 
-            ImagePhotoEntity imagePhoto = new ImagePhotoEntity();
-            imagePhoto.setImagePhotoId(UUID.randomUUID().toString());
-
             ImageEntity image = imageRepository.findById(imageReqDto.getImageId())
                     .orElseThrow(() -> new ImageNotFoundException(imageReqDto.getImageId()));
 
-            imagePhoto.setImage(image);
-            imagePhoto.setPhotoRecord(photoRecord);
+            ImagePhotoEntity imagePhoto = ImagePhotoEntity.builder()
+                    .imagePhotoId(UUID.randomUUID().toString())
+                    .image(image)
+                    .photoRecord(photoRecord)
+                    .build();
+
             imagePhotos.add(imagePhoto);
         }
 
