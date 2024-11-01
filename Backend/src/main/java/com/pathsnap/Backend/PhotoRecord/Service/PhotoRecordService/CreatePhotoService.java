@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.PhotoRecord.Service;
+package com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService;
 
 import com.pathsnap.Backend.Exception.ImageNotFoundException;
 import com.pathsnap.Backend.Exception.RecordNotFoundException;
@@ -23,9 +23,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@Service
+@Service("createPhotoService") // 빈 이름 지정
 @Builder
-public class PhotoRecordService {
+public class CreatePhotoService {
 
     @Autowired
     PhotoRecordRepository photoRecordRepository;
