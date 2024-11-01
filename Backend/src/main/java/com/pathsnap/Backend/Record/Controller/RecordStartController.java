@@ -1,6 +1,6 @@
 package com.pathsnap.Backend.Record.Controller;
 
-import com.pathsnap.Backend.Record.Dto.Get.Res.RecordStartDTO;
+import com.pathsnap.Backend.Record.Dto.Res.RecordStartDTO;
 import com.pathsnap.Backend.Record.Service.RecordStartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

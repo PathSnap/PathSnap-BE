@@ -1,5 +1,6 @@
 package com.pathsnap.Backend.Image.Entity;
 
+import com.pathsnap.Backend.Image.Repository.ImageRepository;
 import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhotoEntity;
 import com.pathsnap.Backend.User.Entity.UserEntity;
 import jakarta.persistence.*;
@@ -22,6 +23,6 @@ public class ImageEntity {
 
     @OneToOne(mappedBy = "image")
     private UserEntity user;
-    @OneToMany(mappedBy = "image", cascade = CascadeType.ALL)  // 양방향 관계 설정
-    private List<ImagePhotoEntity> imagePhotos;
+    @OneToOne(mappedBy = "image")
+    private ImagePhotoEntity imagePhotos;
 }
