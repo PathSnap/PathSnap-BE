@@ -11,9 +11,5 @@ import java.util.List;
 public class S3UploadReqDTO {
     private List<MultipartFile> images;
 
-    // Getter and Setter
-    public List<MultipartFile> getImages() {
-        return images;
-    }
 
 }
