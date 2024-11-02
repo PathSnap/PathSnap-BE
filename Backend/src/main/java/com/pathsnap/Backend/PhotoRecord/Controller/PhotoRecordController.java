@@ -2,7 +2,9 @@ package com.pathsnap.Backend.PhotoRecord.Controller;
 
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
+import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoSummaryResDto;
 import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.CreatePhotoService;
+import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.SummaryPhotoService;
 import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.UpdatePhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +24,9 @@ public class PhotoRecordController {
     @Qualifier("updatePhotoService")
     private UpdatePhotoService updatePhotoService;
 
+    @Autowired
+    private SummaryPhotoService summaryPhotoService;
+
     @PostMapping("/create/{recordId}")
     public ResponseEntity<PhotoRecordResDto> addPhoto(@PathVariable String recordId,
                                                       @RequestBody PhotoRecordReqDto request) {
@@ -38,4 +43,11 @@ public class PhotoRecordController {
 
     }
 
+    @GetMapping("/summary/{photoId}")
+    public ResponseEntity<PhotoSummaryResDto> getSummaryPhoto(@PathVariable String photoId){
+
+        PhotoSummaryResDto response = summaryPhotoService.getSummaryPhoto(photoId);
+        return ResponseEntity.ok(response);
+
+    }
 }
