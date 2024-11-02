@@ -8,7 +8,7 @@ import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhotoEntity;
 import com.pathsnap.Backend.ImagePhoto.Repository.ImagePhotoRepository;
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
-import com.pathsnap.Backend.User.Dto.Res.LocationResDTO;
+import com.pathsnap.Backend.User.Dto.Res.CalendarResDTO;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.User.Repository.UserRepository;
@@ -22,18 +22,22 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class LocationService {
+public class CalendarService {
 
+    @Autowired
     private UserRepository userRepository;
 
+    @Autowired
     private RecordRepository recordRepository;
 
+    @Autowired
     private PhotoRecordRepository photoRecordRepository;
 
+    @Autowired
     private ImagePhotoRepository imagePhotoRepository;
 
     // 여행 이미지 불러오기
-    public LocationResDTO getLocations(String userId) {
+    public CalendarResDTO getCalendar(String userId) {
 
         // 사용자 존재 여부 확인 및 예외 처리
         if (!userRepository.existsById(userId)) {
@@ -46,7 +50,7 @@ public class LocationService {
         // Date 기준으로 오름차순 정렬
         records.sort(Comparator.comparing(RecordEntity::getStartDate));
 
-        List<LocationResDTO.LocationDTO> locationDTOs = new ArrayList<>();
+        List<CalendarResDTO.CalendarDTO> calendarDTOs = new ArrayList<>();
 
         // recordId로 photo 찾기
         for (RecordEntity record : records) {
@@ -54,8 +58,8 @@ public class LocationService {
             ImageListResDTO imageListResDTO = new ImageListResDTO(new ArrayList<>());
 
             if (!photos.isEmpty()) {
-                
-                // seq가 가장 작은 PhotoRecord의 ID 가져오기
+
+                // PhotoRecord의 ID 가져오기
                 String photoRecordId = photos.get(0).getPhotoRecordId();
 
                 List<ImagePhotoEntity> imagePhotos = imagePhotoRepository.findByPhotoRecord_PhotoRecordId(photoRecordId);
@@ -69,10 +73,10 @@ public class LocationService {
                 }
             }
 
-            // LocationDTO에 추가
-            locationDTOs.add(new LocationResDTO.LocationDTO(record.getRecordId(), record.getRecordName(), imageListResDTO));
+            // calendarDTO에 추가
+            calendarDTOs.add(new CalendarResDTO.CalendarDTO(record.getRecordId(),record.getStartDate() ,record.getRecordName(), imageListResDTO));
         }
 
-        return new LocationResDTO(locationDTOs);
+        return new CalendarResDTO(calendarDTOs);
     }
 }
