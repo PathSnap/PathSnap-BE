@@ -5,6 +5,7 @@ import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoSummaryResDto;
 import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.CreatePhotoService;
 import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.SummaryPhotoService;
+import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.DeletePhotoService;
 import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.UpdatePhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,7 +26,13 @@ public class PhotoRecordController {
     private UpdatePhotoService updatePhotoService;
 
     @Autowired
+    @Qualifier("summaryPhotoService")
     private SummaryPhotoService summaryPhotoService;
+  
+    @Autowired
+    @Qualifier("deletePhotoService")
+    private DeletePhotoService deletePhotoService;
+  
 
     @PostMapping("/create/{recordId}")
     public ResponseEntity<PhotoRecordResDto> addPhoto(@PathVariable String recordId,
@@ -42,12 +49,20 @@ public class PhotoRecordController {
         return ResponseEntity.ok(response);
 
     }
-
+  
     @GetMapping("/summary/{photoId}")
     public ResponseEntity<PhotoSummaryResDto> getSummaryPhoto(@PathVariable String photoId){
 
         PhotoSummaryResDto response = summaryPhotoService.getSummaryPhoto(photoId);
         return ResponseEntity.ok(response);
+
+    }
+  
+    @DeleteMapping("/delete/{photoId}")
+    public ResponseEntity<Void> deletePhoto(@PathVariable String photoId){
+
+        deletePhotoService.deletePhoto(photoId);
+        return ResponseEntity.ok().build();
 
     }
 }
