@@ -57,7 +57,7 @@ public class LocationService {
 
             if (!photos.isEmpty()) {
                 
-                // seq가 가장 작은 PhotoRecord의 ID 가져오기
+                // PhotoRecord의 ID 가져오기
                 String photoRecordId = photos.get(0).getPhotoRecordId();
 
                 List<ImagePhotoEntity> imagePhotos = imagePhotoRepository.findByPhotoRecord_PhotoRecordId(photoRecordId);
