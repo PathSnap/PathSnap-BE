@@ -1,5 +1,6 @@
 package com.pathsnap.Backend.User.Controller;
 
+import com.pathsnap.Backend.Record.Dto.Res.LocationResDTO;
 import com.pathsnap.Backend.User.Dto.Req.UserUpdateReqDTO;
 import com.pathsnap.Backend.User.Dto.Res.UserResDTO;
 import com.pathsnap.Backend.User.Service.UserService;
@@ -25,5 +26,11 @@ public class UserController {
             @PathVariable String userId,
             @RequestBody UserUpdateReqDTO userUpdateReqDTO) {
         return userService.updateProfile(userId, userUpdateReqDTO);
+    }
+
+    // 여행 이미지 가져오기
+    @GetMapping("/location/{userId}")
+    public LocationResDTO getLocation(@PathVariable String userId) {
+        return userService.getLocations(userId);
     }
 }

@@ -4,6 +4,9 @@ import com.pathsnap.Backend.Exception.ImageNotFoundException;
 import com.pathsnap.Backend.Exception.UserNotFoundException;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
+import com.pathsnap.Backend.Record.Dto.Res.LocationResDTO;
+import com.pathsnap.Backend.Record.Entity.RecordEntity;
+import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.S3.Dto.Res.S3ResDTO;
 import com.pathsnap.Backend.User.Dto.Req.UserUpdateReqDTO;
 import com.pathsnap.Backend.User.Dto.Res.UserResDTO;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -23,6 +27,9 @@ public class UserService {
 
     @Autowired
     private ImageRepository imageRepository;
+
+    @Autowired
+    private RecordRepository recordRepository;
 
     public UserResDTO getProfile(String userId) {
 
@@ -88,4 +95,22 @@ public class UserService {
     }
 
 
+
+    public LocationResDTO getLocations(String userId) {
+        // 사용자 존재 여부 확인 및 예외 처리
+        if (!userRepository.existsById(userId)) {
+            throw new UserNotFoundException(userId);
+        }
+
+        // UserEntity로 레코드 찾기
+        List<RecordEntity> records = recordRepository.findByUser_UserId(userId);
+
+
+        List<LocationResDTO.LocationDTO> locationDTOs = records.stream()
+                .map(record -> new LocationResDTO.LocationDTO(record.getRecordId(), record.getRecordName()))
+                .collect(Collectors.toList());
+
+        return new LocationResDTO(locationDTOs);
+
+    }
 }
