@@ -29,9 +29,14 @@ public class SummaryPhotoService {
                 .min(Comparator.comparing(ImagePhotoEntity::getImagePhotoId))
                 .orElseThrow(()->new ImageNotFoundException(photoId));
 
+        //ImageUrl 가져오기
+        ImageEntity imageEntity = firstImage.getImage();
+        String Url = imageEntity.getUrl();
+
         return PhotoSummaryResDto.builder()
                 .photoId(photoRecordSummary.getPhotoRecordId())
                 .imagePhotoId(firstImage.getImagePhotoId())
+                .url(Url)
                 .photoTitle(photoRecordSummary.getPhotoTitle())
                 .photoContent(photoRecordSummary.getPhotoContent())
                 .photoDate(photoRecordSummary.getPhotoDate())
