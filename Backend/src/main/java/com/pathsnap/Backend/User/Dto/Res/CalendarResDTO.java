@@ -1,6 +1,7 @@
 package com.pathsnap.Backend.User.Dto.Res;
 
 import com.pathsnap.Backend.Image.Dto.Res.ImageListResDTO;
+import com.pathsnap.Backend.PackTrip.Dto.Res.PackTripResDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class CalendarResDTO {
-    private List<CalendarDTO> calender;
+    private List<CalendarDTO> calendar;
+    private List<PackTripResDTO> newTrips;
 
     @Getter
     @Setter

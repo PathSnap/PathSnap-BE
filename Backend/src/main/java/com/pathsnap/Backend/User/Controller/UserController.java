@@ -4,7 +4,7 @@ import com.pathsnap.Backend.User.Dto.Res.CalendarResDTO;
 import com.pathsnap.Backend.User.Dto.Res.LocationResDTO;
 import com.pathsnap.Backend.User.Dto.Req.UserUpdateReqDTO;
 import com.pathsnap.Backend.User.Dto.Res.UserResDTO;
-import com.pathsnap.Backend.User.Service.CalendarService;
+import com.pathsnap.Backend.User.Service.CalendarListService;
 import com.pathsnap.Backend.User.Service.LocationService;
 import com.pathsnap.Backend.User.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class UserController {
     private LocationService locationService;
 
     @Autowired
-    private CalendarService calendarService;
+    private CalendarListService calendarService;
 
 
     // 프로필 정보 불러오기
@@ -45,8 +45,8 @@ public class UserController {
     }
 
     // 달력 불러오기
-    @GetMapping("/calendar/{userId}")
-    public CalendarResDTO getCalendar(@PathVariable String userId) {
-        return calendarService.getCalendar(userId);
+    @GetMapping("/calendar/{userId}/{month}")
+    public CalendarResDTO getCalendar(@PathVariable String userId, @PathVariable int month) {
+        return calendarService.getCalendar(userId, month);
     }
 }

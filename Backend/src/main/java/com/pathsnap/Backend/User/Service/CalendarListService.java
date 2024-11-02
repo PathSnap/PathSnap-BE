@@ -6,6 +6,7 @@ import com.pathsnap.Backend.Image.Dto.Res.ImageResDTO;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhotoEntity;
 import com.pathsnap.Backend.ImagePhoto.Repository.ImagePhotoRepository;
+import com.pathsnap.Backend.PackTrip.Dto.Res.PackTripResDTO;
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
 import com.pathsnap.Backend.User.Dto.Res.CalendarResDTO;
@@ -22,7 +23,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CalendarService {
+public class CalendarListService {
 
     @Autowired
     private UserRepository userRepository;
@@ -36,8 +37,9 @@ public class CalendarService {
     @Autowired
     private ImagePhotoRepository imagePhotoRepository;
 
-    // 여행 이미지 불러오기
-    public CalendarResDTO getCalendar(String userId) {
+    private final CalendarPackTripService calendarPackTripService;
+
+    public CalendarResDTO getCalendar(String userId, Integer month) {
 
         // 사용자 존재 여부 확인 및 예외 처리
         if (!userRepository.existsById(userId)) {
@@ -77,6 +79,13 @@ public class CalendarService {
             calendarDTOs.add(new CalendarResDTO.CalendarDTO(record.getRecordId(),record.getStartDate() ,record.getRecordName(), imageListResDTO));
         }
 
-        return new CalendarResDTO(calendarDTOs);
+
+        // 사용자의 PackTrip을 가져오는 메서드
+        List<PackTripResDTO> newTrips = calendarPackTripService.getPackTrips(userId, month);
+
+        // 최종 결과 반환
+        return new CalendarResDTO(calendarDTOs, newTrips);
+
+
     }
 }

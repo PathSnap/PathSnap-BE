@@ -24,12 +24,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LocationService {
 
+    @Autowired
     private UserRepository userRepository;
 
+    @Autowired
     private RecordRepository recordRepository;
 
+    @Autowired
     private PhotoRecordRepository photoRecordRepository;
 
+    @Autowired
     private ImagePhotoRepository imagePhotoRepository;
 
     // 여행 이미지 불러오기
@@ -55,7 +59,7 @@ public class LocationService {
 
             if (!photos.isEmpty()) {
                 
-                // seq가 가장 작은 PhotoRecord의 ID 가져오기
+                //PhotoRecord의 ID 가져오기
                 String photoRecordId = photos.get(0).getPhotoRecordId();
 
                 List<ImagePhotoEntity> imagePhotos = imagePhotoRepository.findByPhotoRecord_PhotoRecordId(photoRecordId);
