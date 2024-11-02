@@ -1,6 +1,6 @@
 package com.pathsnap.Backend.User.Controller;
 
-import com.pathsnap.Backend.Record.Dto.Res.LocationResDTO;
+import com.pathsnap.Backend.User.Dto.Res.LocationResDTO;
 import com.pathsnap.Backend.User.Dto.Req.UserUpdateReqDTO;
 import com.pathsnap.Backend.User.Dto.Res.UserResDTO;
 import com.pathsnap.Backend.User.Service.UserService;
