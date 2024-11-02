@@ -12,5 +12,6 @@ public class UserUpdateReqDTO {
     private String userName;
     private Date birthDate;
     private String phoneNumber;
+    private String imageId;
 
 }
