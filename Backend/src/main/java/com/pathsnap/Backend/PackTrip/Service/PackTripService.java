@@ -11,8 +11,12 @@ import com.pathsnap.Backend.User.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class PackTripService {
@@ -53,5 +57,7 @@ public class PackTripService {
         // 응답 DTO 생성
         return new PackTripResDTO(packTrip.getPackTripId(), packTrip.getPackTripName(), packTripReqDTO.getDates());
     }
+
+
 }
 
