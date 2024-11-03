@@ -12,7 +12,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class UserResDTO {
-    private String name;
+    private String userName;
     private Date birthDate;
     private String phoneNumber;
     private List<S3ResDTO> images;
