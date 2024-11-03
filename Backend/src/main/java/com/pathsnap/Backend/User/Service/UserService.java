@@ -4,6 +4,9 @@ import com.pathsnap.Backend.Exception.ImageNotFoundException;
 import com.pathsnap.Backend.Exception.UserNotFoundException;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
+import com.pathsnap.Backend.ImagePhoto.Repository.ImagePhotoRepository;
+import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
+import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.S3.Dto.Res.S3ResDTO;
 import com.pathsnap.Backend.User.Dto.Req.UserUpdateReqDTO;
 import com.pathsnap.Backend.User.Dto.Res.UserResDTO;
@@ -23,6 +26,7 @@ public class UserService {
 
     @Autowired
     private ImageRepository imageRepository;
+
 
     public UserResDTO getProfile(String userId) {
 
@@ -77,7 +81,7 @@ public class UserService {
             images = List.of(new S3ResDTO(user.getImage().getImageId(), user.getImage().getUrl()));
         }
 
-        // 업데이트된 정보를 UserResDTO로 변환하여 반환
+        // UserResDTO 반환
         return new UserResDTO(
                 user.getUserName(),
                 user.getBirthDate(),
@@ -86,6 +90,4 @@ public class UserService {
 
         );
     }
-
-
 }
