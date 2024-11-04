@@ -16,10 +16,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+
+import static org.springframework.cglib.core.CollectionUtils.filter;
 
 @Service("updatePhotoService")
 @Builder
@@ -49,14 +48,26 @@ public class UpdatePhotoService {
             ImageEntity image = imageRepository.findById(imageReqDto.getImageId())
                     .orElseThrow(() -> new ImageNotFoundException(imageReqDto.getImageId()));
 
-            ImagePhotoEntity imagePhoto = ImagePhotoEntity.builder()
-                    .imagePhotoId(UUID.randomUUID().toString())
-                    .image(image)
-                    .photoRecord(photoRecordEdit)
-                    .build();
+            Optional<ImagePhotoEntity> existingImagePhoto = photoRecordEdit.getImagePhotos().stream()
+                    .filter(imagePhoto ->imagePhoto.getImage().getImageId().equals(imageReqDto.getImageId()))
+                    .findFirst();
 
+            ImagePhotoEntity imagePhoto;
+
+            if (existingImagePhoto.isPresent()) {
+                // 기존 이미지일 경우 기존의 ImagePhotoEntity 사용
+                imagePhoto = existingImagePhoto.get();
+            } else {
+                // // 새로운 이미지일 경우 새로운 ImagePhotoEntity 생성
+                imagePhoto = ImagePhotoEntity.builder()
+                        .imagePhotoId(UUID.randomUUID().toString()) // 기존 이미지까지 새로운 PhotoId를 또 다시 발급받음
+                        .image(image)
+                        .photoRecord(photoRecordEdit)
+                        .build();
+            }
             updatedImagePhotos.add(imagePhoto);
         }
+
         photoRecordEdit.setImagePhotos(updatedImagePhotos);
 
         PhotoRecordEntity updatedPhotoRecord = photoRecordRepository.save(photoRecordEdit);

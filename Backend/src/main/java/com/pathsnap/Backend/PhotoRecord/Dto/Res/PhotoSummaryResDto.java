@@ -11,6 +11,7 @@ import java.util.Date;
 public class PhotoSummaryResDto {
     private String photoId;
     private String imagePhotoId;
+    private String url;
     private String photoTitle;
     private String photoContent;
     private Date photoDate;
