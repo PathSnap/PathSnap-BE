@@ -3,8 +3,11 @@ package com.pathsnap.Backend.PhotoRecord.Controller;
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoLocationResDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
+import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoSummaryResDto;
 import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.CreatePhotoService;
 import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.GetPhotoLocationService;
+import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.SummaryPhotoService;
+import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.DeletePhotoService;
 import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.UpdatePhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,6 +31,14 @@ public class PhotoRecordController {
     @Autowired
     @Qualifier("getPhotoLocationService")
     private GetPhotoLocationService getLocationService;
+    
+    @Autowired
+    @Qualifier("summaryPhotoService")
+    private SummaryPhotoService summaryPhotoService;
+  
+    @Autowired
+    @Qualifier("deletePhotoService")
+    private DeletePhotoService deletePhotoService;
 
     @PostMapping("/create/{recordId}")
     public ResponseEntity<PhotoRecordResDto> addPhoto(@PathVariable String recordId,
@@ -44,7 +55,15 @@ public class PhotoRecordController {
         return ResponseEntity.ok(response);
 
     }
+  
+    @GetMapping("/summary/{photoId}")
+    public ResponseEntity<PhotoSummaryResDto> getSummaryPhoto(@PathVariable String photoId){
 
+        PhotoSummaryResDto response = summaryPhotoService.getSummaryPhoto(photoId);
+        return ResponseEntity.ok(response);
+    
+    }
+  
     @GetMapping("/{userId}/{lon}/{lat}/{radius}")
     public ResponseEntity<List<PhotoLocationResDto>> getPhotosWithinRadius(
             @PathVariable String userId,
@@ -53,5 +72,14 @@ public class PhotoRecordController {
             @PathVariable double radius) {
         List<PhotoLocationResDto> response = getLocationService.getPhotosWithinRadius(userId, lon, lat, radius);
         return ResponseEntity.ok(response);
+
+    }
+  
+    @DeleteMapping("/delete/{photoId}")
+    public ResponseEntity<Void> deletePhoto(@PathVariable String photoId){
+
+        deletePhotoService.deletePhoto(photoId);
+        return ResponseEntity.ok().build();
+
     }
 }
