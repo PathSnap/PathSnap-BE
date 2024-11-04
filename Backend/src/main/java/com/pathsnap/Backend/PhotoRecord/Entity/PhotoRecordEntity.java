@@ -28,7 +28,7 @@ public class PhotoRecordEntity {
     @OneToMany(mappedBy = "photoRecord", cascade = CascadeType.ALL)  // 양방향 관계 설정
     private List<ImagePhotoEntity> imagePhotos = new ArrayList<>();
 
-    private int seq;
+    private Number seq;
     private String photoTitle;
     private String photoContent;
     private Date photoDate;
