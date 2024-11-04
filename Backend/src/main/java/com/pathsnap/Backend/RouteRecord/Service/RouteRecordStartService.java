@@ -1,7 +1,6 @@
 package com.pathsnap.Backend.RouteRecord.Service;
 
 import com.pathsnap.Backend.Exception.RecordNotFoundException;
-import com.pathsnap.Backend.Exception.UserNotFoundException;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;

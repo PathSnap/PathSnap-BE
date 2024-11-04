@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class PhotoRecordEntity {
     private RecordEntity record;
 
     @OneToMany(mappedBy = "photoRecord", cascade = CascadeType.ALL)  // 양방향 관계 설정
-    private List<ImagePhotoEntity> imagePhotos;
+    private List<ImagePhotoEntity> imagePhotos = new ArrayList<>();
 
     private int seq;
     private String photoTitle;
