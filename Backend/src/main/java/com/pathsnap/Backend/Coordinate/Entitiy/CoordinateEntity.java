@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @Data
 @Builder
@@ -22,4 +24,6 @@ public class CoordinateEntity {
 
     private double lat;
     private double lng;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date timeStamp; // 좌표 기록 시간을 저장
 }
