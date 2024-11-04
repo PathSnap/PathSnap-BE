@@ -11,6 +11,7 @@ import com.pathsnap.Backend.Record.Dto.Res.RecordDetailResDto;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordResDto;
+import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
 import com.pathsnap.Backend.RouteRecord.Repository.RouteRecordRepository;
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Nodes.collect;
 
 @Service
 @Builder
@@ -67,19 +70,33 @@ public class RecordDetailService {
 
 
         //경로 기록 조회
-        List<RouteRecordResDto> routeRecords = routeRecordRepository.findByRecord_RecordId(recordId);
+        //List<RouteRecordResDto> routeRecords = routeRecordRepository.findByRecord_RecordId(recordId);
 
-        //DTO 매핑
-        RecordDetailResDto response = RecordDetailResDto.builder()
-                .recordId(record.getRecordId())
-                .recordName(record.getRecordName())
-                .isGroup(record.isRecordIsGroup())
-                .photoRecords(photoRecordResDto)
-                .routeRecords(routeRecords)
-                .build();
+        List<RouteRecordEntity> routeRecords = routeRecordRepository.findByRecord_RecordId(recordId);
+        List<RouteRecordResDto> routeRecordResDto = routeRecords.stream()
+                .map(routeRecord -> {
+                    List<CoordinateResDto> coordinateResDtos = routeRecord.getCoordinates()
+                            .stream()
+                            .map(coordinate -> { CoordinateResDto.builder()
+                                        .lat(coordinate.getLat())
+                                        .lng(coordinate.getLng())
+                                        .timeStamp(coordinate.getTimestamp()) // assuming there is a getTimestamp() method
+                                        .build())
+                                .collect
 
-        // 각 경로의 이동 수단 결정
-        determineTransportMode(routeRecords);
+
+                            //DTO 매핑
+                            RecordDetailResDto response = RecordDetailResDto.builder()
+                                    .recordId(record.getRecordId())
+                                    .recordName(record.getRecordName())
+                                    .isGroup(record.isRecordIsGroup())
+                                    .photoRecords(photoRecordResDto)
+                                    .routeRecords(routeRecordResDto)
+                                    .build();
+
+
+                // 각 경로의 이동 수단 결정
+                determineTransportMode(routeRecordResDto);
 
         return response;
     }
