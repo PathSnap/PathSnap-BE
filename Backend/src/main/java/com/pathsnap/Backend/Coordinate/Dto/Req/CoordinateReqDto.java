@@ -1,6 +1,7 @@
 package com.pathsnap.Backend.Coordinate.Dto.Req;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
+import lombok.Data;
 
 @Data
 public class CoordinateReqDto {
