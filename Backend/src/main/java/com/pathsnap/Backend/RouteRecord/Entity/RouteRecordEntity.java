@@ -34,4 +34,10 @@ public class RouteRecordEntity {
     private TransportMode transportMode;
     private Date startDate;
     private Date endDate;
+
+    // addCoordinate 메서드 추가
+    public void addCoordinate(CoordinateEntity coordinate) {
+        this.coordinates.add(coordinate);
+        coordinate.setRouteRecord(this); // 양방향 관계 설정
+    }
 }
