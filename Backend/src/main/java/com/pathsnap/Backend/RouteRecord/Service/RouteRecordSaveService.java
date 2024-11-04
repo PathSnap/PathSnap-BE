@@ -8,6 +8,8 @@ import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @Builder
 public class RouteRecordSaveService {
@@ -23,6 +25,7 @@ public class RouteRecordSaveService {
 
         //새로운 좌표 생성
         CoordinateEntity newCoordinate = CoordinateEntity.builder()
+                .coordinateId(UUID.randomUUID().toString())
                 .lat(routeReqDto.getCoordinateReqDto().getLat())
                 .lng(routeReqDto.getCoordinateReqDto().getLng())
                 .routeRecord(routeRecord)
