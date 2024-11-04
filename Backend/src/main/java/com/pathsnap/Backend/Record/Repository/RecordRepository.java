@@ -9,5 +9,13 @@ import java.util.List;
 
 @Repository
 public interface RecordRepository extends JpaRepository<RecordEntity,String>{
+
+    //JpaRepository를 상속받아 기본적인 CRUD기능을 제공
+    //String은 RecordEntity의 RecordId 타입을 반환
+
+    // 여러 레코드를 리스트로 반환하는 경우
+
+    List<RecordEntity> findByUser(UserEntity user);
+
     List<RecordEntity> findByUser_UserId(String userId);
 }
