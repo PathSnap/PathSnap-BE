@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 public class PhotoRecordResDto {
     private String photoId;
-    private int seq;
+    private Number seq;
     private List<ImageReqDto> images;
     private String photoTitle;
     private String photoContent;

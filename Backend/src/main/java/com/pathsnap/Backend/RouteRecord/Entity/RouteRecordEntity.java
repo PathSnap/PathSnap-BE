@@ -29,7 +29,7 @@ public class RouteRecordEntity {
     @OneToMany(mappedBy = "routeRecord", cascade = CascadeType.ALL)  // 양방향 관계 설정
     private List<CoordinateEntity> coordinates;
 
-    private Number seq;
+    private int seq;
     @Enumerated(EnumType.STRING)
     private TransportMode transportMode;
     private Date startDate;

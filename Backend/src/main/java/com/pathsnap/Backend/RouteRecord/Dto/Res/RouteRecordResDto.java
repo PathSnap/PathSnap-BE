@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RouteRecordResDto {
     private String routeId;
-    private int seq;
+    private Number seq;
     private String transportMode;
     private String startDate;
     private String endDate;
