@@ -11,6 +11,7 @@ import com.pathsnap.Backend.Record.Dto.Res.RecordDetailResDto;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordResDto;
+import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
 import com.pathsnap.Backend.RouteRecord.Repository.RouteRecordRepository;
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,35 +27,36 @@ public class RecordDetailService {
     @Autowired
     private RecordRepository recordRepository;
     @Autowired
-    private PhotoRecordRepository photoRecordRepository;;
+    private PhotoRecordRepository photoRecordRepository;
     @Autowired
     private RouteRecordRepository routeRecordRepository;
 
     public RecordDetailResDto getRecordDetail(String recordId) {
 
-        //기록 조회
+        // 기록 조회
         RecordEntity record = recordRepository.findById(recordId)
                 .orElseThrow(() -> new RecordNotFoundException(recordId));
 
-        //사진 기록 조회
+        // 사진 기록 조회
         List<PhotoRecordEntity> photoRecords = photoRecordRepository.findByRecord_RecordId(recordId);
 
         List<PhotoRecordResDto> photoRecordResDto = photoRecords.stream()
                 .map(photoRecord -> {
-                    List<ImageReqDto> imageUrls = photoRecord.getImagePhotos() // ImagePhotoEntity 리스트 가져오기
+                    List<ImageReqDto> imageUrls = photoRecord.getImagePhotos()
                             .stream()
                             .map(imagePhoto -> {
-                                ImageEntity image = imagePhoto.getImage(); // ImageEntity 가져오기
+                                ImageEntity image = imagePhoto.getImage();
                                 return ImageReqDto.builder()
                                         .imageId(image.getImageId())
-                                        .url(image.getUrl()).build(); // imageId와 URL 가져오기
+                                        .url(image.getUrl())
+                                        .build();
                             })
                             .collect(Collectors.toList());
 
                     return PhotoRecordResDto.builder()
                             .photoId(photoRecord.getPhotoRecordId())
                             .seq(photoRecord.getSeq())
-                            .images(imageUrls) // 이미지 리스트 설정
+                            .images(imageUrls)
                             .photoTitle(photoRecord.getPhotoTitle())
                             .photoContent(photoRecord.getPhotoContent())
                             .photoDate(photoRecord.getPhotoDate().toString())
@@ -64,22 +66,38 @@ public class RecordDetailService {
                 })
                 .collect(Collectors.toList());
 
+        // 경로 기록 조회
+        List<RouteRecordEntity> routeRecords = routeRecordRepository.findByRecord_RecordId(recordId);
+        List<RouteRecordResDto> routeRecordResDto = routeRecords.stream()
+                .map(routeRecord -> {
+                    List<CoordinateResDto> coordinateResDtos = routeRecord.getCoordinates()
+                            .stream()
+                            .map(coordinate -> CoordinateResDto.builder()
+                                    .lat(coordinate.getLat())
+                                    .lng(coordinate.getLng())
+                                    .timeStamp(coordinate.getTimeStamp())
+                                    .build())
+                            .collect(Collectors.toList());
 
+                    return RouteRecordResDto.builder()
+                            .routeId(routeRecord.getRouteId())
+                            .coordinates(coordinateResDtos)
+                            .seq(routeRecord.getSeq())
+                            .build();
+                })
+                .collect(Collectors.toList());
 
-        //경로 기록 조회
-        List<RouteRecordResDto> routeRecords = routeRecordRepository.findByRecord_RecordId(recordId);
-
-        //DTO 매핑
+        // DTO 매핑
         RecordDetailResDto response = RecordDetailResDto.builder()
                 .recordId(record.getRecordId())
                 .recordName(record.getRecordName())
                 .isGroup(record.isRecordIsGroup())
                 .photoRecords(photoRecordResDto)
-                .routeRecords(routeRecords)
+                .routeRecords(routeRecordResDto)
                 .build();
 
         // 각 경로의 이동 수단 결정
-        determineTransportMode(routeRecords);
+        determineTransportMode(routeRecordResDto);
 
         return response;
     }
@@ -131,5 +149,3 @@ public class RecordDetailService {
         return EARTH_RADIUS * c * 1000; // 거리 (단위: 미터)
     }
 }
-
-

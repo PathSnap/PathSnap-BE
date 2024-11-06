@@ -28,6 +28,7 @@ public class RouteRecordSaveService {
                 .coordinateId(UUID.randomUUID().toString())
                 .lat(routeReqDto.getCoordinateReqDto().getLat())
                 .lng(routeReqDto.getCoordinateReqDto().getLng())
+                .timeStamp(routeReqDto.getCoordinateReqDto().getTimeStamp())
                 .routeRecord(routeRecord)
                 .build();
 
