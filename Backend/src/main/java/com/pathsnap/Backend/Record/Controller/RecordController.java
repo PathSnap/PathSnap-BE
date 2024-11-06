@@ -6,10 +6,7 @@ import com.pathsnap.Backend.Record.Dto.Res.RecordDetailResDto;
 import com.pathsnap.Backend.Record.Dto.Res.RecordEditResDto;
 import com.pathsnap.Backend.Record.Dto.Res.RecordStartDTO;
 import com.pathsnap.Backend.Record.Dto.Res.RecordUpdateResDto;
-import com.pathsnap.Backend.Record.Service.RecordDetailService;
-import com.pathsnap.Backend.Record.Service.RecordEditService;
-import com.pathsnap.Backend.Record.Service.RecordStartService;
-import com.pathsnap.Backend.Record.Service.RecordUpdateService;
+import com.pathsnap.Backend.Record.Service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +17,7 @@ import java.util.List;
 
 @RestController //json 형식으로 반환
 @RequestMapping("/records")
-public class RecordController implements RecordControllerDocs{
+public class RecordController implements RecordControllerDocs {
 
     @Autowired
     RecordStartService recordStartService;
@@ -30,6 +27,10 @@ public class RecordController implements RecordControllerDocs{
     RecordUpdateService recordUpdateService;
     @Autowired
     RecordEditService recordEditService;
+
+    @Autowired
+    RecordDeleteService recordDeleteService;
+
 
     @GetMapping("/start/{userId}/{recordIsGroup}")
     public ResponseEntity<RecordStartDTO> startRecord(@PathVariable String userId, @PathVariable boolean recordIsGroup) {
@@ -50,6 +51,7 @@ public class RecordController implements RecordControllerDocs{
 
         return ResponseEntity.ok(response);
     }
+
     @Operation(summary = "기록 순서 변경", description = "바디로 받은 순서가 변경된 포토기록과 경로기록을 저장하고 변경된 정보들 전달 ")
     @PutMapping("/update")
     public ResponseEntity<RecordUpdateResDto> updateRecordDetails(@RequestBody RecordUpdateReqDto request) {
@@ -59,7 +61,15 @@ public class RecordController implements RecordControllerDocs{
 
     @Operation(summary = "기록 이름 수정", description = "바디로 받은 변경된 기록이름을 저장하고 변경된 정보들을 전달")
     @PostMapping("/edit")
-    public ResponseEntity<RecordEditResDto> editRecordName(@RequestBody RecordEditReqDto request){
+    public ResponseEntity<RecordEditResDto> editRecordName(@RequestBody RecordEditReqDto request) {
         return ResponseEntity.ok(recordEditService.editRecordName(request));
+    }
+
+    @DeleteMapping("/delete/{recordId}")
+    public ResponseEntity<Void> deleteRecord(@PathVariable String recordId) {
+
+        recordDeleteService.deleteRecord(recordId);
+        return ResponseEntity.ok().build();
+
     }
 }
