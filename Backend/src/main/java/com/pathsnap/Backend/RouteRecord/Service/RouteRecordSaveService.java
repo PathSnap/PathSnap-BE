@@ -1,6 +1,7 @@
 package com.pathsnap.Backend.RouteRecord.Service;
 
 import com.pathsnap.Backend.Coordinate.Entitiy.CoordinateEntity;
+import com.pathsnap.Backend.Coordinate.Repository.CoordinateRepository;
 import com.pathsnap.Backend.RouteRecord.Dto.Req.RouteReqDto;
 import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
 import com.pathsnap.Backend.RouteRecord.Repository.RouteRecordRepository;
@@ -16,6 +17,8 @@ public class RouteRecordSaveService {
 
     @Autowired
     private RouteRecordRepository routeRecordRepository;
+    @Autowired
+    private CoordinateRepository coordinateRepository;
 
     public void saveRoute(RouteReqDto routeReqDto) {
 
@@ -25,12 +28,14 @@ public class RouteRecordSaveService {
 
         //새로운 좌표 생성
         CoordinateEntity newCoordinate = CoordinateEntity.builder()
-                .coordinateId(UUID.randomUUID().toString())
                 .lat(routeReqDto.getCoordinateReqDto().getLat())
                 .lng(routeReqDto.getCoordinateReqDto().getLng())
                 .timeStamp(routeReqDto.getCoordinateReqDto().getTimeStamp())
                 .routeRecord(routeRecord)
                 .build();
+
+        //경로 저장
+        coordinateRepository.save(newCoordinate);
 
         //경로 추가 로직
         routeRecord.addCoordinate(newCoordinate);
