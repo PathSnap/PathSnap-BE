@@ -30,6 +30,7 @@ public class RecordStartService {
         RecordEntity record = new RecordEntity();
         record.setRecordId(UUID.randomUUID().toString());
         record.setUser(user);
+        record.setRecordName("여행 제목 없음");
         record.setRecordIsGroup(recordIsGroup);
 
         Date startDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
