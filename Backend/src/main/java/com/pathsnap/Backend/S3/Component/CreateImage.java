@@ -14,13 +14,13 @@ public class CreateImage {
     private final ImageRepository imageRepository;
 
     public String exec(String url, String fileName) {
-        ImageEntity newImage = new ImageEntity();
-        String imageId = UUID.randomUUID().toString();
-        newImage.setImageId(imageId);
-        newImage.setUrl(url);
-        newImage.setFileKey(fileName);
+        ImageEntity newImage = ImageEntity.builder()
+                .imageId( UUID.randomUUID().toString())
+                .url(url)
+                .fileKey(fileName)
+                .build();
         imageRepository.save(newImage);
 
-        return imageId;
+        return newImage.getImageId();
     }
 }
