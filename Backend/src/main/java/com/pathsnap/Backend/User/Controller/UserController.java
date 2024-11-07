@@ -4,10 +4,7 @@ import com.pathsnap.Backend.User.Dto.Res.CalendarResDto;
 import com.pathsnap.Backend.User.Dto.Res.LocationResDto;
 import com.pathsnap.Backend.User.Dto.Req.UserUpdateReqDto;
 import com.pathsnap.Backend.User.Dto.Res.UserResDto;
-import com.pathsnap.Backend.User.Service.CalendarListService;
-import com.pathsnap.Backend.User.Service.LocationService;
-import com.pathsnap.Backend.User.Service.ProfileGetService;
-import com.pathsnap.Backend.User.Service.UserService;
+import com.pathsnap.Backend.User.Service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/profiles")
 public class UserController {
 
-    private final UserService userService;
     private final ProfileGetService profileGetService;
+    private final ProfileUpdateService profileUpdateService;
 
     private final LocationService locationService;
 
@@ -36,7 +33,7 @@ public class UserController {
     public ResponseEntity<UserResDto> updateProfile(
             @PathVariable String userId,
             @RequestBody UserUpdateReqDto userUpdateReqDTO) {
-        return ResponseEntity.ok(userService.updateProfile(userId, userUpdateReqDTO));
+        return ResponseEntity.ok(profileUpdateService.updateProfile(userId, userUpdateReqDTO));
     }
 
     // 여행 이미지 가져오기
