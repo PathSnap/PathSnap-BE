@@ -9,36 +9,26 @@ import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.GetPhotoLocat
 import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.SummaryPhotoService;
 import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.DeletePhotoService;
 import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.UpdatePhotoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/photos")
 public class PhotoRecordController {
 
-    @Autowired
-    @Qualifier("createPhotoService") // 주입할 빈 이름과 일치
-    private CreatePhotoService photoRecordService;
+    private final CreatePhotoService photoRecordService;
 
-    @Autowired
-    @Qualifier("updatePhotoService")
-    private UpdatePhotoService updatePhotoService;
+    private final UpdatePhotoService updatePhotoService;
 
-    @Autowired
-    @Qualifier("getPhotoLocationService")
-    private GetPhotoLocationService getLocationService;
-    
-    @Autowired
-    @Qualifier("summaryPhotoService")
-    private SummaryPhotoService summaryPhotoService;
-  
-    @Autowired
-    @Qualifier("deletePhotoService")
-    private DeletePhotoService deletePhotoService;
+    private final GetPhotoLocationService getLocationService;
+
+    private final SummaryPhotoService summaryPhotoService;
+
+    private final DeletePhotoService deletePhotoService;
 
     @PostMapping("/create/{recordId}")
     public ResponseEntity<PhotoRecordResDto> addPhoto(@PathVariable String recordId,

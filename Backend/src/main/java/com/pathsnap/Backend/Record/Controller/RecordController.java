@@ -9,6 +9,7 @@ import com.pathsnap.Backend.Record.Dto.Res.RecordUpdateResDto;
 import com.pathsnap.Backend.Record.Service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,19 +17,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController //json 형식으로 반환
+@RequiredArgsConstructor
 @RequestMapping("/records")
 public class RecordController implements RecordControllerDocs {
 
-    @Autowired
-    RecordStartService recordStartService;
-    @Autowired
-    RecordDetailService recordDetailService;
-    @Autowired
-    RecordUpdateService recordUpdateService;
-    @Autowired
-    RecordEditService recordEditService;
-    @Autowired
-    RecordDeleteService recordDeleteService;
+    private final RecordStartService recordStartService;
+    private final RecordDetailService recordDetailService;
+    private final RecordUpdateService recordUpdateService;
+    private final RecordEditService recordEditService;
+    private final RecordDeleteService recordDeleteService;
 
 
     @GetMapping("/start/{userId}/{recordIsGroup}")

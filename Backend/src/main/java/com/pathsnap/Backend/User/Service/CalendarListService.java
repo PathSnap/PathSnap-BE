@@ -1,20 +1,19 @@
 package com.pathsnap.Backend.User.Service;
 
 import com.pathsnap.Backend.Exception.UserNotFoundException;
-import com.pathsnap.Backend.Image.Dto.Res.ImageListResDTO;
-import com.pathsnap.Backend.Image.Dto.Res.ImageResDTO;
+import com.pathsnap.Backend.Image.Dto.Res.ImageListResDto;
+import com.pathsnap.Backend.Image.Dto.Res.ImageResDto;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhotoEntity;
 import com.pathsnap.Backend.ImagePhoto.Repository.ImagePhotoRepository;
-import com.pathsnap.Backend.PackTrip.Dto.Res.PackTripResDTO;
+import com.pathsnap.Backend.PackTrip.Dto.Res.PackTripResDto;
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
-import com.pathsnap.Backend.User.Dto.Res.CalendarResDTO;
+import com.pathsnap.Backend.User.Dto.Res.CalendarResDto;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.User.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,21 +24,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CalendarListService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private RecordRepository recordRepository;
+    private final RecordRepository recordRepository;
 
-    @Autowired
-    private PhotoRecordRepository photoRecordRepository;
+    private final PhotoRecordRepository photoRecordRepository;
 
-    @Autowired
-    private ImagePhotoRepository imagePhotoRepository;
+    private final ImagePhotoRepository imagePhotoRepository;
 
     private final CalendarPackTripService calendarPackTripService;
 
-    public CalendarResDTO getCalendar(String userId, Integer month) {
+    public CalendarResDto getCalendar(String userId, Integer month) {
 
         // 사용자 존재 여부 확인 및 예외 처리
         if (!userRepository.existsById(userId)) {
@@ -52,12 +47,12 @@ public class CalendarListService {
         // Date 기준으로 오름차순 정렬
         records.sort(Comparator.comparing(RecordEntity::getStartDate));
 
-        List<CalendarResDTO.CalendarDTO> calendarDTOs = new ArrayList<>();
+        List<CalendarResDto.CalendarDto> calendarDtos = new ArrayList<>();
 
         // recordId로 photo 찾기
         for (RecordEntity record : records) {
             List<PhotoRecordEntity> photos = photoRecordRepository.findByRecord_RecordId(record.getRecordId());
-            ImageListResDTO imageListResDTO = new ImageListResDTO(new ArrayList<>());
+            ImageListResDto imageListResDto = new ImageListResDto(new ArrayList<>());
 
             if (!photos.isEmpty()) {
 
@@ -71,20 +66,20 @@ public class CalendarListService {
                     ImagePhotoEntity firstImagePhoto = imagePhotos.get(0);
                     ImageEntity firstImage = firstImagePhoto.getImage();
 
-                    imageListResDTO.getImages().add(new ImageResDTO(firstImage.getImageId(), firstImage.getUrl()));
+                    imageListResDto.getImages().add(new ImageResDto(firstImage.getImageId(), firstImage.getUrl()));
                 }
             }
 
             // calendarDTO에 추가
-            calendarDTOs.add(new CalendarResDTO.CalendarDTO(record.getRecordId(),record.getStartDate() ,record.getRecordName(), imageListResDTO));
+            calendarDtos.add(new CalendarResDto.CalendarDto(record.getRecordId(),record.getStartDate() ,record.getRecordName(), imageListResDto));
         }
 
 
         // 사용자의 PackTrip을 가져오는 메서드
-        List<PackTripResDTO> newTrips = calendarPackTripService.getPackTrips(userId, month);
+        List<PackTripResDto> newTrips = calendarPackTripService.getPackTrips(userId, month);
 
         // 최종 결과 반환
-        return new CalendarResDTO(calendarDTOs, newTrips);
+        return new CalendarResDto(calendarDtos, newTrips);
 
 
     }

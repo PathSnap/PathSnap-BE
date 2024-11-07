@@ -1,19 +1,18 @@
 package com.pathsnap.Backend.User.Service;
 
 import com.pathsnap.Backend.Exception.UserNotFoundException;
-import com.pathsnap.Backend.Image.Dto.Res.ImageListResDTO;
-import com.pathsnap.Backend.Image.Dto.Res.ImageResDTO;
+import com.pathsnap.Backend.Image.Dto.Res.ImageListResDto;
+import com.pathsnap.Backend.Image.Dto.Res.ImageResDto;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhotoEntity;
 import com.pathsnap.Backend.ImagePhoto.Repository.ImagePhotoRepository;
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
-import com.pathsnap.Backend.User.Dto.Res.LocationResDTO;
+import com.pathsnap.Backend.User.Dto.Res.LocationResDto;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.User.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,20 +23,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LocationService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private RecordRepository recordRepository;
+    private final RecordRepository recordRepository;
 
-    @Autowired
-    private PhotoRecordRepository photoRecordRepository;
+    private final PhotoRecordRepository photoRecordRepository;
 
-    @Autowired
-    private ImagePhotoRepository imagePhotoRepository;
+    private final ImagePhotoRepository imagePhotoRepository;
 
     // 여행 이미지 불러오기
-    public LocationResDTO getLocations(String userId) {
+    public LocationResDto getLocations(String userId) {
 
         // 사용자 존재 여부 확인 및 예외 처리
         if (!userRepository.existsById(userId)) {
@@ -50,12 +45,12 @@ public class LocationService {
         // Date 기준으로 오름차순 정렬
         records.sort(Comparator.comparing(RecordEntity::getStartDate));
 
-        List<LocationResDTO.LocationDTO> locationDTOs = new ArrayList<>();
+        List<LocationResDto.LocationDto> locationDTOs = new ArrayList<>();
 
         // recordId로 photo 찾기
         for (RecordEntity record : records) {
             List<PhotoRecordEntity> photos = photoRecordRepository.findByRecord_RecordId(record.getRecordId());
-            ImageListResDTO imageListResDTO = new ImageListResDTO(new ArrayList<>());
+            ImageListResDto imageListResDto = new ImageListResDto(new ArrayList<>());
 
             if (!photos.isEmpty()) {
                 
@@ -69,14 +64,14 @@ public class LocationService {
                     ImagePhotoEntity firstImagePhoto = imagePhotos.get(0);
                     ImageEntity firstImage = firstImagePhoto.getImage();
 
-                    imageListResDTO.getImages().add(new ImageResDTO(firstImage.getImageId(), firstImage.getUrl()));
+                    imageListResDto.getImages().add(new ImageResDto(firstImage.getImageId(), firstImage.getUrl()));
                 }
             }
 
             // LocationDTO에 추가
-            locationDTOs.add(new LocationResDTO.LocationDTO(record.getRecordId(), record.getRecordName(), imageListResDTO));
+            locationDTOs.add(new LocationResDto.LocationDto(record.getRecordId(), record.getRecordName(), imageListResDto));
         }
 
-        return new LocationResDTO(locationDTOs);
+        return new LocationResDto(locationDTOs);
     }
 }

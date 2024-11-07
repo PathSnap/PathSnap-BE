@@ -5,19 +5,18 @@ import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoLocationResDto;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.User.Compnent.GetUser;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class GetPhotoLocationService {
 
-    @Autowired
-    private RecordRepository recordRepository;
-    @Autowired
-    private GetUser getUser;
+    private final RecordRepository recordRepository;
+    private final GetUser getUser;
 
     public List<PhotoLocationResDto> getPhotosWithinRadius(String userId, double lon, double lat, double radius) {
         List<PhotoLocationResDto> photoLocations = new ArrayList<>();

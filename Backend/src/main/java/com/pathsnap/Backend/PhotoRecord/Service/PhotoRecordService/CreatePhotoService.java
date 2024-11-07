@@ -12,7 +12,7 @@ import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import lombok.Builder;
 
@@ -25,15 +25,13 @@ import java.util.UUID;
 
 @Service("createPhotoService") // 빈 이름 지정
 @Builder
+@RequiredArgsConstructor
 public class CreatePhotoService {
 
-    @Autowired
-    PhotoRecordRepository photoRecordRepository;
-    @Autowired
-    RecordRepository recordRepository;
 
-    @Autowired
-    ImageRepository imageRepository;
+    private final PhotoRecordRepository photoRecordRepository;
+    private final RecordRepository recordRepository;
+    private final ImageRepository imageRepository;
 
     public PhotoRecordResDto createPhoto(String recordId, PhotoRecordReqDto request) {
 

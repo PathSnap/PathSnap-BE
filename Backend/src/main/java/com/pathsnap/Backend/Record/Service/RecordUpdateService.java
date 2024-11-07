@@ -10,6 +10,7 @@ import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteUpdateResDto;
 import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
 import com.pathsnap.Backend.RouteRecord.Repository.RouteRecordRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +18,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class RecordUpdateService {
 
-    @Autowired
     RecordRepository recordRepository;
     @Autowired
     PhotoRecordRepository photoRecordRepository;

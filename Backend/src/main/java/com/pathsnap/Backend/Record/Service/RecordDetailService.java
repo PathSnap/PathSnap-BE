@@ -1,7 +1,6 @@
 package com.pathsnap.Backend.Record.Service;
 
 import com.pathsnap.Backend.Coordinate.Dto.Res.CoordinateResDto;
-import com.pathsnap.Backend.Exception.RecordNotFoundException;
 import com.pathsnap.Backend.Image.Dto.Req.ImageReqDto;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
@@ -10,12 +9,11 @@ import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
 import com.pathsnap.Backend.Record.Component.GetRecord;
 import com.pathsnap.Backend.Record.Dto.Res.RecordDetailResDto;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
-import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordResDto;
 import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
 import com.pathsnap.Backend.RouteRecord.Repository.RouteRecordRepository;
 import lombok.Builder;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,13 +21,14 @@ import java.util.stream.Collectors;
 
 @Service
 @Builder
+@RequiredArgsConstructor
 public class RecordDetailService {
 
-    private GetRecord getRecord;
-    @Autowired
-    private PhotoRecordRepository photoRecordRepository;
-    @Autowired
-    private RouteRecordRepository routeRecordRepository;
+    private final GetRecord getRecord;
+
+    private final PhotoRecordRepository photoRecordRepository;
+
+    private final RouteRecordRepository routeRecordRepository;
 
     public RecordDetailResDto getRecordDetail(String recordId) {
 

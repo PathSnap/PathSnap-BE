@@ -6,19 +6,18 @@ import com.pathsnap.Backend.RouteRecord.Dto.Req.RouteReqDto;
 import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
 import com.pathsnap.Backend.RouteRecord.Repository.RouteRecordRepository;
 import lombok.Builder;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
 @Builder
+@RequiredArgsConstructor
 public class RouteRecordSaveService {
 
-    @Autowired
-    private RouteRecordRepository routeRecordRepository;
-    @Autowired
-    private CoordinateRepository coordinateRepository;
+    private final RouteRecordRepository routeRecordRepository;
+    private final CoordinateRepository coordinateRepository;
 
     public void saveRoute(RouteReqDto routeReqDto) {
 

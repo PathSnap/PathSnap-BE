@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class RouteRecordStartDTO {
+public class RouteRecordStartDto {
     private String routeId;
 
 }
