@@ -5,6 +5,7 @@ import com.pathsnap.Backend.PackTrip.Dto.Res.PackTripResDto;
 import com.pathsnap.Backend.PackTrip.Service.PackTripService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,9 +16,9 @@ public class PackTripController {
     private final PackTripService packTripService;
 
     @PostMapping("/{userId}")
-    public PackTripResDto createPackTrip(
+    public ResponseEntity<PackTripResDto> createPackTrip(
             @PathVariable String userId,
             @RequestBody PackTripReqDto packTripReqDTO) {
-        return packTripService.createPackTrip(userId, packTripReqDTO);
+        return ResponseEntity.ok(packTripService.createPackTrip(userId, packTripReqDTO));
     }
 }

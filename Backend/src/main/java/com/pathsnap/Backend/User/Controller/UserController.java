@@ -8,6 +8,7 @@ import com.pathsnap.Backend.User.Service.CalendarListService;
 import com.pathsnap.Backend.User.Service.LocationService;
 import com.pathsnap.Backend.User.Service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,27 +25,27 @@ public class UserController {
 
     // 프로필 정보 불러오기
     @GetMapping("/{userId}")
-    public UserResDto getProfile(@PathVariable String userId) {
-        return userService.getProfile(userId);
+    public ResponseEntity<UserResDto> getProfile(@PathVariable String userId) {
+        return ResponseEntity.ok(userService.getProfile(userId));
     }
 
     // 프로필 정보 수정
     @PatchMapping("/{userId}")
-    public UserResDto updateProfile(
+    public ResponseEntity<UserResDto> updateProfile(
             @PathVariable String userId,
             @RequestBody UserUpdateReqDto userUpdateReqDTO) {
-        return userService.updateProfile(userId, userUpdateReqDTO);
+        return ResponseEntity.ok(userService.updateProfile(userId, userUpdateReqDTO));
     }
 
     // 여행 이미지 가져오기
     @GetMapping("/location/{userId}")
-    public LocationResDto getLocation(@PathVariable String userId) {
-        return locationService.getLocations(userId);
+    public ResponseEntity<LocationResDto> getLocation(@PathVariable String userId) {
+        return ResponseEntity.ok(locationService.getLocations(userId));
     }
 
     // 달력 불러오기
     @GetMapping("/calendar/{userId}/{month}")
-    public CalendarResDto getCalendar(@PathVariable String userId, @PathVariable int month) {
-        return calendarService.getCalendar(userId, month);
+    public ResponseEntity<CalendarResDto> getCalendar(@PathVariable String userId, @PathVariable int month) {
+        return ResponseEntity.ok(calendarService.getCalendar(userId, month));
     }
 }

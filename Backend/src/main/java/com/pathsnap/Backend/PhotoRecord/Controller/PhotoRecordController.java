@@ -10,8 +10,6 @@ import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.SummaryPhotoS
 import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.DeletePhotoService;
 import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.UpdatePhotoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

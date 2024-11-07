@@ -23,8 +23,8 @@ public class S3Controller {
 
     //S3 이미지 업로드
     @PostMapping
-    public List<S3ListResDto> uploadImages(@ModelAttribute S3UploadReqDto imageReqDTO) {
-        return imageService.uploadImages(imageReqDTO);
+    public ResponseEntity<List<S3ListResDto>> uploadImages(@ModelAttribute S3UploadReqDto imageReqDTO) {
+        return ResponseEntity.ok(imageService.uploadImages(imageReqDTO));
     }
 
 
