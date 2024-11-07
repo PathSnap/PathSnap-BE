@@ -26,11 +26,8 @@ public class GetLocationService {
         // 사용자 존재 여부 확인
         userCheck.exec(userId);
 
-        // UserEntity로 레코드 찾기
-        List<RecordEntity> records = recordRepository.findByUser_UserId(userId);
-
-        // Date 기준으로 오름차순 정렬
-        records.sort(Comparator.comparing(RecordEntity::getStartDate));
+        // Date기준으로 오름차순 정렬
+        List<RecordEntity> records = recordRepository.findByUser_UserIdOrderByStartDateAsc(userId);
 
         List<LocationResDto.LocationDto> locationDTOs = new ArrayList<>();
 

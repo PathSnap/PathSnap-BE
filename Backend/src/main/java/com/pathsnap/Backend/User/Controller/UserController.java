@@ -17,7 +17,7 @@ public class UserController {
     private final GetProfileService profileGetService;
     private final UpdateProfileService profileUpdateService;
 
-    private final GetLocationService locationService;
+    private final GetLocationService getLocationService;
 
     private final CalendarListService calendarService;
 
@@ -39,7 +39,7 @@ public class UserController {
     // 여행 이미지 가져오기
     @GetMapping("/location/{userId}")
     public ResponseEntity<LocationResDto> getLocation(@PathVariable String userId) {
-        return ResponseEntity.ok(locationService.getLocations(userId));
+        return ResponseEntity.ok(getLocationService.getLocations(userId));
     }
 
     // 달력 불러오기
