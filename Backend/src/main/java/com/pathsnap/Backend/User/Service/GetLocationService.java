@@ -18,13 +18,13 @@ import java.util.List;
 public class GetLocationService {
 
     private final RecordRepository recordRepository;
-    private final CheckUser userCheck;
+    private final CheckUser CheckUser;
     private final GetLocationImage getLocationImage;
 
     // 여행 이미지 불러오기
     public LocationResDto getLocations(String userId) {
         // 사용자 존재 여부 확인
-        userCheck.exec(userId);
+        CheckUser.exec(userId);
 
         // Date기준으로 오름차순 정렬
         List<RecordEntity> records = recordRepository.findByUser_UserIdOrderByStartDateAsc(userId);

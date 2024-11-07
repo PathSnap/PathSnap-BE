@@ -19,7 +19,7 @@ public class UserController {
 
     private final GetLocationService getLocationService;
 
-    private final CalendarListService calendarService;
+    private final GetCalendarService calendarService;
 
 
     // 프로필 정보 불러오기
