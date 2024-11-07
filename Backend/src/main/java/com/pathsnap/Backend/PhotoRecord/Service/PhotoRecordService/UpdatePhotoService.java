@@ -11,23 +11,20 @@ import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
 import lombok.Builder;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
 
-import static org.springframework.cglib.core.CollectionUtils.filter;
-
 @Service("updatePhotoService")
 @Builder
+@RequiredArgsConstructor
 public class UpdatePhotoService {
 
-    @Autowired
-    private PhotoRecordRepository photoRecordRepository;
-    @Autowired
-    private ImageRepository imageRepository;
+    private final PhotoRecordRepository photoRecordRepository;
+    private final ImageRepository imageRepository;
 
     public PhotoRecordResDto updatePhoto(PhotoRecordReqDto request) {
 

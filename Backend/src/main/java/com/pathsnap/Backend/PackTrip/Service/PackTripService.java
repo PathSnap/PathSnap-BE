@@ -8,20 +8,19 @@ import com.pathsnap.Backend.PackTrip.Repository.PackTripRepository;
 import com.pathsnap.Backend.TripDate.Entity.TripDateEntity;
 import com.pathsnap.Backend.User.Entity.UserEntity;
 import com.pathsnap.Backend.User.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class PackTripService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private PackTripRepository packTripRepository;
+    private final PackTripRepository packTripRepository;
 
     // 달력- 여행 날짜 묶기
     public PackTripResDto createPackTrip(String userId, PackTripReqDto packTripReqDto) {

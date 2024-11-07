@@ -5,7 +5,7 @@ import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
 import com.pathsnap.Backend.RouteRecord.Repository.RouteRecordRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,12 +14,11 @@ import java.util.Date;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class RouteRecordStartService {
 
-    @Autowired
-    RecordRepository recordRepository;
-    @Autowired
-    RouteRecordRepository routeRecordRepository;
+    private final RecordRepository recordRepository;
+    private final RouteRecordRepository routeRecordRepository;
 
     public String startRoute(String recordId){
         RecordEntity record = recordRepository.findById(recordId)

@@ -6,7 +6,7 @@ import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.User.Entity.UserEntity;
 import com.pathsnap.Backend.User.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,12 +15,11 @@ import java.util.Date;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class RecordStartService {
 
-    @Autowired
-    private RecordRepository recordRepository;
-    @Autowired
-    private UserRepository userRepository;
+    private final RecordRepository recordRepository;
+    private final UserRepository userRepository;
 
     public RecordStartDTO startNewRecord(String userId,boolean recordIsGroup) {
 

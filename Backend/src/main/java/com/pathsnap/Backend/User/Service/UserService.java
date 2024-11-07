@@ -9,20 +9,19 @@ import com.pathsnap.Backend.User.Dto.Req.UserUpdateReqDto;
 import com.pathsnap.Backend.User.Dto.Res.UserResDto;
 import com.pathsnap.Backend.User.Entity.UserEntity;
 import com.pathsnap.Backend.User.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private ImageRepository imageRepository;
+    private final ImageRepository imageRepository;
 
 
     public UserResDto getProfile(String userId) {

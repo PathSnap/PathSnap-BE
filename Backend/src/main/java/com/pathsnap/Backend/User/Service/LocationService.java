@@ -13,7 +13,6 @@ import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.User.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,17 +23,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LocationService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private RecordRepository recordRepository;
+    private final RecordRepository recordRepository;
 
-    @Autowired
-    private PhotoRecordRepository photoRecordRepository;
+    private final PhotoRecordRepository photoRecordRepository;
 
-    @Autowired
-    private ImagePhotoRepository imagePhotoRepository;
+    private final ImagePhotoRepository imagePhotoRepository;
 
     // 여행 이미지 불러오기
     public LocationResDto getLocations(String userId) {

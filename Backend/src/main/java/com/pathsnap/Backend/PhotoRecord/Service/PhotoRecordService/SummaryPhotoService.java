@@ -3,23 +3,21 @@ package com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService;
 import com.pathsnap.Backend.Exception.ImageNotFoundException;
 import com.pathsnap.Backend.Exception.PhotoRecordNotFoundException;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
-import com.pathsnap.Backend.Image.Repository.ImageRepository;
 import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhotoEntity;
-import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordReqDto;
-import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoSummaryResDto;
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 
 @Service
+@RequiredArgsConstructor
 public class SummaryPhotoService {
 
-    @Autowired
-    private PhotoRecordRepository photoRecordRepository;
+
+    private final PhotoRecordRepository photoRecordRepository;
 
     public PhotoSummaryResDto getSummaryPhoto(String photoId){
         PhotoRecordEntity photoRecordSummary = photoRecordRepository.findById(photoId)

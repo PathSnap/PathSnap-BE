@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class CalendarPackTripService {
-    private final PackTripRepository packTripRepository;
 
+    private final PackTripRepository packTripRepository;
 
     // 달력 불러오기
     public List<PackTripResDto> getPackTrips(String userId, Integer month) {
