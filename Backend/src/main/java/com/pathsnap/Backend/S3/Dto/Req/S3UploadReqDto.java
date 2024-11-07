@@ -8,7 +8,7 @@ import java.util.List;
 
 @Setter
 @Getter
-public class S3UploadReqDTO {
+public class S3UploadReqDto {
     private List<MultipartFile> images;
 
 

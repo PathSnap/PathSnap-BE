@@ -3,9 +3,9 @@ package com.pathsnap.Backend.S3.Service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.pathsnap.Backend.Exception.S3NotFoundException;
-import com.pathsnap.Backend.S3.Dto.Req.S3UpdateReqDTO;
-import com.pathsnap.Backend.S3.Dto.Req.S3UploadReqDTO;
-import com.pathsnap.Backend.S3.Dto.Res.S3ResDTO;
+import com.pathsnap.Backend.S3.Dto.Req.S3UpdateReqDto;
+import com.pathsnap.Backend.S3.Dto.Req.S3UploadReqDto;
+import com.pathsnap.Backend.S3.Dto.Res.S3ResDto;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,13 +30,13 @@ public class S3Service {
 
 
     // S3 이미지 업로드
-    public List<S3ResDTO> uploadImages(S3UploadReqDTO imageReqDTO) throws IOException, S3NotFoundException{
-        List<S3ResDTO> response = new ArrayList<>();
+    public List<S3ResDto> uploadImages(S3UploadReqDto imageReqDto) throws IOException, S3NotFoundException{
+        List<S3ResDto> response = new ArrayList<>();
 
         //유효성검사
-        S3NotFoundException.validateImages(imageReqDTO);
+        S3NotFoundException.validateImages(imageReqDto);
 
-        for (MultipartFile image : imageReqDTO.getImages()) {
+        for (MultipartFile image : imageReqDto.getImages()) {
 
 
             String fileName = System.currentTimeMillis() + "_" + image.getOriginalFilename(); // 이미지 ID 생성
@@ -55,19 +55,19 @@ public class S3Service {
             newImage.setFileKey(fileName);
             imageRepository.save(newImage);
 
-            response.add(new S3ResDTO(imageId, url));
+            response.add(new S3ResDto(imageId, url));
         }
 
         return response;
     }
 
     // S3 이미지 수정
-    public List<S3ResDTO> updateImages(String imageId, S3UpdateReqDTO updateReqDTO) throws IOException, S3NotFoundException {
+    public List<S3ResDto> updateImages(String imageId, S3UpdateReqDto imageReqDto) throws IOException, S3NotFoundException {
 
         // 유효성 검사
         S3NotFoundException.validateImageId(imageId);
 
-        List<S3ResDTO> response = new ArrayList<>();
+        List<S3ResDto> response = new ArrayList<>();
 
         // 기존 이미지 찾기 (Id가 없으면 예외처리)
         ImageEntity updateImage = imageRepository.findById(imageId)
@@ -76,7 +76,7 @@ public class S3Service {
         // S3에서 기존 이미지 삭제
         amazonS3.deleteObject(bucketName, updateImage.getFileKey());
 
-        for (S3UpdateReqDTO.ImageUpdate update : updateReqDTO.getImages()) {
+        for (S3UpdateReqDto.ImageUpdate update : imageReqDto.getImages()) {
 
             // 새로운 이미지 업로드
             MultipartFile newFile = update.getNewFile();
@@ -93,7 +93,7 @@ public class S3Service {
             updateImage.setFileKey(fileName);
             imageRepository.save(updateImage);
 
-            response.add(new S3ResDTO(updateImage.getImageId(), newUrl));
+            response.add(new S3ResDto(updateImage.getImageId(), newUrl));
         }
 
         return response; // 응답 리스트 반환

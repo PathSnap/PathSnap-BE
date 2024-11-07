@@ -1,7 +1,7 @@
 package com.pathsnap.Backend.PackTrip.Controller;
 
-import com.pathsnap.Backend.PackTrip.Dto.Req.PackTripReqDTO;
-import com.pathsnap.Backend.PackTrip.Dto.Res.PackTripResDTO;
+import com.pathsnap.Backend.PackTrip.Dto.Req.PackTripReqDto;
+import com.pathsnap.Backend.PackTrip.Dto.Res.PackTripResDto;
 import com.pathsnap.Backend.PackTrip.Service.PackTripService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +14,9 @@ public class PackTripController {
     private PackTripService packTripService;
 
     @PostMapping("/{userId}")
-    public PackTripResDTO createPackTrip(
+    public PackTripResDto createPackTrip(
             @PathVariable String userId,
-            @RequestBody PackTripReqDTO packTripReqDTO) {
+            @RequestBody PackTripReqDto packTripReqDTO) {
         return packTripService.createPackTrip(userId, packTripReqDTO);
     }
 }

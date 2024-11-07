@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.PackTrip.Dto.Req;
+package com.pathsnap.Backend.Image.Dto.Res;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PackTripReqDTO {
-    private String packTripName;
-    private List<String> dates;
+public class ImageListResDto {
+    private List<ImageResDto> images;
 }

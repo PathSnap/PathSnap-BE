@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Data
-public class S3UpdateReqDTO {
+public class S3UpdateReqDto {
     private List<ImageUpdate> images;
 
     @Data

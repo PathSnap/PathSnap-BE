@@ -1,10 +1,10 @@
 package com.pathsnap.Backend.S3.Controller;
 
 import com.pathsnap.Backend.Exception.S3NotFoundException;
-import com.pathsnap.Backend.S3.Dto.Res.S3ListResDTO;
-import com.pathsnap.Backend.S3.Dto.Req.S3UpdateReqDTO;
-import com.pathsnap.Backend.S3.Dto.Req.S3UploadReqDTO;
-import com.pathsnap.Backend.S3.Dto.Res.S3ResDTO;
+import com.pathsnap.Backend.S3.Dto.Res.S3ListResDto;
+import com.pathsnap.Backend.S3.Dto.Req.S3UpdateReqDto;
+import com.pathsnap.Backend.S3.Dto.Req.S3UploadReqDto;
+import com.pathsnap.Backend.S3.Dto.Res.S3ResDto;
 import com.pathsnap.Backend.S3.Service.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,10 +23,10 @@ public class S3Controller {
 
     //S3 이미지 업로드
     @PostMapping
-    public ResponseEntity<S3ListResDTO> uploadImages(@ModelAttribute S3UploadReqDTO imageReqDTO) {
+    public ResponseEntity<S3ListResDto> uploadImages(@ModelAttribute S3UploadReqDto imageReqDTO) {
         try {
-            List<S3ResDTO> uploadResponses = imageService.uploadImages(imageReqDTO);
-            return ResponseEntity.ok(new S3ListResDTO(uploadResponses));
+            List<S3ResDto> uploadResponses = imageService.uploadImages(imageReqDTO);
+            return ResponseEntity.ok(new S3ListResDto(uploadResponses));
         } catch (IOException e) {
             throw new RuntimeException(e);  // 파일업로드 중 문제
         } catch (S3NotFoundException e) {
@@ -36,11 +36,11 @@ public class S3Controller {
 
     // 이미지 수정
     @PutMapping("/{imageId}")
-    public ResponseEntity<S3ListResDTO> updateImage(@PathVariable String imageId,
-                                                    @ModelAttribute S3UpdateReqDTO updateReqDTO) {
+    public ResponseEntity<S3ListResDto> updateImage(@PathVariable String imageId,
+                                                    @ModelAttribute S3UpdateReqDto updateReqDTO) {
         try {
-            List<S3ResDTO> updatedResponse = imageService.updateImages(imageId, updateReqDTO);
-            return ResponseEntity.ok(new S3ListResDTO(updatedResponse));
+            List<S3ResDto> updatedResponse = imageService.updateImages(imageId, updateReqDTO);
+            return ResponseEntity.ok(new S3ListResDto(updatedResponse));
         } catch (IOException e) {
             // 파일업로드 중 문제 발생
             throw new RuntimeException("Error occurred during file upload: " + e.getMessage());

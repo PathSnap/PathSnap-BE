@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.S3.Dto.Res;
+package com.pathsnap.Backend.Image.Dto.Res;
 
 
 import lombok.AllArgsConstructor;
@@ -8,9 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class S3ResDTO {
+public class ImageResDto {
     private String imageId;
     private String url;
-
-
 }

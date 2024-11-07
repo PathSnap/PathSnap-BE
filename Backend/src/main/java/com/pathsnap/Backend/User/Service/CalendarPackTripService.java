@@ -1,6 +1,6 @@
 package com.pathsnap.Backend.User.Service;
 
-import com.pathsnap.Backend.PackTrip.Dto.Res.PackTripResDTO;
+import com.pathsnap.Backend.PackTrip.Dto.Res.PackTripResDto;
 import com.pathsnap.Backend.PackTrip.Entity.PackTripEntity;
 import com.pathsnap.Backend.PackTrip.Repository.PackTripRepository;
 import com.pathsnap.Backend.TripDate.Entity.TripDateEntity;
@@ -18,7 +18,7 @@ public class CalendarPackTripService {
 
 
     // 달력 불러오기
-    public List<PackTripResDTO> getPackTrips(String userId, Integer month) {
+    public List<PackTripResDto> getPackTrips(String userId, Integer month) {
 
         // userId로 packTrip 불러오기
         List<PackTripEntity> packTrips = packTripRepository.findByUser_UserId(userId);
@@ -41,13 +41,13 @@ public class CalendarPackTripService {
                             })
                             .collect(Collectors.toList());
 
-                    return new PackTripResDTO(
+                    return new PackTripResDto(
                             packTrip.getPackTripId(),
                             packTrip.getPackTripName(),
                             filteredDates
                     );
                 })
-                .filter(packTripResDTO -> !packTripResDTO.getDates().isEmpty()) // 날짜가 있는 경우만 필터링
+                .filter(packTripResDto -> !packTripResDto.getDates().isEmpty()) // 날짜가 있는 경우만 필터링
                 .collect(Collectors.toList());
     }
 }

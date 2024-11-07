@@ -4,12 +4,9 @@ import com.pathsnap.Backend.Exception.ImageNotFoundException;
 import com.pathsnap.Backend.Exception.UserNotFoundException;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
-import com.pathsnap.Backend.ImagePhoto.Repository.ImagePhotoRepository;
-import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
-import com.pathsnap.Backend.Record.Repository.RecordRepository;
-import com.pathsnap.Backend.S3.Dto.Res.S3ResDTO;
-import com.pathsnap.Backend.User.Dto.Req.UserUpdateReqDTO;
-import com.pathsnap.Backend.User.Dto.Res.UserResDTO;
+import com.pathsnap.Backend.S3.Dto.Res.S3ResDto;
+import com.pathsnap.Backend.User.Dto.Req.UserUpdateReqDto;
+import com.pathsnap.Backend.User.Dto.Res.UserResDto;
 import com.pathsnap.Backend.User.Entity.UserEntity;
 import com.pathsnap.Backend.User.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,21 +25,21 @@ public class UserService {
     private ImageRepository imageRepository;
 
 
-    public UserResDTO getProfile(String userId) {
+    public UserResDto getProfile(String userId) {
 
         // 사용자 찾기 및 예외 처리
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
 
         // 사용자 이미지
-        List<S3ResDTO> images = Collections.emptyList();
+        List<S3ResDto> images = Collections.emptyList();
 
         if (user.getImage() != null) {
-            images = List.of(new S3ResDTO(user.getImage().getImageId(), user.getImage().getUrl()));
+            images = List.of(new S3ResDto(user.getImage().getImageId(), user.getImage().getUrl()));
         }
 
         // UserResDTO 생성 및 반환
-        return new UserResDTO(
+        return new UserResDto(
                 user.getUserName(),
                 user.getBirthDate(),
                 user.getPhoneNumber(),
@@ -50,25 +47,25 @@ public class UserService {
         );
     }
 
-    public UserResDTO updateProfile(String userId, UserUpdateReqDTO userUpdateReqDTO) {
+    public UserResDto updateProfile(String userId, UserUpdateReqDto userUpdateReqDto) {
 
         // 사용자 찾기 및 예외 처리
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
 
         // 필요한 필드만 업데이트
-        if (userUpdateReqDTO.getUserName() != null) {
-            user.setUserName(userUpdateReqDTO.getUserName());
+        if (userUpdateReqDto.getUserName() != null) {
+            user.setUserName(userUpdateReqDto.getUserName());
         }
-        if (userUpdateReqDTO.getBirthDate() != null) {
-            user.setBirthDate(userUpdateReqDTO.getBirthDate());
+        if (userUpdateReqDto.getBirthDate() != null) {
+            user.setBirthDate(userUpdateReqDto.getBirthDate());
         }
-        if (userUpdateReqDTO.getPhoneNumber() != null) {
-            user.setPhoneNumber(userUpdateReqDTO.getPhoneNumber());
+        if (userUpdateReqDto.getPhoneNumber() != null) {
+            user.setPhoneNumber(userUpdateReqDto.getPhoneNumber());
         }
-        if (userUpdateReqDTO.getImageId() != null) {
-            ImageEntity image = imageRepository.findById(userUpdateReqDTO.getImageId())
-                    .orElseThrow(() -> new ImageNotFoundException(userUpdateReqDTO.getImageId()));
+        if (userUpdateReqDto.getImageId() != null) {
+            ImageEntity image = imageRepository.findById(userUpdateReqDto.getImageId())
+                    .orElseThrow(() -> new ImageNotFoundException(userUpdateReqDto.getImageId()));
             user.setImage(image);
         }
 
@@ -76,13 +73,13 @@ public class UserService {
         userRepository.save(user);
 
         // 사용자 이미지
-        List<S3ResDTO> images = Collections.emptyList();
+        List<S3ResDto> images = Collections.emptyList();
         if (user.getImage() != null) {
-            images = List.of(new S3ResDTO(user.getImage().getImageId(), user.getImage().getUrl()));
+            images = List.of(new S3ResDto(user.getImage().getImageId(), user.getImage().getUrl()));
         }
 
-        // UserResDTO 반환
-        return new UserResDTO(
+        // UserResDto 반환
+        return new UserResDto(
                 user.getUserName(),
                 user.getBirthDate(),
                 user.getPhoneNumber(),

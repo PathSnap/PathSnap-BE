@@ -1,7 +1,7 @@
 package com.pathsnap.Backend.RouteRecord.Controller;
 
 import com.pathsnap.Backend.RouteRecord.Dto.Req.RouteReqDto;
-import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordStartDTO;
+import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordStartDto;
 import com.pathsnap.Backend.RouteRecord.Service.RouteRecordSaveService;
 import com.pathsnap.Backend.RouteRecord.Service.RouteRecordStartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +18,10 @@ public class RouteRecordController {
     RouteRecordSaveService routeRecordService;
 
     @GetMapping("/start/{recordId}")
-    public ResponseEntity<RouteRecordStartDTO> RouteRecordStart(@PathVariable String recordId){
+    public ResponseEntity<RouteRecordStartDto> RouteRecordStart(@PathVariable String recordId){
         String routeId = routeRecordStartService.startRoute(recordId);
 
-        RouteRecordStartDTO response = RouteRecordStartDTO.builder()
+        RouteRecordStartDto response = RouteRecordStartDto.builder()
                 .routeId(routeId)
                 .build();
 

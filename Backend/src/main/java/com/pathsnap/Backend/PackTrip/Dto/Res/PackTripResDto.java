@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PackTripResDTO {
+public class PackTripResDto {
     private String packTripId;
     private String packTripName;
     private List<String> dates;
