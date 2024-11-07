@@ -27,29 +27,21 @@ public class RecordController implements RecordControllerDocs {
     RecordUpdateService recordUpdateService;
     @Autowired
     RecordEditService recordEditService;
-
     @Autowired
     RecordDeleteService recordDeleteService;
 
 
     @GetMapping("/start/{userId}/{recordIsGroup}")
     public ResponseEntity<RecordStartDTO> startRecord(@PathVariable String userId, @PathVariable boolean recordIsGroup) {
-        String recordId = recordStartService.startNewRecord(userId, recordIsGroup);
 
-        RecordStartDTO response = RecordStartDTO.builder()
-                .recordId(recordId)
-                .build();
-
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(recordStartService.startNewRecord(userId, recordIsGroup));
     }
 
     @Operation(summary = "기록 상세 조회", description = "피라미터로 받은 기록으로 기록 관련 정보들을 전달")
     @GetMapping("/detail/{recordId}")
     public ResponseEntity<RecordDetailResDto> getRecordDetail(@PathVariable String recordId) {
 
-        RecordDetailResDto response = recordDetailService.getRecordDetail(recordId);
-
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(recordDetailService.getRecordDetail(recordId));
     }
 
     @Operation(summary = "기록 순서 변경", description = "바디로 받은 순서가 변경된 포토기록과 경로기록을 저장하고 변경된 정보들 전달 ")
@@ -62,6 +54,7 @@ public class RecordController implements RecordControllerDocs {
     @Operation(summary = "기록 이름 수정", description = "바디로 받은 변경된 기록이름을 저장하고 변경된 정보들을 전달")
     @PostMapping("/edit")
     public ResponseEntity<RecordEditResDto> editRecordName(@RequestBody RecordEditReqDto request) {
+
         return ResponseEntity.ok(recordEditService.editRecordName(request));
     }
 

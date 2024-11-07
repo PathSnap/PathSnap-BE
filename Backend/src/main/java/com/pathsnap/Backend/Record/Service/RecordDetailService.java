@@ -7,6 +7,7 @@ import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
+import com.pathsnap.Backend.Record.Component.GetRecord;
 import com.pathsnap.Backend.Record.Dto.Res.RecordDetailResDto;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
@@ -24,8 +25,7 @@ import java.util.stream.Collectors;
 @Builder
 public class RecordDetailService {
 
-    @Autowired
-    private RecordRepository recordRepository;
+    private GetRecord getRecord;
     @Autowired
     private PhotoRecordRepository photoRecordRepository;
     @Autowired
@@ -34,8 +34,7 @@ public class RecordDetailService {
     public RecordDetailResDto getRecordDetail(String recordId) {
 
         // 기록 조회
-        RecordEntity record = recordRepository.findById(recordId)
-                .orElseThrow(() -> new RecordNotFoundException(recordId));
+        RecordEntity record = getRecord.findByRecordId(recordId);
 
         // 사진 기록 조회
         List<PhotoRecordEntity> photoRecords = photoRecordRepository.findByRecord_RecordId(recordId);

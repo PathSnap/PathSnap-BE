@@ -4,14 +4,12 @@ import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoDataResDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoLocationResDto;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
-import com.pathsnap.Backend.User.Entity.UserEntity;
-import com.pathsnap.Backend.User.Repository.UserRepository;
+import com.pathsnap.Backend.User.Compnent.GetUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class GetPhotoLocationService {
@@ -19,13 +17,12 @@ public class GetPhotoLocationService {
     @Autowired
     private RecordRepository recordRepository;
     @Autowired
-    private UserRepository userRepository;
+    private GetUser getUser;
 
     public List<PhotoLocationResDto> getPhotosWithinRadius(String userId, double lon, double lat, double radius) {
-        Optional<UserEntity> user = userRepository.findById(userId);
         List<PhotoLocationResDto> photoLocations = new ArrayList<>();
 
-        List<String> recordIds = recordRepository.findByUser(user.get())
+        List<String> recordIds = recordRepository.findByUser(getUser.findByUserId(userId))
                 .stream()
                 .map(RecordEntity::getRecordId)
                 .toList();
