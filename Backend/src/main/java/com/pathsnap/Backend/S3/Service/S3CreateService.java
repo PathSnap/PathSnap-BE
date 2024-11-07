@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class S3UploadService {
+public class S3CreateService {
 
     private final S3Upload s3Upload;
     private final ImageSave imageSave;

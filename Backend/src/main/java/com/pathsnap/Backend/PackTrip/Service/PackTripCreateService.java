@@ -1,6 +1,5 @@
 package com.pathsnap.Backend.PackTrip.Service;
 
-import com.pathsnap.Backend.Exception.UserNotFoundException;
 import com.pathsnap.Backend.PackTrip.Component.PackTripCreate;
 import com.pathsnap.Backend.PackTrip.Component.TripDateUpdate;
 import com.pathsnap.Backend.PackTrip.Component.UserCheck;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PackTripService {
+public class PackTripCreateService {
 
     private final UserCheck userCheck;
     private final PackTripCreate packTripCreate;
