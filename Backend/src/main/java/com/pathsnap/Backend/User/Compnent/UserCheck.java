@@ -1,5 +1,4 @@
-// UserExistenceChecker.java
-package com.pathsnap.Backend.PackTrip.Component;
+package com.pathsnap.Backend.User.Compnent;
 
 import com.pathsnap.Backend.Exception.UserNotFoundException;
 import com.pathsnap.Backend.User.Entity.UserEntity;

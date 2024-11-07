@@ -2,11 +2,11 @@ package com.pathsnap.Backend.PackTrip.Service;
 
 import com.pathsnap.Backend.PackTrip.Component.PackTripCreate;
 import com.pathsnap.Backend.PackTrip.Component.TripDateUpdate;
-import com.pathsnap.Backend.PackTrip.Component.UserCheck;
 import com.pathsnap.Backend.PackTrip.Dto.Req.PackTripReqDto;
 import com.pathsnap.Backend.PackTrip.Dto.Res.PackTripResDto;
 import com.pathsnap.Backend.PackTrip.Entity.PackTripEntity;
 import com.pathsnap.Backend.PackTrip.Repository.PackTripRepository;
+import com.pathsnap.Backend.User.Compnent.UserCheck;
 import com.pathsnap.Backend.User.Entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

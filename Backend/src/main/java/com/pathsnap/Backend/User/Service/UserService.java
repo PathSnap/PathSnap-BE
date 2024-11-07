@@ -2,6 +2,7 @@ package com.pathsnap.Backend.User.Service;
 
 import com.pathsnap.Backend.Exception.ImageNotFoundException;
 import com.pathsnap.Backend.Exception.UserNotFoundException;
+import com.pathsnap.Backend.Image.Dto.Res.ImageResDto;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
 import com.pathsnap.Backend.S3.Dto.Res.S3ResDto;
@@ -24,27 +25,27 @@ public class UserService {
     private final ImageRepository imageRepository;
 
 
-    public UserResDto getProfile(String userId) {
-
-        // 사용자 찾기 및 예외 처리
-        UserEntity user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException(userId));
-
-        // 사용자 이미지
-        List<S3ResDto> images = Collections.emptyList();
-
-        if (user.getImage() != null) {
-            images = List.of(new S3ResDto(user.getImage().getImageId(), user.getImage().getUrl()));
-        }
-
-        // UserResDTO 생성 및 반환
-        return new UserResDto(
-                user.getUserName(),
-                user.getBirthDate(),
-                user.getPhoneNumber(),
-                images
-        );
-    }
+//    public UserResDto getProfile(String userId) {
+//
+//        // 사용자 찾기 및 예외 처리
+//        UserEntity user = userRepository.findById(userId)
+//                .orElseThrow(() -> new UserNotFoundException(userId));
+//
+//        // 사용자 이미지
+//        List<S3ResDto> images = Collections.emptyList();
+//
+//        if (user.getImage() != null) {
+//            images = List.of(new S3ResDto(user.getImage().getImageId(), user.getImage().getUrl()));
+//        }
+//
+//        // UserResDTO 생성 및 반환
+//        return new UserResDto(
+//                user.getUserName(),
+//                user.getBirthDate(),
+//                user.getPhoneNumber(),
+//                images
+//        );
+//    }
 
     public UserResDto updateProfile(String userId, UserUpdateReqDto userUpdateReqDto) {
 
@@ -72,9 +73,9 @@ public class UserService {
         userRepository.save(user);
 
         // 사용자 이미지
-        List<S3ResDto> images = Collections.emptyList();
+        List<ImageResDto> images = Collections.emptyList();
         if (user.getImage() != null) {
-            images = List.of(new S3ResDto(user.getImage().getImageId(), user.getImage().getUrl()));
+            images = List.of(new ImageResDto(user.getImage().getImageId(), user.getImage().getUrl()));
         }
 
         // UserResDto 반환

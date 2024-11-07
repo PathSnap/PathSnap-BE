@@ -3,7 +3,7 @@ package com.pathsnap.Backend.S3.Service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
-import com.pathsnap.Backend.S3.Component.ImageCheck;
+import com.pathsnap.Backend.Image.Component.ImageCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

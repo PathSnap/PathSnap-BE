@@ -6,6 +6,7 @@ import com.pathsnap.Backend.User.Dto.Req.UserUpdateReqDto;
 import com.pathsnap.Backend.User.Dto.Res.UserResDto;
 import com.pathsnap.Backend.User.Service.CalendarListService;
 import com.pathsnap.Backend.User.Service.LocationService;
+import com.pathsnap.Backend.User.Service.ProfileGetService;
 import com.pathsnap.Backend.User.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final ProfileGetService profileGetService;
 
     private final LocationService locationService;
 
@@ -26,7 +28,7 @@ public class UserController {
     // 프로필 정보 불러오기
     @GetMapping("/{userId}")
     public ResponseEntity<UserResDto> getProfile(@PathVariable String userId) {
-        return ResponseEntity.ok(userService.getProfile(userId));
+        return ResponseEntity.ok(profileGetService.getProfile(userId));
     }
 
     // 프로필 정보 수정

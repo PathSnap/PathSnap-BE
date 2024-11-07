@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.S3.Component;
+package com.pathsnap.Backend.Image.Component;
 
 import com.pathsnap.Backend.Exception.ImageNotFoundException;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
