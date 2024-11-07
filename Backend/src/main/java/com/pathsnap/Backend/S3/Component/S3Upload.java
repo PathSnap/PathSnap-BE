@@ -19,7 +19,7 @@ public class S3Upload {
     private String bucketName;
 
     public String exec(MultipartFile image) {
-        String fileName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
+        String fileName = (int)(Math.random() * 100000) + "_" + System.currentTimeMillis();
         ObjectMetadata metadata = new ObjectMetadata();
         metadata.setContentLength(image.getSize());
 
