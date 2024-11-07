@@ -7,21 +7,20 @@ import com.pathsnap.Backend.User.Dto.Res.UserResDto;
 import com.pathsnap.Backend.User.Service.CalendarListService;
 import com.pathsnap.Backend.User.Service.LocationService;
 import com.pathsnap.Backend.User.Service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/profiles")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private LocationService locationService;
+    private final LocationService locationService;
 
-    @Autowired
-    private CalendarListService calendarService;
+    private final CalendarListService calendarService;
 
 
     // 프로필 정보 불러오기
