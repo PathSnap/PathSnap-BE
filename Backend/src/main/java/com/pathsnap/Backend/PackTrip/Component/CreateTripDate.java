@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class TripDateUpdate {
+public class CreateTripDate {
 
     public void exec(PackTripEntity packTrip, List<String> dates) {
         for (String dateStr : dates) {

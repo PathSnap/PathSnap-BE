@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-public class S3Upload {
+public class CreateS3 {
 
     private final AmazonS3 amazonS3;
 

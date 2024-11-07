@@ -1,6 +1,6 @@
 package com.pathsnap.Backend.User.Compnent;
 
-import com.pathsnap.Backend.Image.Component.ImageCheck;
+import com.pathsnap.Backend.Image.Component.CheckImage;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.User.Dto.Req.UserUpdateReqDto;
 import com.pathsnap.Backend.User.Entity.UserEntity;
@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class UserProfileUpdate {
+public class UpdateUserProfile {
 
-    private final ImageCheck imageCheck;
+    private final CheckImage imageCheck;
 
     // 사용자 정보 업데이트 메서드
     public void exec(UserEntity user, UserUpdateReqDto userUpdateReqDto) {

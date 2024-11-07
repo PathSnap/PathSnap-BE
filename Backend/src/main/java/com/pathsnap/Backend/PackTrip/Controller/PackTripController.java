@@ -2,7 +2,7 @@ package com.pathsnap.Backend.PackTrip.Controller;
 
 import com.pathsnap.Backend.PackTrip.Dto.Req.PackTripReqDto;
 import com.pathsnap.Backend.PackTrip.Dto.Res.PackTripResDto;
-import com.pathsnap.Backend.PackTrip.Service.PackTripCreateService;
+import com.pathsnap.Backend.PackTrip.Service.CreatePackTripService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class PackTripController {
 
-    private final PackTripCreateService packTripService;
+    private final CreatePackTripService packTripService;
 
     @PostMapping("/{userId}")
     public ResponseEntity<PackTripResDto> createPackTrip(

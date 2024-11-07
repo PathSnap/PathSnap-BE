@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Component
-public class ImageGet {
+public class GetImage {
 
     public List<ImageResDto> exec(ImageEntity image) {
         if (image != null) {

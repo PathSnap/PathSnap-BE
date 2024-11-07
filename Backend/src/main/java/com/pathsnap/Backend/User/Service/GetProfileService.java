@@ -1,11 +1,10 @@
 package com.pathsnap.Backend.User.Service;
 
-import com.pathsnap.Backend.Image.Component.ImageGet;
+import com.pathsnap.Backend.Image.Component.GetImage;
 import com.pathsnap.Backend.Image.Dto.Res.ImageResDto;
-import com.pathsnap.Backend.User.Compnent.UserCheck;
+import com.pathsnap.Backend.User.Compnent.CheckUser;
 import com.pathsnap.Backend.User.Dto.Res.UserResDto;
 import com.pathsnap.Backend.User.Entity.UserEntity;
-import com.pathsnap.Backend.User.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +12,10 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ProfileGetService {
+public class GetProfileService {
 
-    private final UserCheck userCheck;
-    private final ImageGet imageGet;
+    private final CheckUser userCheck;
+    private final GetImage imageGet;
 
     public UserResDto getProfile(String userId) {
         // 사용자 찾기 및 예외 처리

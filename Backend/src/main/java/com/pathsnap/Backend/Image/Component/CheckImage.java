@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class ImageCheck {
+public class CheckImage {
 
     private final ImageRepository imageRepository;
 

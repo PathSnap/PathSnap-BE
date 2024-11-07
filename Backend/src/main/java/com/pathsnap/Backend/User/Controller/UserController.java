@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/profiles")
 public class UserController {
 
-    private final ProfileGetService profileGetService;
-    private final ProfileUpdateService profileUpdateService;
+    private final GetProfileService profileGetService;
+    private final UpdateProfileService profileUpdateService;
 
     private final GetLocationService locationService;
 

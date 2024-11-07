@@ -1,10 +1,9 @@
 package com.pathsnap.Backend.User.Service;
 
-import com.pathsnap.Backend.Image.Component.ImageGet;
+import com.pathsnap.Backend.Image.Component.GetImage;
 import com.pathsnap.Backend.Image.Dto.Res.ImageResDto;
-import com.pathsnap.Backend.Image.Repository.ImageRepository;
-import com.pathsnap.Backend.User.Compnent.UserCheck;
-import com.pathsnap.Backend.User.Compnent.UserProfileUpdate;
+import com.pathsnap.Backend.User.Compnent.CheckUser;
+import com.pathsnap.Backend.User.Compnent.UpdateUserProfile;
 import com.pathsnap.Backend.User.Dto.Req.UserUpdateReqDto;
 import com.pathsnap.Backend.User.Dto.Res.UserResDto;
 import com.pathsnap.Backend.User.Entity.UserEntity;
@@ -16,12 +15,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ProfileUpdateService {
+public class UpdateProfileService {
 
     private final UserRepository userRepository;
-    private final UserProfileUpdate userProfileUpdate;
-    private final ImageGet imageGet;
-    private final UserCheck userCheck;
+    private final UpdateUserProfile userProfileUpdate;
+    private final GetImage imageGet;
+    private final CheckUser userCheck;
 
     public UserResDto updateProfile(String userId, UserUpdateReqDto userUpdateReqDto) {
         // 사용자 찾기 및 예외 처리

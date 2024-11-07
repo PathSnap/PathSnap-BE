@@ -1,7 +1,7 @@
 package com.pathsnap.Backend.S3.Service;
 
-import com.pathsnap.Backend.S3.Component.ImageSave;
-import com.pathsnap.Backend.S3.Component.S3Upload;
+import com.pathsnap.Backend.S3.Component.CreateImage;
+import com.pathsnap.Backend.S3.Component.CreateS3;
 import com.pathsnap.Backend.S3.Dto.Req.S3UploadReqDto;
 import com.pathsnap.Backend.S3.Dto.Res.S3ListResDto;
 import com.pathsnap.Backend.S3.Dto.Res.S3ResDto;
@@ -14,10 +14,10 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class S3CreateService {
+public class CreateS3Service {
 
-    private final S3Upload s3Upload;
-    private final ImageSave imageSave;
+    private final CreateS3 s3Upload;
+    private final CreateImage imageSave;
 
     public List<S3ListResDto> uploadImages(S3UploadReqDto imageReqDto) {
 

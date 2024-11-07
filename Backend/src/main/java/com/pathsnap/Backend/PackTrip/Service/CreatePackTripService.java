@@ -1,12 +1,12 @@
 package com.pathsnap.Backend.PackTrip.Service;
 
-import com.pathsnap.Backend.PackTrip.Component.PackTripCreate;
-import com.pathsnap.Backend.PackTrip.Component.TripDateUpdate;
+import com.pathsnap.Backend.PackTrip.Component.CreatePackTrip;
+import com.pathsnap.Backend.PackTrip.Component.CreateTripDate;
 import com.pathsnap.Backend.PackTrip.Dto.Req.PackTripReqDto;
 import com.pathsnap.Backend.PackTrip.Dto.Res.PackTripResDto;
 import com.pathsnap.Backend.PackTrip.Entity.PackTripEntity;
 import com.pathsnap.Backend.PackTrip.Repository.PackTripRepository;
-import com.pathsnap.Backend.User.Compnent.UserCheck;
+import com.pathsnap.Backend.User.Compnent.CheckUser;
 import com.pathsnap.Backend.User.Entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,11 +14,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class PackTripCreateService {
+public class CreatePackTripService {
 
-    private final UserCheck userCheck;
-    private final PackTripCreate packTripCreate;
-    private final TripDateUpdate tripDateUpdate;
+    private final CheckUser userCheck;
+    private final CreatePackTrip packTripCreate;
+    private final CreateTripDate tripDateUpdate;
     private final PackTripRepository packTripRepository;
 
     // 달력- 여행 날짜 묶기

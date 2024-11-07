@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class PackTripCreate {
+public class CreatePackTrip {
 
     public PackTripEntity exec(UserEntity user, PackTripReqDto packTripReqDto) {
         return PackTripEntity.builder()

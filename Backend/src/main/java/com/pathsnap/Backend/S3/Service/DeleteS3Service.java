@@ -3,18 +3,18 @@ package com.pathsnap.Backend.S3.Service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
-import com.pathsnap.Backend.Image.Component.ImageCheck;
+import com.pathsnap.Backend.Image.Component.CheckImage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class S3DeleteService {
+public class DeleteS3Service {
 
     private final AmazonS3 amazonS3;
     private final ImageRepository imageRepository;
-    private final ImageCheck imageCheck;
+    private final CheckImage imageCheck;
 
     @Value("${S3_BUCKET_NAME}")
     private String bucketName;

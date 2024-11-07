@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
-public class ImageSave {
+public class CreateImage {
 
     private final ImageRepository imageRepository;
 

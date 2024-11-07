@@ -1,7 +1,7 @@
 package com.pathsnap.Backend.User.Service;
 
 import com.pathsnap.Backend.Image.Component.GetLocationImage;
-import com.pathsnap.Backend.User.Compnent.UserCheck;
+import com.pathsnap.Backend.User.Compnent.CheckUser;
 import com.pathsnap.Backend.Image.Dto.Res.ImageListResDto;
 import com.pathsnap.Backend.User.Dto.Res.LocationResDto;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
@@ -18,7 +18,7 @@ import java.util.List;
 public class GetLocationService {
 
     private final RecordRepository recordRepository;
-    private final UserCheck userCheck;
+    private final CheckUser userCheck;
     private final GetLocationImage getLocationImage;
 
     // 여행 이미지 불러오기
