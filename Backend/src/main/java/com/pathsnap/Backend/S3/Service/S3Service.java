@@ -3,8 +3,8 @@ package com.pathsnap.Backend.S3.Service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.pathsnap.Backend.Exception.S3NotFoundException;
-import com.pathsnap.Backend.S3.Dto.Req.S3UpdateReqDto;
 import com.pathsnap.Backend.S3.Dto.Req.S3UploadReqDto;
+import com.pathsnap.Backend.S3.Dto.Res.S3ListResDto;
 import com.pathsnap.Backend.S3.Dto.Res.S3ResDto;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
@@ -30,19 +30,29 @@ public class S3Service {
 
 
     // S3 이미지 업로드
-    public List<S3ResDto> uploadImages(S3UploadReqDto imageReqDto) throws IOException, S3NotFoundException{
-        List<S3ResDto> response = new ArrayList<>();
+    public List<S3ListResDto> uploadImages(S3UploadReqDto imageReqDto) {
+        List<S3ListResDto> response = new ArrayList<>();
 
         //유효성검사
         S3NotFoundException.validateImages(imageReqDto);
 
+        List<S3ResDto> s3ResDtoList = new ArrayList<>();
+
         for (MultipartFile image : imageReqDto.getImages()) {
+            if (image == null || image.isEmpty()) {
+                throw new IllegalArgumentException("파일이 비어있습니다.");
+            }
 
 
             String fileName = System.currentTimeMillis() + "_" + image.getOriginalFilename(); // 이미지 ID 생성
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentLength(image.getSize());
-            amazonS3.putObject(bucketName, fileName, image.getInputStream(), metadata);
+            // S3에 파일 업로드
+            try {
+                amazonS3.putObject(bucketName, fileName, image.getInputStream(), metadata);
+            } catch (IOException e) {
+                throw new RuntimeException("파일 업로드 중 오류가 발생했습니다.", e);
+            }
 
             // 업로드한 이미지의 URL 생성
             String url = amazonS3.getUrl(bucketName, fileName).toString();
@@ -55,58 +65,26 @@ public class S3Service {
             newImage.setFileKey(fileName);
             imageRepository.save(newImage);
 
-            response.add(new S3ResDto(imageId, url));
+            // S3ResDto 객체 생성 후 리스트에 추가
+            S3ResDto s3ResDto = new S3ResDto(imageId, url);
+            s3ResDtoList.add(s3ResDto);
         }
+
+        // S3ListResDto로 감싸서 response에 추가
+        response.add(new S3ListResDto(s3ResDtoList));
 
         return response;
     }
 
-    // S3 이미지 수정
-    public List<S3ResDto> updateImages(String imageId, S3UpdateReqDto imageReqDto) throws IOException, S3NotFoundException {
-
-        // 유효성 검사
-        S3NotFoundException.validateImageId(imageId);
-
-        List<S3ResDto> response = new ArrayList<>();
-
-        // 기존 이미지 찾기 (Id가 없으면 예외처리)
-        ImageEntity updateImage = imageRepository.findById(imageId)
-                .orElseThrow(() -> new S3NotFoundException("Image not found"));
-
-        // S3에서 기존 이미지 삭제
-        amazonS3.deleteObject(bucketName, updateImage.getFileKey());
-
-        for (S3UpdateReqDto.ImageUpdate update : imageReqDto.getImages()) {
-
-            // 새로운 이미지 업로드
-            MultipartFile newFile = update.getNewFile();
-            String fileName = System.currentTimeMillis() + "_" + newFile.getOriginalFilename(); // 새로운 파일 이름 생성
-            ObjectMetadata metadata = new ObjectMetadata();
-            metadata.setContentLength(newFile.getSize());
-            amazonS3.putObject(bucketName, fileName, newFile.getInputStream(), metadata);
-
-            // 새로운 이미지 URL 생성
-            String newUrl = amazonS3.getUrl(bucketName, fileName).toString();
-
-            // 데이터베이스 업데이트
-            updateImage.setUrl(newUrl);
-            updateImage.setFileKey(fileName);
-            imageRepository.save(updateImage);
-
-            response.add(new S3ResDto(updateImage.getImageId(), newUrl));
-        }
-
-        return response; // 응답 리스트 반환
-    }
 
     // S3 이미지 삭제
-    public void deleteImage(String imageId) throws S3NotFoundException {
+    public void deleteImage(String imageId) {
         // 유효성 검사
         S3NotFoundException.validateImageId(imageId);
 
         // 이미지 정보 가져오기 (Id가 없으면 예외처리)
         ImageEntity imageEntity = imageRepository.findById(imageId)
-                .orElseThrow(() -> new S3NotFoundException("Image not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Image not found"));
 
         // S3에서 이미지 삭제
         amazonS3.deleteObject(bucketName, imageEntity.getFileKey());
