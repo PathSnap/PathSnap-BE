@@ -5,10 +5,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class RecordStartDTO {
+public class RecordEditResDto {
     private String recordId;
-
-    public RecordStartDTO(String recordId){
-        this.recordId = recordId;
-    }
+    private String recordName;
 }

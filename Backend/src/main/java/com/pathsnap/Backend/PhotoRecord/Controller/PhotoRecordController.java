@@ -43,25 +43,17 @@ public class PhotoRecordController {
     @PostMapping("/create/{recordId}")
     public ResponseEntity<PhotoRecordResDto> addPhoto(@PathVariable String recordId,
                                                       @RequestBody PhotoRecordReqDto request) {
-        PhotoRecordResDto response = photoRecordService.createPhoto(recordId, request);
-        return ResponseEntity.ok(response);
-
+        return ResponseEntity.ok(photoRecordService.createPhoto(recordId, request));
     }
 
     @PutMapping("/edit")
     public ResponseEntity<PhotoRecordResDto> updatePhoto(@RequestBody PhotoRecordReqDto request) {
-
-        PhotoRecordResDto response = updatePhotoService.updatePhoto(request);
-        return ResponseEntity.ok(response);
-
+        return ResponseEntity.ok(updatePhotoService.updatePhoto(request));
     }
   
     @GetMapping("/summary/{photoId}")
     public ResponseEntity<PhotoSummaryResDto> getSummaryPhoto(@PathVariable String photoId){
-
-        PhotoSummaryResDto response = summaryPhotoService.getSummaryPhoto(photoId);
-        return ResponseEntity.ok(response);
-    
+        return ResponseEntity.ok(summaryPhotoService.getSummaryPhoto(photoId));
     }
   
     @GetMapping("/{userId}/{lon}/{lat}/{radius}")
@@ -70,9 +62,7 @@ public class PhotoRecordController {
             @PathVariable double lon,
             @PathVariable double lat,
             @PathVariable double radius) {
-        List<PhotoLocationResDto> response = getLocationService.getPhotosWithinRadius(userId, lon, lat, radius);
-        return ResponseEntity.ok(response);
-
+        return ResponseEntity.ok(getLocationService.getPhotosWithinRadius(userId, lon, lat, radius));
     }
   
     @DeleteMapping("/delete/{photoId}")
