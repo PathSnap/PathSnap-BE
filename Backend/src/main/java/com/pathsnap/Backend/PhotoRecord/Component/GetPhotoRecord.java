@@ -1,7 +1,7 @@
 package com.pathsnap.Backend.PhotoRecord.Component;
 
 import com.pathsnap.Backend.Image.Dto.Req.ImageReqDto;
-import com.pathsnap.Backend.Image.Entity.ImageEntity;
+import com.pathsnap.Backend.Image.Entity.Image1Entity;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecord1Entity;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,7 @@ public class GetPhotoRecord {
                     List<ImageReqDto> imageUrls = photoRecord.getImagePhotos()
                             .stream()
                             .map(imagePhoto -> {
-                                ImageEntity image = imagePhoto.getImage();
+                                Image1Entity image = imagePhoto.getImage();
                                 return ImageReqDto.builder()
                                         .imageId(image.getImageId())
                                         .url(image.getUrl())

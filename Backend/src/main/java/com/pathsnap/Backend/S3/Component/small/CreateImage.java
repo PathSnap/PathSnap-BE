@@ -1,6 +1,6 @@
 package com.pathsnap.Backend.S3.Component.small;
 
-import com.pathsnap.Backend.Image.Entity.ImageEntity;
+import com.pathsnap.Backend.Image.Entity.Image1Entity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ public class CreateImage {
     private final ImageRepository imageRepository;
 
     public String exec(String url, String fileName) {
-        ImageEntity newImage = ImageEntity.builder()
+        Image1Entity newImage = Image1Entity.builder()
                 .imageId( UUID.randomUUID().toString())
                 .url(url)
                 .fileKey(fileName)

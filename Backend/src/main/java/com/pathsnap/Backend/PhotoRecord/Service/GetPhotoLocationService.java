@@ -2,7 +2,7 @@ package com.pathsnap.Backend.PhotoRecord.Service;
 
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoDataResDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoLocationResDto;
-import com.pathsnap.Backend.Record.Entity.RecordEntity;
+import com.pathsnap.Backend.Record.Entity.Record1Entity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.User.Compnent.CheckUser;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +23,11 @@ public class GetPhotoLocationService {
 
         List<String> recordIds = recordRepository.findByUser(userCheck.exec(userId))
                 .stream()
-                .map(RecordEntity::getRecordId)
+                .map(Record1Entity::getRecordId)
                 .toList();
 
         recordIds.forEach(recordId -> {
-            RecordEntity record = recordRepository.findById(recordId).orElse(null);
+            Record1Entity record = recordRepository.findById(recordId).orElse(null);
             if (record != null) {
                 List<PhotoDataResDto> photos = new ArrayList<>(); // 특정 기록에 대한 사진 리스트 초기화
 

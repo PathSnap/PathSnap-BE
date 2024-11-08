@@ -1,8 +1,8 @@
 // TripDateAdder.java
 package com.pathsnap.Backend.PackTrip.Component;
 
-import com.pathsnap.Backend.PackTrip.Entity.PackTripEntity;
-import com.pathsnap.Backend.TripDate.Entity.TripDateEntity;
+import com.pathsnap.Backend.PackTrip.Entity.PackTrip1Entity;
+import com.pathsnap.Backend.TripDate.Entity.TripDate1Entity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,9 +14,9 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CreateTripDate {
 
-    public void exec(PackTripEntity packTrip, List<String> dates) {
+    public void exec(PackTrip1Entity packTrip, List<String> dates) {
         for (String dateStr : dates) {
-            TripDateEntity tripDate = TripDateEntity.builder()
+            TripDate1Entity tripDate = TripDate1Entity.builder()
                     .tripDateId(UUID.randomUUID().toString())
                     .packTrip(packTrip)
                     .tripDate(Date.valueOf(dateStr))

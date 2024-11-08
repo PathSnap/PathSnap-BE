@@ -2,7 +2,7 @@ package com.pathsnap.Backend.RouteRecord.Component;
 
 import com.pathsnap.Backend.Coordinate.Dto.Res.CoordinateResDto;
 import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordResDto;
-import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
+import com.pathsnap.Backend.RouteRecord.Entity.RouteRecord1Entity;
 import com.pathsnap.Backend.Record.Component.CheckRecord;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ public class GetRouteRecord {
     public List<RouteRecordResDto> exec(String recordId) {
 
         // recordId에 해당하는 RouteRecordEntity를 조회
-        List<RouteRecordEntity> routeRecords = (List<RouteRecordEntity>) recordCheck.exec(recordId);
+        List<RouteRecord1Entity> routeRecords = (List<RouteRecord1Entity>) recordCheck.exec(recordId);
 
         // RouteRecordEntity를 RouteRecordResDto로 변환
         return routeRecords.stream()

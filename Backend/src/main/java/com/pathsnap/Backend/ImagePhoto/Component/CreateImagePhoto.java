@@ -2,9 +2,9 @@ package com.pathsnap.Backend.ImagePhoto.Component;
 
 import com.pathsnap.Backend.Exception.ImageNotFoundException;
 import com.pathsnap.Backend.Image.Dto.Req.ImageReqDto;
-import com.pathsnap.Backend.Image.Entity.ImageEntity;
+import com.pathsnap.Backend.Image.Entity.Image1Entity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
-import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhotoEntity;
+import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhoto1Entity;
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecord1Entity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,14 +18,14 @@ import java.util.UUID;
 public class CreateImagePhoto {
     private final ImageRepository imageRepository;
 
-    public List<ImagePhotoEntity> exec(PhotoRecord1Entity photoRecord, List<ImageReqDto> imageReqDtos) {
-        List<ImagePhotoEntity> imagePhotos = new ArrayList<>();
+    public List<ImagePhoto1Entity> exec(PhotoRecord1Entity photoRecord, List<ImageReqDto> imageReqDtos) {
+        List<ImagePhoto1Entity> imagePhotos = new ArrayList<>();
 
         for (ImageReqDto imageReqDto : imageReqDtos) {
-            ImageEntity image = imageRepository.findById(imageReqDto.getImageId())
+            Image1Entity image = imageRepository.findById(imageReqDto.getImageId())
                     .orElseThrow(() -> new ImageNotFoundException(imageReqDto.getImageId()));
 
-            ImagePhotoEntity imagePhoto = ImagePhotoEntity.builder()
+            ImagePhoto1Entity imagePhoto = ImagePhoto1Entity.builder()
                     .imagePhotoId(UUID.randomUUID().toString())
                     .image(image)
                     .photoRecord(photoRecord)

@@ -6,7 +6,7 @@ import com.pathsnap.Backend.Coordinate.Entitiy.CoordinateEntity;
 import com.pathsnap.Backend.Coordinate.Repository.CoordinateRepository;
 import com.pathsnap.Backend.RouteRecord.Component.CheckRouteRecord;
 import com.pathsnap.Backend.RouteRecord.Dto.Req.RouteReqDto;
-import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
+import com.pathsnap.Backend.RouteRecord.Entity.RouteRecord1Entity;
 import com.pathsnap.Backend.RouteRecord.Repository.RouteRecordRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +26,7 @@ public class EditRouteRecordService {
     public void editRoute(RouteReqDto routeReqDto) {
 
         //routeRecord 조회
-        RouteRecordEntity routeRecord = routeRecordCheck.exec(routeReqDto.getRouteId());
+        RouteRecord1Entity routeRecord = routeRecordCheck.exec(routeReqDto.getRouteId());
 
         //new coordinate 생성
         CoordinateEntity newCoordinate = createCoordinate.exec(routeReqDto.getCoordinateReqDto(), routeRecord);

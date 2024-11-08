@@ -1,14 +1,14 @@
 package com.pathsnap.Backend.PhotoRecord.Service;
 
 import com.pathsnap.Backend.ImagePhoto.Component.CreateImagePhoto;
-import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhotoEntity;
+import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhoto1Entity;
 import com.pathsnap.Backend.PhotoRecord.Component.CreatePhotoRecord;
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecord1Entity;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
 import com.pathsnap.Backend.Record.Component.CheckRecord;
-import com.pathsnap.Backend.Record.Entity.RecordEntity;
+import com.pathsnap.Backend.Record.Entity.Record1Entity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import lombok.Builder;
@@ -31,7 +31,7 @@ public class CreatePhotoService {
             throw new IllegalArgumentException("이미지 필드는 필수입니다.");
         }
         //recordId 있는지 확인
-        RecordEntity record = recordCheck.exec(recordId);
+        Record1Entity record = recordCheck.exec(recordId);
 
         //photoId 생성
         String photoId = UUID.randomUUID().toString();
@@ -40,7 +40,7 @@ public class CreatePhotoService {
         PhotoRecord1Entity photoRecord = createPhotoRecord.exec(photoId,record,request);
 
         //imagePhoto 목록 생성하여 photoRecord에 업데이트
-        List<ImagePhotoEntity> imagePhotos = createImagePhoto.exec(photoRecord, request.getImages());
+        List<ImagePhoto1Entity> imagePhotos = createImagePhoto.exec(photoRecord, request.getImages());
         photoRecord.setImagePhotos(imagePhotos);
 
         //photoRecord 저장

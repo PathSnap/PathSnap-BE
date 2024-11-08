@@ -1,8 +1,8 @@
 package com.pathsnap.Backend.PhotoRecord.Service;
 
 import com.pathsnap.Backend.Exception.ImageNotFoundException;
-import com.pathsnap.Backend.Image.Entity.ImageEntity;
-import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhotoEntity;
+import com.pathsnap.Backend.Image.Entity.Image1Entity;
+import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhoto1Entity;
 import com.pathsnap.Backend.PhotoRecord.Component.CheckPhotoRecord;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoSummaryResDto;
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecord1Entity;
@@ -19,12 +19,12 @@ public class SummaryPhotoService {
     public PhotoSummaryResDto getSummaryPhoto(String photoId){
         PhotoRecord1Entity photoRecordSummary = photoRecordCheck.exec(photoId);
 
-        ImagePhotoEntity firstImage = photoRecordSummary.getImagePhotos().stream()
-                .min(Comparator.comparing(ImagePhotoEntity::getImagePhotoId))
+        ImagePhoto1Entity firstImage = photoRecordSummary.getImagePhotos().stream()
+                .min(Comparator.comparing(ImagePhoto1Entity::getImagePhotoId))
                 .orElseThrow(()->new ImageNotFoundException(photoId));
 
         //ImageUrl 가져오기
-        ImageEntity imageEntity = firstImage.getImage();
+        Image1Entity imageEntity = firstImage.getImage();
         String Url = imageEntity.getUrl();
 
         return PhotoSummaryResDto.builder()

@@ -1,8 +1,8 @@
 package com.pathsnap.Backend.Record.Entity;
 
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecord1Entity;
-import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
-import com.pathsnap.Backend.User.Entity.UserEntity;
+import com.pathsnap.Backend.RouteRecord.Entity.RouteRecord1Entity;
+import com.pathsnap.Backend.User.Entity.User1Entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,19 +18,19 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RecordEntity {
+public class Record1Entity {
     @Id
     private String recordId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private UserEntity user;
+    private User1Entity user;
 
     @OneToMany(mappedBy = "record", cascade = CascadeType.ALL)  // 양방향 관계 설정
     private List<PhotoRecord1Entity> photoRecords;
 
     @OneToMany(mappedBy = "record", cascade = CascadeType.ALL)  // 양방향 관계 설정
-    private List<RouteRecordEntity> routeRecords;
+    private List<RouteRecord1Entity> routeRecords;
 
     private String recordName;
     private boolean recordIsGroup;

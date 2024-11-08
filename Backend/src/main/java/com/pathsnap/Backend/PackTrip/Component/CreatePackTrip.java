@@ -2,8 +2,8 @@
 package com.pathsnap.Backend.PackTrip.Component;
 
 import com.pathsnap.Backend.PackTrip.Dto.Req.PackTripReqDto;
-import com.pathsnap.Backend.PackTrip.Entity.PackTripEntity;
-import com.pathsnap.Backend.User.Entity.UserEntity;
+import com.pathsnap.Backend.PackTrip.Entity.PackTrip1Entity;
+import com.pathsnap.Backend.User.Entity.User1Entity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +14,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CreatePackTrip {
 
-    public PackTripEntity exec(UserEntity user, PackTripReqDto packTripReqDto) {
-        return PackTripEntity.builder()
+    public PackTrip1Entity exec(User1Entity user, PackTripReqDto packTripReqDto) {
+        return PackTrip1Entity.builder()
                 .packTripId(UUID.randomUUID().toString())
                 .packTripName(packTripReqDto.getPackTripName())
                 .user(user)

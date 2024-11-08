@@ -1,7 +1,7 @@
 package com.pathsnap.Backend.User.Entity;
 
-import com.pathsnap.Backend.Image.Entity.ImageEntity;
-import com.pathsnap.Backend.Record.Entity.RecordEntity;
+import com.pathsnap.Backend.Image.Entity.Image1Entity;
+import com.pathsnap.Backend.Record.Entity.Record1Entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,16 +17,16 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserEntity {
+public class User1Entity {
     @Id
     private String userId;
 
     @OneToOne
     @JoinColumn(name = "image_id")
-    private ImageEntity image;
+    private Image1Entity image;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)  // 양방향 관계 설정
-    private List<RecordEntity> records;
+    private List<Record1Entity> records;
 
     private String phoneNumber;
     private Date birthDate;
