@@ -9,14 +9,17 @@ import org.springframework.stereotype.Service;
 @Service
 @Builder
 @RequiredArgsConstructor
-public class RecordDeleteService {
-    private final CheckRecord recordCheck;
+public class DeleteRecordService {
+
+    private final CheckRecord checkRecord;
     private final RecordRepository recordRepository;
+
     public void deleteRecord(String recordId){
 
-        //기록ID 있는지 확인
-        recordCheck.exec(recordId);
-        //기록 삭제
+        //recordId 있는지 확인
+        checkRecord.exec(recordId);
+
+        //record 삭제
         recordRepository.deleteById(recordId);
 
     }

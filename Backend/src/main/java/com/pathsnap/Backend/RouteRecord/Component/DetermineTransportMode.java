@@ -3,7 +3,6 @@ package com.pathsnap.Backend.RouteRecord.Component;
 import com.pathsnap.Backend.Coordinate.Dto.Res.CoordinateResDto;
 import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordResDto;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 @Component

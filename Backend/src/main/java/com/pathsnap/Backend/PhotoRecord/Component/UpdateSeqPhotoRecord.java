@@ -17,7 +17,6 @@ public class UpdateSeqPhotoRecord {
     private final CheckPhotoRecord checkPhotoRecord;
     private final PhotoRecordRepository photoRecordRepository;
 
-
     public List<PhotoUpdateResDto> exec(List<PhotoUpdateReqDto> updatePhotos) {
         return updatePhotos.stream()
                 .map(photoUpdate -> {

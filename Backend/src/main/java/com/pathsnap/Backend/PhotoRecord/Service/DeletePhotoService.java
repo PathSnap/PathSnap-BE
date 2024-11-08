@@ -1,14 +1,14 @@
-package com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService;
+package com.pathsnap.Backend.PhotoRecord.Service;
 
 import com.pathsnap.Backend.PhotoRecord.Component.CheckPhotoRecord;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service("deletePhotoService")
+@Service
 @Builder
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class DeletePhotoService {
 
     private final CheckPhotoRecord photoRecordCheck;
@@ -16,9 +16,10 @@ public class DeletePhotoService {
 
     public void deletePhoto(String photoId){
 
-        //포토기록ID있는지 확인
+        //photoId있는지 확인
         photoRecordCheck.exec(photoId);
-        //포토기록 삭제
+
+        //photoRecord 삭제
         photoRecordRepository.deleteById(photoId);
 
     }

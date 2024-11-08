@@ -1,5 +1,7 @@
 package com.pathsnap.Backend.RouteRecord.Service;
 
+import com.pathsnap.Backend.Coordinate.Component.AddCoordinate;
+import com.pathsnap.Backend.Coordinate.Component.CreateCoordinate;
 import com.pathsnap.Backend.Coordinate.Entitiy.CoordinateEntity;
 import com.pathsnap.Backend.Coordinate.Repository.CoordinateRepository;
 import com.pathsnap.Backend.RouteRecord.Component.CheckRouteRecord;
@@ -13,32 +15,29 @@ import org.springframework.stereotype.Service;
 @Service
 @Builder
 @RequiredArgsConstructor
-public class RouteRecordSaveService {
+public class EditRouteRecordService {
 
     private final CheckRouteRecord routeRecordCheck;
+    private final CreateCoordinate createCoordinate;
+    private final AddCoordinate addCoordinate;
     private final CoordinateRepository coordinateRepository;
     private final RouteRecordRepository routeRecordRepository;
 
-    public void saveRoute(RouteReqDto routeReqDto) {
+    public void editRoute(RouteReqDto routeReqDto) {
 
-        //경로 기록을 조회
+        //routeRecord 조회
         RouteRecordEntity routeRecord = routeRecordCheck.exec(routeReqDto.getRouteId());
 
-        //새로운 좌표 생성
-        CoordinateEntity newCoordinate = CoordinateEntity.builder()
-                .lat(routeReqDto.getCoordinateReqDto().getLat())
-                .lng(routeReqDto.getCoordinateReqDto().getLng())
-                .timeStamp(routeReqDto.getCoordinateReqDto().getTimeStamp())
-                .routeRecord(routeRecord)
-                .build();
+        //new coordinate 생성
+        CoordinateEntity newCoordinate = createCoordinate.exec(routeReqDto.getCoordinateReqDto(), routeRecord);
 
-        //경로 저장
+        //coordinate 저장
         coordinateRepository.save(newCoordinate);
 
-        //경로 추가 로직
-        routeRecord.addCoordinate(newCoordinate);
+        //coordinate에 좌표 추가
+        addCoordinate.exec(routeRecord, newCoordinate);
 
-        //변경 사항 저장
+        //Edited routeRecord 저장
         routeRecordRepository.save(routeRecord);
 
     }

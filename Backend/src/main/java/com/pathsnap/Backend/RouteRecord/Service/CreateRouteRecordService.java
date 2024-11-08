@@ -2,6 +2,7 @@ package com.pathsnap.Backend.RouteRecord.Service;
 
 import com.pathsnap.Backend.Record.Component.CheckRecord;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
+import com.pathsnap.Backend.RouteRecord.Component.CreateRouteRecord;
 import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordStartDto;
 import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
 import com.pathsnap.Backend.RouteRecord.Repository.RouteRecordRepository;
@@ -15,28 +16,25 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class RouteRecordStartService {
+public class CreateRouteRecordService {
 
     private final CheckRecord recordCheck;
+    private final CreateRouteRecord createRouteRecord;
     private final RouteRecordRepository routeRecordRepository;
 
     public RouteRecordStartDto startRoute(String recordId){
 
-        //기록ID 있는지 확인
+        //recordId 있는지 확인
         RecordEntity record = recordCheck.exec(recordId);
 
-        //경로기록 시작 저장
-        RouteRecordEntity RouteRecord = new RouteRecordEntity();
-        RouteRecord.setRouteId(UUID.randomUUID().toString());
-        RouteRecord.setRecord(record);
+        //routeRecord 생성
+        RouteRecordEntity routeRecord= createRouteRecord.exec(record);
 
-        Date startDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        RouteRecord.setStartDate(startDate);
-
-        routeRecordRepository.save(RouteRecord);
+        //routeRecord 저장
+        routeRecordRepository.save(routeRecord);
 
         return RouteRecordStartDto.builder()
-                .routeId(RouteRecord.getRouteId())
+                .routeId(routeRecord.getRouteId())
                 .build();
     }
 }

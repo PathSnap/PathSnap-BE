@@ -1,74 +1,49 @@
-package com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService;
+package com.pathsnap.Backend.PhotoRecord.Service;
 
-import com.pathsnap.Backend.Exception.ImageNotFoundException;
-import com.pathsnap.Backend.Image.Dto.Req.ImageReqDto;
-import com.pathsnap.Backend.Image.Entity.ImageEntity;
-import com.pathsnap.Backend.Image.Repository.ImageRepository;
+import com.pathsnap.Backend.ImagePhoto.Component.CreateImagePhoto;
 import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhotoEntity;
+import com.pathsnap.Backend.PhotoRecord.Component.CreatePhotoRecord;
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
 import com.pathsnap.Backend.Record.Component.CheckRecord;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
-import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import lombok.Builder;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@Service("createPhotoService") // 빈 이름 지정
+@Service
 @Builder
 @RequiredArgsConstructor
 public class CreatePhotoService {
 
     private final CheckRecord recordCheck;
     private final PhotoRecordRepository photoRecordRepository;
-    private final RecordRepository recordRepository;
-    private final ImageRepository imageRepository;
+    private final CreatePhotoRecord createPhotoRecord;
+    private final CreateImagePhoto createImagePhoto;
 
     public PhotoRecordResDto createPhoto(String recordId, PhotoRecordReqDto request) {
 
         if (request.getImages() == null || request.getImages().isEmpty()) {
             throw new IllegalArgumentException("이미지 필드는 필수입니다.");
         }
-
+        //recordId 있는지 확인
         RecordEntity record = recordCheck.exec(recordId);
 
+        //photoId 생성
         String photoId = UUID.randomUUID().toString();
 
-        PhotoRecordEntity photoRecord = PhotoRecordEntity.builder()
-                .photoRecordId(photoId)
-                .record(record)
-                .photoTitle(request.getPhotoTitle())
-                .seq(request.getSeq())
-                .photoContent(request.getPhotoContent())
-                .lng(request.getLng())
-                .lat(request.getLat())
-                .photoDate(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()))
-                .build();
+        //photoRecord 생성
+        PhotoRecordEntity photoRecord = createPhotoRecord.exec(photoId,record,request);
 
-        List<ImagePhotoEntity> imagePhotos = new ArrayList<>();
-        for (ImageReqDto imageReqDto : request.getImages()) {
-
-            ImageEntity image = imageRepository.findById(imageReqDto.getImageId())
-                    .orElseThrow(() -> new ImageNotFoundException(imageReqDto.getImageId()));
-
-            ImagePhotoEntity imagePhoto = ImagePhotoEntity.builder()
-                    .imagePhotoId(UUID.randomUUID().toString())
-                    .image(image)
-                    .photoRecord(photoRecord)
-                    .build();
-
-            imagePhotos.add(imagePhoto);
-        }
-
+        //imagePhoto 목록 생성하여 photoRecord에 업데이트
+        List<ImagePhotoEntity> imagePhotos = createImagePhoto.exec(photoRecord, request.getImages());
         photoRecord.setImagePhotos(imagePhotos);
+
+        //photoRecord 저장
         PhotoRecordEntity createdPhotoRecord = photoRecordRepository.save(photoRecord);
 
         return PhotoRecordResDto.builder()

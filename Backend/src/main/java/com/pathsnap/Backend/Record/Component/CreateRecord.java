@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Component
-public class SaveRecordStart {
+public class CreateRecord {
     public RecordEntity exec(UserEntity user, boolean recordIsGroup) {
         return RecordEntity.builder()
                 .recordId(UUID.randomUUID().toString())

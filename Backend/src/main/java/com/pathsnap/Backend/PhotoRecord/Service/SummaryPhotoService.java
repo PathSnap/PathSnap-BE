@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService;
+package com.pathsnap.Backend.PhotoRecord.Service;
 
 import com.pathsnap.Backend.Exception.ImageNotFoundException;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;

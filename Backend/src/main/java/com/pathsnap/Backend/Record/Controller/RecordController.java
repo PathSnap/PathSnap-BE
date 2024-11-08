@@ -8,58 +8,53 @@ import com.pathsnap.Backend.Record.Dto.Res.RecordStartDTO;
 import com.pathsnap.Backend.Record.Dto.Res.RecordUpdateResDto;
 import com.pathsnap.Backend.Record.Service.*;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController //json 형식으로 반환
 @RequiredArgsConstructor
 @RequestMapping("/records")
 public class RecordController implements RecordControllerDocs {
 
-    private final RecordStartService recordStartService;
-    private final RecordDetailService recordDetailService;
-    private final RecordUpdateService recordUpdateService;
-    private final RecordEditService recordEditService;
-    private final RecordDeleteService recordDeleteService;
+    private final CreateRecordService createRecordService;
+    private final GetRecordService getRecordService;
+    private final UpdateSeqRecordService updateSeqRecordService;
+    private final EditRecordService editRecordService;
+    private final DeleteRecordService deleteRecordService;
 
 
     @GetMapping("/start/{userId}/{recordIsGroup}")
     public ResponseEntity<RecordStartDTO> startRecord(@PathVariable String userId, @PathVariable boolean recordIsGroup) {
 
-        return ResponseEntity.ok(recordStartService.startNewRecord(userId, recordIsGroup));
+        return ResponseEntity.ok(createRecordService.startNewRecord(userId, recordIsGroup));
     }
 
     @Operation(summary = "기록 상세 조회", description = "피라미터로 받은 기록으로 기록 관련 정보들을 전달")
     @GetMapping("/detail/{recordId}")
     public ResponseEntity<RecordDetailResDto> getRecordDetail(@PathVariable String recordId) {
 
-        return ResponseEntity.ok(recordDetailService.getRecordDetail(recordId));
+        return ResponseEntity.ok(getRecordService.getRecordDetail(recordId));
     }
 
     @Operation(summary = "기록 순서 변경", description = "바디로 받은 순서가 변경된 포토기록과 경로기록을 저장하고 변경된 정보들 전달 ")
     @PutMapping("/update")
     public ResponseEntity<RecordUpdateResDto> updateRecordDetails(@RequestBody RecordUpdateReqDto request) {
 
-        return ResponseEntity.ok(recordUpdateService.updateRecordDetails(request));
+        return ResponseEntity.ok(updateSeqRecordService.updateRecordDetails(request));
     }
 
     @Operation(summary = "기록 이름 수정", description = "바디로 받은 변경된 기록이름을 저장하고 변경된 정보들을 전달")
     @PostMapping("/edit")
     public ResponseEntity<RecordEditResDto> editRecordName(@RequestBody RecordEditReqDto request) {
 
-        return ResponseEntity.ok(recordEditService.editRecordName(request));
+        return ResponseEntity.ok(editRecordService.editRecordName(request));
     }
 
     @DeleteMapping("/delete/{recordId}")
     public ResponseEntity<Void> deleteRecord(@PathVariable String recordId) {
 
-        recordDeleteService.deleteRecord(recordId);
+        deleteRecordService.deleteRecord(recordId);
         return ResponseEntity.ok().build();
-
     }
 }

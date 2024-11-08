@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Builder
 @RequiredArgsConstructor
-public class RecordDetailService {
+public class GetRecordService {
 
     private final CheckRecord recordCheck;
     private final GetPhotoRecord getPhotoRecord;
@@ -30,10 +30,10 @@ public class RecordDetailService {
 
     public RecordDetailResDto getRecordDetail(String recordId) {
 
-        // 기록ID 있는지 확인
+        //recordId 있는지 확인
         RecordEntity record = recordCheck.exec(recordId);
 
-        // 기록 조회 반환
+        //record 조회 반환
         RecordDetailResDto response = RecordDetailResDto.builder()
                 .recordId(record.getRecordId())
                 .recordName(record.getRecordName())
@@ -42,7 +42,7 @@ public class RecordDetailService {
                 .routeRecords(getRouteRecord.exec(recordId)) // 경로기록을 조회
                 .build();
 
-        // 각 경로의 이동 수단 결정
+        //각 경로의 이동 수단 결정
         determineTransportMode.exec(getRouteRecord.exec(recordId));
 
         return response;
