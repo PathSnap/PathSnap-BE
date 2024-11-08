@@ -37,7 +37,7 @@ jobs:
       run: ./gradlew clean build -x test  # JAR 파일을 빌드
       
     - name: Build Docker image
-      run: docker build -t ${{ secrets.DOCKE_HUB_USERNAME }}/${{ secrets.DOCKE_HUB_REPOSITORY }}:latest .
+      run: docker build --no-cache -t ${{ secrets.DOCKE_HUB_USERNAME }}/${{ secrets.DOCKE_HUB_REPOSITORY }}:latest .
 
     # Remove the .env file for security after the Docker build
     - name: Remove .env file
