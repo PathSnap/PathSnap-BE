@@ -7,7 +7,7 @@ import lombok.*;
 
 import java.util.Date;
 
-@Entity
+@Entity(name = "trip_date")
 @Getter
 @Setter
 @Builder

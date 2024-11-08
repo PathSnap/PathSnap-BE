@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-@Entity
+@Entity(name = "coordinate")
 @Data
 @Builder
 @AllArgsConstructor

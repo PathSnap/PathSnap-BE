@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Entity(name = "record")
 @Data
 @Builder
 @AllArgsConstructor
