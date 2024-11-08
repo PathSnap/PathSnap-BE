@@ -8,36 +8,32 @@ import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.*;
+import java.util.List;
 
 @Service
-@Builder
 @RequiredArgsConstructor
 public class EditPhotoService {
 
     private final PhotoRecordRepository photoRecordRepository;
-    private CheckPhotoRecord photoRecordCheck;
-    private EditPhotoRecord editPhotoRecord;
-    private EditImagePhoto editImagePhoto;
+    private final CheckPhotoRecord photoRecordCheck;
+    private final EditPhotoRecord editPhotoRecord;
+    private final EditImagePhoto editImagePhoto;
 
     public PhotoRecordResDto editPhoto(PhotoRecordReqDto request) {
 
-        //photoId 있는지 확인
+        // photoId 있는지 확인
         PhotoRecordEntity photoRecordEdit = photoRecordCheck.exec(request.getPhotoId());
 
-        //photoRecord 수정
-        photoRecordEdit = editPhotoRecord.exec(photoRecordEdit,request);
+        // photoRecord 수정
+        photoRecordEdit = editPhotoRecord.exec(photoRecordEdit, request);
 
-        //Edited imagePhoto 목록들을 photoRecord에 업데이트
-        List<ImagePhotoEntity> updatedImagePhotos =
-
-                editImagePhoto.exec(photoRecordEdit, request.getImages());
+        // Edited imagePhoto 목록들을 photoRecord에 업데이트
+        List<ImagePhotoEntity> updatedImagePhotos = editImagePhoto.exec(photoRecordEdit, request.getImages());
         photoRecordEdit.setImagePhotos(updatedImagePhotos);
 
-        //Edited photoRecord 저장
+        // Edited photoRecord 저장
         PhotoRecordEntity updatedPhotoRecord = photoRecordRepository.save(photoRecordEdit);
 
         return PhotoRecordResDto.builder()
