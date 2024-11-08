@@ -13,7 +13,7 @@ import java.util.List;
 
 
 
-@Entity
+@Entity(name = "route_record")
 @Data
 @Builder
 @AllArgsConstructor
