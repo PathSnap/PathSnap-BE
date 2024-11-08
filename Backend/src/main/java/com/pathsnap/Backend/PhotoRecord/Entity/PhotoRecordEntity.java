@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity(name = "photo_record")
+@Table
 @Data
 @Builder
 @AllArgsConstructor

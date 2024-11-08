@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity(name = "record")
+@Table
 @Data
 @Builder
 @AllArgsConstructor

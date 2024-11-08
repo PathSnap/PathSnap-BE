@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity(name = "image_photo")
+@Table
 @Data
 @Builder
 @AllArgsConstructor
