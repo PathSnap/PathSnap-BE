@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity(name = "image")
+@Table
 @Data
 @Builder
 @AllArgsConstructor

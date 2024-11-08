@@ -14,6 +14,7 @@ import java.util.List;
 
 
 @Entity(name = "route_record")
+@Table
 @Data
 @Builder
 @AllArgsConstructor
