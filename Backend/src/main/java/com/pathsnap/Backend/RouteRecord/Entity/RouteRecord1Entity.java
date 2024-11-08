@@ -1,6 +1,6 @@
 package com.pathsnap.Backend.RouteRecord.Entity;
 
-import com.pathsnap.Backend.Coordinate.Entitiy.CoordinateEntity;
+import com.pathsnap.Backend.Coordinate.Entitiy.Coordinate1Entity;
 import com.pathsnap.Backend.Record.Entity.Record1Entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,7 +28,7 @@ public class RouteRecord1Entity {
     private Record1Entity record;
 
     @OneToMany(mappedBy = "routeRecord", cascade = CascadeType.ALL)  // 양방향 관계 설정
-    private List<CoordinateEntity> coordinates;
+    private List<Coordinate1Entity> coordinates;
 
     private int seq;
     @Enumerated(EnumType.STRING)
@@ -37,7 +37,7 @@ public class RouteRecord1Entity {
     private Date endDate;
 
     // addCoordinate 메서드 추가
-    public void addCoordinate(CoordinateEntity coordinate) {
+    public void addCoordinate(Coordinate1Entity coordinate) {
         this.coordinates.add(coordinate);
         coordinate.setRouteRecord(this); // 양방향 관계 설정
     }

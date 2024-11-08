@@ -16,7 +16,7 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CoordinateEntity {
+public class Coordinate1Entity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //자동 증가
     private Long coordinateId;

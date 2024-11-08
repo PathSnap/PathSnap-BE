@@ -2,7 +2,7 @@ package com.pathsnap.Backend.RouteRecord.Service;
 
 import com.pathsnap.Backend.Coordinate.Component.AddCoordinate;
 import com.pathsnap.Backend.Coordinate.Component.CreateCoordinate;
-import com.pathsnap.Backend.Coordinate.Entitiy.CoordinateEntity;
+import com.pathsnap.Backend.Coordinate.Entitiy.Coordinate1Entity;
 import com.pathsnap.Backend.Coordinate.Repository.CoordinateRepository;
 import com.pathsnap.Backend.RouteRecord.Component.CheckRouteRecord;
 import com.pathsnap.Backend.RouteRecord.Dto.Req.RouteReqDto;
@@ -29,7 +29,7 @@ public class EditRouteRecordService {
         RouteRecord1Entity routeRecord = routeRecordCheck.exec(routeReqDto.getRouteId());
 
         //new coordinate 생성
-        CoordinateEntity newCoordinate = createCoordinate.exec(routeReqDto.getCoordinateReqDto(), routeRecord);
+        Coordinate1Entity newCoordinate = createCoordinate.exec(routeReqDto.getCoordinateReqDto(), routeRecord);
 
         //coordinate 저장
         coordinateRepository.save(newCoordinate);
