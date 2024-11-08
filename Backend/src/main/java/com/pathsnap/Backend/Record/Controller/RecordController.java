@@ -30,21 +30,18 @@ public class RecordController implements RecordControllerDocs {
         return ResponseEntity.ok(createRecordService.startNewRecord(userId, recordIsGroup));
     }
 
-    @Operation(summary = "기록 상세 조회", description = "피라미터로 받은 기록으로 기록 관련 정보들을 전달")
     @GetMapping("/detail/{recordId}")
-    public ResponseEntity<RecordDetailResDto> getRecordDetail(@PathVariable String recordId) {
+    public ResponseEntity<RecordDetailResDto> getRecordDetails(@PathVariable String recordId) {
 
         return ResponseEntity.ok(getRecordService.getRecordDetail(recordId));
     }
 
-    @Operation(summary = "기록 순서 변경", description = "바디로 받은 순서가 변경된 포토기록과 경로기록을 저장하고 변경된 정보들 전달 ")
     @PutMapping("/update")
     public ResponseEntity<RecordUpdateResDto> updateRecordDetails(@RequestBody RecordUpdateReqDto request) {
 
         return ResponseEntity.ok(updateSeqRecordService.updateRecordDetails(request));
     }
 
-    @Operation(summary = "기록 이름 수정", description = "바디로 받은 변경된 기록이름을 저장하고 변경된 정보들을 전달")
     @PostMapping("/edit")
     public ResponseEntity<RecordEditResDto> editRecordName(@RequestBody RecordEditReqDto request) {
 
