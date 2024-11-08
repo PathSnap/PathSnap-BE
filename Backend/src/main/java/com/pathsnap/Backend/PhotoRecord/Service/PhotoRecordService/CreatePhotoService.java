@@ -1,7 +1,6 @@
 package com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService;
 
 import com.pathsnap.Backend.Exception.ImageNotFoundException;
-import com.pathsnap.Backend.Exception.RecordNotFoundException;
 import com.pathsnap.Backend.Image.Dto.Req.ImageReqDto;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
@@ -10,12 +9,12 @@ import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
+import com.pathsnap.Backend.Record.Component.CheckRecord;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import lombok.Builder;
-
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CreatePhotoService {
 
-
+    private final CheckRecord recordCheck;
     private final PhotoRecordRepository photoRecordRepository;
     private final RecordRepository recordRepository;
     private final ImageRepository imageRepository;
@@ -39,8 +38,7 @@ public class CreatePhotoService {
             throw new IllegalArgumentException("이미지 필드는 필수입니다.");
         }
 
-        RecordEntity record = recordRepository.findById(recordId)
-                .orElseThrow(() -> new RecordNotFoundException(recordId));
+        RecordEntity record = recordCheck.exec(recordId);
 
         String photoId = UUID.randomUUID().toString();
 

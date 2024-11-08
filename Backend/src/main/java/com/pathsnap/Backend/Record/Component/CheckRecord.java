@@ -3,16 +3,16 @@ package com.pathsnap.Backend.Record.Component;
 import com.pathsnap.Backend.Exception.RecordNotFoundException;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GetRecord {
+@RequiredArgsConstructor
+public class CheckRecord {
 
-    @Autowired
-    private RecordRepository recordRepository;
+    private final RecordRepository recordRepository;
 
-    public RecordEntity findByRecordId(String recordId) {
+    public RecordEntity exec(String recordId) {
         return recordRepository.findById(recordId)
                 .orElseThrow(() -> new RecordNotFoundException(recordId));
     }

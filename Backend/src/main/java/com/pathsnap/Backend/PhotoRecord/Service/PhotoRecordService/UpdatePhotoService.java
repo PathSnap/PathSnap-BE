@@ -1,11 +1,11 @@
 package com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService;
 
 import com.pathsnap.Backend.Exception.ImageNotFoundException;
-import com.pathsnap.Backend.Exception.PhotoRecordNotFoundException;
 import com.pathsnap.Backend.Image.Dto.Req.ImageReqDto;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
 import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhotoEntity;
+import com.pathsnap.Backend.PhotoRecord.Component.CheckPhotoRecord;
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
@@ -13,7 +13,6 @@ import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.*;
@@ -25,11 +24,11 @@ public class UpdatePhotoService {
 
     private final PhotoRecordRepository photoRecordRepository;
     private final ImageRepository imageRepository;
+    private CheckPhotoRecord photoRecordCheck;
 
     public PhotoRecordResDto updatePhoto(PhotoRecordReqDto request) {
 
-        PhotoRecordEntity photoRecordEdit = photoRecordRepository.findById(request.getPhotoId())
-                .orElseThrow(() -> new PhotoRecordNotFoundException(request.getPhotoId()));
+        PhotoRecordEntity photoRecordEdit = photoRecordCheck.exec(request.getPhotoId());
 
         photoRecordEdit.setPhotoRecordId(request.getPhotoId());
         photoRecordEdit.setSeq(request.getSeq());

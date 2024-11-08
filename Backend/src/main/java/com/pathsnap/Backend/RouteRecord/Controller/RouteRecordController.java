@@ -5,7 +5,6 @@ import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordStartDto;
 import com.pathsnap.Backend.RouteRecord.Service.RouteRecordSaveService;
 import com.pathsnap.Backend.RouteRecord.Service.RouteRecordStartService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

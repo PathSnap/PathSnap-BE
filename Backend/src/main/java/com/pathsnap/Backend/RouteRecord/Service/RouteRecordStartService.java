@@ -1,8 +1,7 @@
 package com.pathsnap.Backend.RouteRecord.Service;
 
-import com.pathsnap.Backend.Exception.RecordNotFoundException;
+import com.pathsnap.Backend.Record.Component.CheckRecord;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
-import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordStartDto;
 import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
 import com.pathsnap.Backend.RouteRecord.Repository.RouteRecordRepository;
@@ -18,13 +17,15 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class RouteRecordStartService {
 
-    private final RecordRepository recordRepository;
+    private final CheckRecord recordCheck;
     private final RouteRecordRepository routeRecordRepository;
 
     public RouteRecordStartDto startRoute(String recordId){
-        RecordEntity record = recordRepository.findById(recordId)
-                .orElseThrow(() -> new RecordNotFoundException(recordId));
 
+        //기록ID 있는지 확인
+        RecordEntity record = recordCheck.exec(recordId);
+
+        //경로기록 시작 저장
         RouteRecordEntity RouteRecord = new RouteRecordEntity();
         RouteRecord.setRouteId(UUID.randomUUID().toString());
         RouteRecord.setRecord(record);
