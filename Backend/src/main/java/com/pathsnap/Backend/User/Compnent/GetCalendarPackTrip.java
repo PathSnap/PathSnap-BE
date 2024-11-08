@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class GetCalenderPackTrip {
+public class GetCalendarPackTrip {
 
     private final PackTripRepository packTripRepository;
 

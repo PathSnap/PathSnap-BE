@@ -17,7 +17,7 @@ public class UserController {
     private final GetProfileService profileGetService;
     private final UpdateProfileService profileUpdateService;
 
-    private final GetLocationService getLocationService;
+    private final GetUserLocationService getLocationService;
 
     private final GetCalendarService calendarService;
 

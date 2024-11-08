@@ -1,25 +1,22 @@
 package com.pathsnap.Backend.User.Service;
 
-import com.pathsnap.Backend.Image.Component.GetLocationImage;
 import com.pathsnap.Backend.User.Compnent.CheckUser;
-import com.pathsnap.Backend.Image.Dto.Res.ImageListResDto;
+import com.pathsnap.Backend.User.Compnent.GetUserLocation;
 import com.pathsnap.Backend.User.Dto.Res.LocationResDto;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class GetLocationService {
+public class GetUserLocationService {
 
     private final RecordRepository recordRepository;
     private final CheckUser CheckUser;
-    private final GetLocationImage getLocationImage;
+    private final GetUserLocation getLocation;
 
     // 여행 이미지 불러오기
     public LocationResDto getLocations(String userId) {
@@ -29,15 +26,8 @@ public class GetLocationService {
         // Date기준으로 오름차순 정렬
         List<RecordEntity> records = recordRepository.findByUser_UserIdOrderByStartDateAsc(userId);
 
-        List<LocationResDto.LocationDto> locationDTOs = new ArrayList<>();
-
-        // recordId로 사진 찾기
-        for (RecordEntity record : records) {
-            ImageListResDto imageListResDto = getLocationImage.exec(record.getRecordId());
-
-            // LocationDTO에 추가
-            locationDTOs.add(new LocationResDto.LocationDto(record.getRecordId(), record.getRecordName(), imageListResDto));
-        }
+        // getLocationImage.exec 메서드에서 반복문을 사용하여 LocationDto 생성
+        List<LocationResDto.LocationDto> locationDTOs = getLocation.exec(records);
 
         return new LocationResDto(locationDTOs);
     }

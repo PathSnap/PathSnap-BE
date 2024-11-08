@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.Image.Component;
+package com.pathsnap.Backend.User.Compnent.Small;
 
 import com.pathsnap.Backend.Image.Dto.Res.ImageListResDto;
 import com.pathsnap.Backend.Image.Dto.Res.ImageResDto;
@@ -14,32 +14,30 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class GetLocationImage {
+public class GetUserLocationImage {
 
     private final PhotoRecordRepository photoRecordRepository;
     private final ImagePhotoRepository imagePhotoRepository;
 
 
-    // recordId로 사진 찾기
+    // recordId로 이미지 리스트 가져오는 메서드
     public ImageListResDto exec(String recordId) {
         List<PhotoRecordEntity> photos = photoRecordRepository.findByRecord_RecordId(recordId);
         ImageListResDto imageListResDto = new ImageListResDto(new ArrayList<>());
 
         if (!photos.isEmpty()) {
-            // PhotoRecord의 ID 가져오기
             String photoRecordId = photos.get(0).getPhotoRecordId();
-
-            // 해당 photoRecordId로 이미지 정보 가져오기
             List<ImagePhotoEntity> imagePhotos = imagePhotoRepository.findByPhotoRecord_PhotoRecordId(photoRecordId);
 
             if (!imagePhotos.isEmpty()) {
-                // 첫 번째 이미지만 추가
                 ImagePhotoEntity firstImagePhoto = imagePhotos.get(0);
-                ImageResDto imageResDto = new ImageResDto(firstImagePhoto.getImage().getImageId(), firstImagePhoto.getImage().getUrl());
+                ImageResDto imageResDto = new ImageResDto(
+                        firstImagePhoto.getImage().getImageId(),
+                        firstImagePhoto.getImage().getUrl()
+                );
                 imageListResDto.getImages().add(imageResDto);
             }
         }
-
         return imageListResDto;
     }
 }
