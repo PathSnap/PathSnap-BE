@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "route_record")
+@Table(name = "route_record1")
 @Data
 @Builder
 @AllArgsConstructor

@@ -8,7 +8,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "pack_trip")
+@Table(name = "pack_trip1")
 @Setter
 @Getter
 @Builder

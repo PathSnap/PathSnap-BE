@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Entity
-@Table(name = "coordinate")
+@Table(name = "coordinate1")
 @Data
 @Builder
 @AllArgsConstructor
