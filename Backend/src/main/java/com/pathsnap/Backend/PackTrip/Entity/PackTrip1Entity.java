@@ -1,7 +1,7 @@
 package com.pathsnap.Backend.PackTrip.Entity;
 
-import com.pathsnap.Backend.TripDate.Entity.TripDateEntity;
-import com.pathsnap.Backend.User.Entity.UserEntity;
+import com.pathsnap.Backend.TripDate.Entity.TripDate1Entity;
+import com.pathsnap.Backend.User.Entity.User1Entity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,17 +14,17 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PackTripEntity {
+public class PackTrip1Entity {
 
     @Id
     private String packTripId;
 
     @ManyToOne // 다대일 관계
     @JoinColumn(name = "user_id", nullable = false) // 외래키 설정
-    private UserEntity user;
+    private User1Entity user;
 
     private String packTripName;
 
     @OneToMany(mappedBy = "packTrip", cascade = CascadeType.ALL) // 양방향 관계 설정
-    private List<TripDateEntity> tripDates;
+    private List<TripDate1Entity> tripDates;
 }

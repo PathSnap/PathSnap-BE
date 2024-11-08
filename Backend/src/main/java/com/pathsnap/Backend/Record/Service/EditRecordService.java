@@ -4,7 +4,7 @@ import com.pathsnap.Backend.Record.Component.CheckRecord;
 import com.pathsnap.Backend.Record.Component.EditRecordName;
 import com.pathsnap.Backend.Record.Dto.Req.RecordEditReqDto;
 import com.pathsnap.Backend.Record.Dto.Res.RecordEditResDto;
-import com.pathsnap.Backend.Record.Entity.RecordEntity;
+import com.pathsnap.Backend.Record.Entity.Record1Entity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import lombok.Builder;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class EditRecordService {
     public RecordEditResDto editRecordName(RecordEditReqDto request){
 
         //recordId 있는지 확인
-        RecordEntity recordEdit = checkRecord.exec(request.getRecordId());
+        Record1Entity recordEdit = checkRecord.exec(request.getRecordId());
 
         //recordName 수정
         recordEdit = editRecordName.exec(recordEdit, request.getRecordName());

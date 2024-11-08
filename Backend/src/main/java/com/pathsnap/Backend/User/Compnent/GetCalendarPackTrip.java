@@ -1,9 +1,9 @@
 package com.pathsnap.Backend.User.Compnent;
 
 import com.pathsnap.Backend.PackTrip.Dto.Res.PackTripResDto;
-import com.pathsnap.Backend.PackTrip.Entity.PackTripEntity;
+import com.pathsnap.Backend.PackTrip.Entity.PackTrip1Entity;
 import com.pathsnap.Backend.PackTrip.Repository.PackTripRepository;
-import com.pathsnap.Backend.TripDate.Entity.TripDateEntity;
+import com.pathsnap.Backend.TripDate.Entity.TripDate1Entity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -21,13 +21,13 @@ public class GetCalendarPackTrip {
     public List<PackTripResDto> exec(String userId, Integer month) {
 
         // userId로 packTrip 불러오기
-        List<PackTripEntity> packTrips = packTripRepository.findByUser_UserId(userId);
+        List<PackTrip1Entity> packTrips = packTripRepository.findByUser_UserId(userId);
 
         // 월 날짜 필터링
         return packTrips.stream()
                 .map(packTrip -> {
                     List<String> filteredDates = packTrip.getTripDates().stream()
-                            .map(TripDateEntity::getTripDate) // 각 tripDate를 가져옴
+                            .map(TripDate1Entity::getTripDate) // 각 tripDate를 가져옴
                             .filter(tripDate -> { // yyyy-MM-dd 형식변환, 문자열로 변환
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                 String dateString = sdf.format(tripDate);

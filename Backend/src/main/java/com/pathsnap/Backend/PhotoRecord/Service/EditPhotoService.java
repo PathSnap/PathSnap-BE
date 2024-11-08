@@ -1,7 +1,7 @@
 package com.pathsnap.Backend.PhotoRecord.Service;
 
 import com.pathsnap.Backend.ImagePhoto.Component.EditImagePhoto;
-import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhotoEntity;
+import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhoto1Entity;
 import com.pathsnap.Backend.PhotoRecord.Component.CheckPhotoRecord;
 import com.pathsnap.Backend.PhotoRecord.Component.EditPhotoRecord;
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordReqDto;
@@ -30,7 +30,7 @@ public class EditPhotoService {
         photoRecordEdit = editPhotoRecord.exec(photoRecordEdit, request);
 
         // Edited imagePhoto 목록들을 photoRecord에 업데이트
-        List<ImagePhotoEntity> updatedImagePhotos = editImagePhoto.exec(photoRecordEdit, request.getImages());
+        List<ImagePhoto1Entity> updatedImagePhotos = editImagePhoto.exec(photoRecordEdit, request.getImages());
         photoRecordEdit.setImagePhotos(updatedImagePhotos);
 
         // Edited photoRecord 저장

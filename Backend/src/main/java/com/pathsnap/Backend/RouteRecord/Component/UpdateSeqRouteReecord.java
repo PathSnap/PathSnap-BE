@@ -2,7 +2,7 @@ package com.pathsnap.Backend.RouteRecord.Component;
 
 import com.pathsnap.Backend.RouteRecord.Dto.Req.RouteUpdateReqDto;
 import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteUpdateResDto;
-import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
+import com.pathsnap.Backend.RouteRecord.Entity.RouteRecord1Entity;
 import com.pathsnap.Backend.RouteRecord.Repository.RouteRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,7 +18,7 @@ public class UpdateSeqRouteReecord {
     public List<RouteUpdateResDto> exec(List<RouteUpdateReqDto> updateRoutes) {
         return updateRoutes.stream()
                 .map(routeUpdate -> {
-                    RouteRecordEntity routeRecord = routeRecordCheck.exec(routeUpdate.getRouteId());
+                    RouteRecord1Entity routeRecord = routeRecordCheck.exec(routeUpdate.getRouteId());
                     routeRecord.setSeq(routeUpdate.getNewSeq());
                     routeRecordRepository.save(routeRecord);
 

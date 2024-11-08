@@ -1,7 +1,7 @@
 package com.pathsnap.Backend.Record.Component;
 
-import com.pathsnap.Backend.Record.Entity.RecordEntity;
-import com.pathsnap.Backend.User.Entity.UserEntity;
+import com.pathsnap.Backend.Record.Entity.Record1Entity;
+import com.pathsnap.Backend.User.Entity.User1Entity;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -11,8 +11,8 @@ import java.util.UUID;
 
 @Component
 public class CreateRecord {
-    public RecordEntity exec(UserEntity user, boolean recordIsGroup) {
-        return RecordEntity.builder()
+    public Record1Entity exec(User1Entity user, boolean recordIsGroup) {
+        return Record1Entity.builder()
                 .recordId(UUID.randomUUID().toString())
                 .user(user)
                 .recordName("여행 제목 없음")

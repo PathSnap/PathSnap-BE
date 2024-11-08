@@ -1,15 +1,12 @@
 package com.pathsnap.Backend.Image.Entity;
 
-import com.pathsnap.Backend.Image.Repository.ImageRepository;
-import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhotoEntity;
-import com.pathsnap.Backend.User.Entity.UserEntity;
+import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhoto1Entity;
+import com.pathsnap.Backend.User.Entity.User1Entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Entity
 @Table(name = "image")
@@ -17,14 +14,14 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ImageEntity {
+public class Image1Entity {
     @Id
     private String imageId;
     private String url;
     private String fileKey;
 
     @OneToOne(mappedBy = "image")
-    private UserEntity user;
+    private User1Entity user;
     @OneToOne(mappedBy = "image")
-    private ImagePhotoEntity imagePhotos;
+    private ImagePhoto1Entity imagePhotos;
 }

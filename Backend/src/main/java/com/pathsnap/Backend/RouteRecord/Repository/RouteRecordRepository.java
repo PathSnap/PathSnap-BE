@@ -1,15 +1,13 @@
 package com.pathsnap.Backend.RouteRecord.Repository;
-import com.pathsnap.Backend.Record.Entity.RecordEntity;
-import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordResDto;
-import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
+import com.pathsnap.Backend.RouteRecord.Entity.RouteRecord1Entity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface RouteRecordRepository extends JpaRepository<RouteRecordEntity,String> {
+public interface RouteRecordRepository extends JpaRepository<RouteRecord1Entity,String> {
 
-    List<RouteRecordEntity> findByRecord_RecordId(String recordId);
+    List<RouteRecord1Entity> findByRecord_RecordId(String recordId);
 
 }

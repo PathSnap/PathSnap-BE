@@ -1,7 +1,7 @@
 package com.pathsnap.Backend.S3.Service;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.pathsnap.Backend.Image.Entity.ImageEntity;
+import com.pathsnap.Backend.Image.Entity.Image1Entity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
 import com.pathsnap.Backend.Image.Component.CheckImage;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class DeleteS3Service {
     public void deleteImage(String imageId) {
 
         // 이미지 정보 가져오기
-        ImageEntity imageEntity = imageCheck.exec(imageId);
+        Image1Entity imageEntity = imageCheck.exec(imageId);
 
         // S3에서 이미지 삭제
         amazonS3.deleteObject(bucketName, imageEntity.getFileKey());

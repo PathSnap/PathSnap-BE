@@ -5,7 +5,7 @@ import com.pathsnap.Backend.PhotoRecord.Component.CheckPhotoRecord;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
 import com.pathsnap.Backend.Record.Component.CheckRecord;
 import com.pathsnap.Backend.Record.Dto.Res.RecordDetailResDto;
-import com.pathsnap.Backend.Record.Entity.RecordEntity;
+import com.pathsnap.Backend.Record.Entity.Record1Entity;
 import com.pathsnap.Backend.RouteRecord.Component.DetermineTransportMode;
 import com.pathsnap.Backend.RouteRecord.Component.GetRouteRecord;
 import com.pathsnap.Backend.RouteRecord.Repository.RouteRecordRepository;
@@ -31,7 +31,7 @@ public class GetRecordService {
     public RecordDetailResDto getRecordDetail(String recordId) {
 
         //recordId 있는지 확인
-        RecordEntity record = recordCheck.exec(recordId);
+        Record1Entity record = recordCheck.exec(recordId);
 
         //record 조회 반환
         RecordDetailResDto response = RecordDetailResDto.builder()

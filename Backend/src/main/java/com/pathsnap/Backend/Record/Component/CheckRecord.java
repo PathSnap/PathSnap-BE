@@ -1,7 +1,7 @@
 package com.pathsnap.Backend.Record.Component;
 
 import com.pathsnap.Backend.Exception.RecordNotFoundException;
-import com.pathsnap.Backend.Record.Entity.RecordEntity;
+import com.pathsnap.Backend.Record.Entity.Record1Entity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.User.Compnent.UserCheck;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ public class CheckRecord {
     private final RecordRepository recordRepository;
     private final UserCheck userCheck;
 
-    public RecordEntity exec(String recordId) {
+    public Record1Entity exec(String recordId) {
         return recordRepository.findById(recordId)
                 .orElseThrow(() -> new RecordNotFoundException(recordId));
     }
@@ -25,7 +25,7 @@ public class CheckRecord {
     public List<String> exec2(String userId) {
         return recordRepository.findByUser(userCheck.exec(userId))
                 .stream()
-                .map(RecordEntity::getRecordId)
+                .map(Record1Entity::getRecordId)
                 .collect(Collectors.toList());
     }
 }

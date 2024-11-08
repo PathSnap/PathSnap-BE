@@ -6,7 +6,7 @@ import com.pathsnap.Backend.User.Compnent.CheckUser;
 import com.pathsnap.Backend.User.Compnent.UpdateUserProfile;
 import com.pathsnap.Backend.User.Dto.Req.UserUpdateReqDto;
 import com.pathsnap.Backend.User.Dto.Res.UserResDto;
-import com.pathsnap.Backend.User.Entity.UserEntity;
+import com.pathsnap.Backend.User.Entity.User1Entity;
 import com.pathsnap.Backend.User.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class UpdateProfileService {
 
     public UserResDto updateProfile(String userId, UserUpdateReqDto userUpdateReqDto) {
         // 사용자 찾기 및 예외 처리
-        UserEntity user = userCheck.exec(userId);
+        User1Entity user = userCheck.exec(userId);
 
         // 사용자 정보 업데이트
         userProfileUpdate.exec(user, userUpdateReqDto);

@@ -1,8 +1,6 @@
 package com.pathsnap.Backend.PhotoRecord.Dto.Req;
 
-import com.pathsnap.Backend.Coordinate.Dto.Req.CoordinateReqDto;
 import com.pathsnap.Backend.Image.Dto.Req.ImageReqDto;
-import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import lombok.Data;
 
 import java.util.ArrayList;

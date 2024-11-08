@@ -2,7 +2,7 @@ package com.pathsnap.Backend.PhotoRecord.Component.PhotoLocation;
 
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoDataResDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoLocationResDto;
-import com.pathsnap.Backend.Record.Entity.RecordEntity;
+import com.pathsnap.Backend.Record.Entity.Record1Entity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ public class FilterPhotoLocation {
         List<PhotoLocationResDto> photoLocations = new ArrayList<>();
 
         recordIds.forEach(recordId -> {
-            RecordEntity record = recordRepository.findById(recordId).orElse(null);
+            Record1Entity record = recordRepository.findById(recordId).orElse(null);
             if (record != null) {
                 List<PhotoDataResDto> photos = new ArrayList<>();
 

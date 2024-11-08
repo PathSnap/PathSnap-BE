@@ -3,7 +3,7 @@ package com.pathsnap.Backend.User.Service;
 import com.pathsnap.Backend.User.Compnent.CheckUser;
 import com.pathsnap.Backend.User.Compnent.GetUserLocation;
 import com.pathsnap.Backend.User.Dto.Res.LocationResDto;
-import com.pathsnap.Backend.Record.Entity.RecordEntity;
+import com.pathsnap.Backend.Record.Entity.Record1Entity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class GetUserLocationService {
         CheckUser.exec(userId);
 
         // Date기준으로 오름차순 정렬
-        List<RecordEntity> records = recordRepository.findByUser_UserIdOrderByStartDateAsc(userId);
+        List<Record1Entity> records = recordRepository.findByUser_UserIdOrderByStartDateAsc(userId);
 
         // getLocation에서 반복문을 사용하여 LocationDto 생성
         List<LocationResDto.LocationDto> locationDTOs = getLocation.exec(records);

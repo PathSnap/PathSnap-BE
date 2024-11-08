@@ -2,12 +2,12 @@ package com.pathsnap.Backend.Coordinate.Component;
 
 import com.pathsnap.Backend.Coordinate.Dto.Req.CoordinateReqDto;
 import com.pathsnap.Backend.Coordinate.Entitiy.CoordinateEntity;
-import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
+import com.pathsnap.Backend.RouteRecord.Entity.RouteRecord1Entity;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CreateCoordinate {
-    public CoordinateEntity exec(CoordinateReqDto coordinateReqDto, RouteRecordEntity routeRecord) {
+    public CoordinateEntity exec(CoordinateReqDto coordinateReqDto, RouteRecord1Entity routeRecord) {
 
         //CoordinateEntity 생성
         return CoordinateEntity.builder()

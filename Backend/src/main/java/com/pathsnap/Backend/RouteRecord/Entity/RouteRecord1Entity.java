@@ -1,7 +1,7 @@
 package com.pathsnap.Backend.RouteRecord.Entity;
 
 import com.pathsnap.Backend.Coordinate.Entitiy.CoordinateEntity;
-import com.pathsnap.Backend.Record.Entity.RecordEntity;
+import com.pathsnap.Backend.Record.Entity.Record1Entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,13 +19,13 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RouteRecordEntity {
+public class RouteRecord1Entity {
     @Id
     private String routeId;
 
     @ManyToOne
     @JoinColumn(name = "record_id")
-    private RecordEntity record;
+    private Record1Entity record;
 
     @OneToMany(mappedBy = "routeRecord", cascade = CascadeType.ALL)  // 양방향 관계 설정
     private List<CoordinateEntity> coordinates;

@@ -1,7 +1,7 @@
 package com.pathsnap.Backend.Coordinate.Entitiy;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
+import com.pathsnap.Backend.RouteRecord.Entity.RouteRecord1Entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +23,7 @@ public class CoordinateEntity {
 
     @ManyToOne
     @JoinColumn(name = "route_id")
-    private RouteRecordEntity routeRecord;
+    private RouteRecord1Entity routeRecord;
 
     private double lat;
     private double lng;

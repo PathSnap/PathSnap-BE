@@ -4,7 +4,7 @@ import com.pathsnap.Backend.Image.Component.GetImage;
 import com.pathsnap.Backend.Image.Dto.Res.ImageResDto;
 import com.pathsnap.Backend.User.Compnent.CheckUser;
 import com.pathsnap.Backend.User.Dto.Res.UserResDto;
-import com.pathsnap.Backend.User.Entity.UserEntity;
+import com.pathsnap.Backend.User.Entity.User1Entity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ public class GetProfileService {
 
     public UserResDto getProfile(String userId) {
         // 사용자 찾기 및 예외 처리
-        UserEntity user = userCheck.exec(userId);
+        User1Entity user = userCheck.exec(userId);
 
         // 사용자 이미지 조회 및 처리
         List<ImageResDto> images = imageGet.exec(user.getImage()); // 이미지 체크를 exec 메서드로 분리
