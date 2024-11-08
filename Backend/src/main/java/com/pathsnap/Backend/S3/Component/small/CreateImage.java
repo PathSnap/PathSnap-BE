@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.S3.Component;
+package com.pathsnap.Backend.S3.Component.small;
 
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;

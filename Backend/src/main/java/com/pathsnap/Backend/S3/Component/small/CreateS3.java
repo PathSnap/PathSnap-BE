@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.S3.Component;
+package com.pathsnap.Backend.S3.Component.small;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;

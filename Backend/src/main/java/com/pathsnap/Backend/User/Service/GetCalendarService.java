@@ -33,7 +33,7 @@ public class GetCalendarService {
         List<RecordEntity> records = recordRepository.findByUser_UserIdOrderByStartDateAsc(userId);
 
 
-        // getLocationImage.exec 메서드에서 반복문을 사용하여 LocationDto 생성
+        // getCalendar에서 반복문을 사용하여 calendarDto 생성
         List<CalendarResDto.CalendarDto> calendarDtos = getCalendar.exec(records);
 
         // 2. PackTrip 불러오기

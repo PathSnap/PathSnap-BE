@@ -26,7 +26,7 @@ public class GetUserLocationService {
         // Date기준으로 오름차순 정렬
         List<RecordEntity> records = recordRepository.findByUser_UserIdOrderByStartDateAsc(userId);
 
-        // getLocationImage.exec 메서드에서 반복문을 사용하여 LocationDto 생성
+        // getLocation에서 반복문을 사용하여 LocationDto 생성
         List<LocationResDto.LocationDto> locationDTOs = getLocation.exec(records);
 
         return new LocationResDto(locationDTOs);
