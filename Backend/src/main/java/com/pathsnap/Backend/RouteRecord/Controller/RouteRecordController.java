@@ -2,10 +2,9 @@ package com.pathsnap.Backend.RouteRecord.Controller;
 
 import com.pathsnap.Backend.RouteRecord.Dto.Req.RouteReqDto;
 import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordStartDto;
-import com.pathsnap.Backend.RouteRecord.Service.RouteRecordSaveService;
-import com.pathsnap.Backend.RouteRecord.Service.RouteRecordStartService;
+import com.pathsnap.Backend.RouteRecord.Service.EditRouteRecordService;
+import com.pathsnap.Backend.RouteRecord.Service.CreateRouteRecordService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,20 +13,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/routes")
 public class RouteRecordController {
 
-    private final RouteRecordStartService routeRecordStartService;
-    private final RouteRecordSaveService routeRecordService;
+    private final CreateRouteRecordService createRouteRecordService;
+    private final EditRouteRecordService editRouteRecordService;
 
     @GetMapping("/start/{recordId}")
     public ResponseEntity<RouteRecordStartDto> RouteRecordStart(@PathVariable String recordId){
 
-        return ResponseEntity.ok(routeRecordStartService.startRoute(recordId));
+        return ResponseEntity.ok(createRouteRecordService.startRoute(recordId));
 
     }
 
     @PostMapping("/save")
-    public ResponseEntity<RouteRecordStartDto> saveRoute(@RequestBody RouteReqDto routeReqDto){
+    public ResponseEntity<RouteRecordStartDto> editRoute(@RequestBody RouteReqDto routeReqDto){
 
-        routeRecordService.saveRoute(routeReqDto);
+        editRouteRecordService.editRoute(routeReqDto);
 
         return ResponseEntity.ok().build();
     }

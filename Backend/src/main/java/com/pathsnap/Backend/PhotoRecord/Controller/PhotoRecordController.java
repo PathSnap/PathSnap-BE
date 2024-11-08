@@ -4,11 +4,11 @@ import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoLocationResDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoSummaryResDto;
-import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.CreatePhotoService;
-import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.GetPhotoLocationService;
-import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.SummaryPhotoService;
-import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.DeletePhotoService;
-import com.pathsnap.Backend.PhotoRecord.Service.PhotoRecordService.UpdatePhotoService;
+import com.pathsnap.Backend.PhotoRecord.Service.CreatePhotoService;
+import com.pathsnap.Backend.PhotoRecord.Service.GetPhotoLocationService;
+import com.pathsnap.Backend.PhotoRecord.Service.SummaryPhotoService;
+import com.pathsnap.Backend.PhotoRecord.Service.DeletePhotoService;
+import com.pathsnap.Backend.PhotoRecord.Service.EditPhotoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +22,7 @@ public class PhotoRecordController {
 
     private final CreatePhotoService photoRecordService;
 
-    private final UpdatePhotoService updatePhotoService;
+    private final EditPhotoService editPhotoService;
 
     private final GetPhotoLocationService getLocationService;
 
@@ -37,8 +37,8 @@ public class PhotoRecordController {
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<PhotoRecordResDto> updatePhoto(@RequestBody PhotoRecordReqDto request) {
-        return ResponseEntity.ok(updatePhotoService.updatePhoto(request));
+    public ResponseEntity<PhotoRecordResDto> editPhoto(@RequestBody PhotoRecordReqDto request) {
+        return ResponseEntity.ok(editPhotoService.editPhoto(request));
     }
   
     @GetMapping("/summary/{photoId}")
