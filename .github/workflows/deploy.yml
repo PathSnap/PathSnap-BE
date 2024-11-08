@@ -34,7 +34,7 @@ jobs:
         password: ${{ secrets.DOCKE_HUB_PASSWORD }}
 
     - name: Build with Gradle
-      run: ./gradlew build -x test  # JAR 파일을 빌드
+      run: ./gradlew clean build -x test  # JAR 파일을 빌드
       
     - name: Build Docker image
       run: docker build -t ${{ secrets.DOCKE_HUB_USERNAME }}/${{ secrets.DOCKE_HUB_REPOSITORY }}:latest .
