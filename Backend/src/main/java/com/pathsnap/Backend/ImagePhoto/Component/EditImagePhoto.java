@@ -5,7 +5,7 @@ import com.pathsnap.Backend.Image.Dto.Req.ImageReqDto;
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.Image.Repository.ImageRepository;
 import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhotoEntity;
-import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
+import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecord1Entity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +19,7 @@ import java.util.UUID;
 public class EditImagePhoto {
     private final ImageRepository imageRepository;
 
-    public List<ImagePhotoEntity> exec(PhotoRecordEntity photoRecord, List<ImageReqDto> imageReqDtos) {
+    public List<ImagePhotoEntity> exec(PhotoRecord1Entity photoRecord, List<ImageReqDto> imageReqDtos) {
         List<ImagePhotoEntity> updatedImagePhotos = new ArrayList<>();
 
         for (ImageReqDto imageReqDto : imageReqDtos) {

@@ -1,6 +1,6 @@
 package com.pathsnap.Backend.Record.Entity;
 
-import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
+import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecord1Entity;
 import com.pathsnap.Backend.RouteRecord.Entity.RouteRecordEntity;
 import com.pathsnap.Backend.User.Entity.UserEntity;
 import jakarta.persistence.*;
@@ -27,7 +27,7 @@ public class RecordEntity {
     private UserEntity user;
 
     @OneToMany(mappedBy = "record", cascade = CascadeType.ALL)  // 양방향 관계 설정
-    private List<PhotoRecordEntity> photoRecords;
+    private List<PhotoRecord1Entity> photoRecords;
 
     @OneToMany(mappedBy = "record", cascade = CascadeType.ALL)  // 양방향 관계 설정
     private List<RouteRecordEntity> routeRecords;

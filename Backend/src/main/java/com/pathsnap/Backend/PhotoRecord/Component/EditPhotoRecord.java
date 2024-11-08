@@ -1,7 +1,7 @@
 package com.pathsnap.Backend.PhotoRecord.Component;
 
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordReqDto;
-import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
+import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecord1Entity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +12,7 @@ import java.util.Date;
 @Component
 @RequiredArgsConstructor
 public class EditPhotoRecord {
-    public PhotoRecordEntity exec(PhotoRecordEntity photoRecord, PhotoRecordReqDto request) {
+    public PhotoRecord1Entity exec(PhotoRecord1Entity photoRecord, PhotoRecordReqDto request) {
 
         //PhotoRecord 수정
         photoRecord.setSeq(request.getSeq());

@@ -18,7 +18,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PhotoRecordEntity {
+public class PhotoRecord1Entity {
     @Id
     private String photoRecordId;
 

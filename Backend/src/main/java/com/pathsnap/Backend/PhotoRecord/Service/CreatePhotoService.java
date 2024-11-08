@@ -5,7 +5,7 @@ import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhotoEntity;
 import com.pathsnap.Backend.PhotoRecord.Component.CreatePhotoRecord;
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
-import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
+import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecord1Entity;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
 import com.pathsnap.Backend.Record.Component.CheckRecord;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
@@ -37,14 +37,14 @@ public class CreatePhotoService {
         String photoId = UUID.randomUUID().toString();
 
         //photoRecord 생성
-        PhotoRecordEntity photoRecord = createPhotoRecord.exec(photoId,record,request);
+        PhotoRecord1Entity photoRecord = createPhotoRecord.exec(photoId,record,request);
 
         //imagePhoto 목록 생성하여 photoRecord에 업데이트
         List<ImagePhotoEntity> imagePhotos = createImagePhoto.exec(photoRecord, request.getImages());
         photoRecord.setImagePhotos(imagePhotos);
 
         //photoRecord 저장
-        PhotoRecordEntity createdPhotoRecord = photoRecordRepository.save(photoRecord);
+        PhotoRecord1Entity createdPhotoRecord = photoRecordRepository.save(photoRecord);
 
         return PhotoRecordResDto.builder()
                 .photoId(createdPhotoRecord.getPhotoRecordId())
