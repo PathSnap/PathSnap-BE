@@ -2,7 +2,7 @@ package com.pathsnap.Backend.PhotoRecord.Component;
 
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoUpdateReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoUpdateResDto;
-import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
+import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecord1Entity;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -20,7 +20,7 @@ public class UpdateSeqPhotoRecord {
     public List<PhotoUpdateResDto> exec(List<PhotoUpdateReqDto> updatePhotos) {
         return updatePhotos.stream()
                 .map(photoUpdate -> {
-                    PhotoRecordEntity photoRecord = checkPhotoRecord.exec(photoUpdate.getPhotoId());
+                    PhotoRecord1Entity photoRecord = checkPhotoRecord.exec(photoUpdate.getPhotoId());
                     photoRecord.setSeq(photoUpdate.getNewSeq());
                     photoRecordRepository.save(photoRecord);
 

@@ -1,7 +1,7 @@
 package com.pathsnap.Backend.ImagePhoto.Entity;
 
 import com.pathsnap.Backend.Image.Entity.ImageEntity;
-import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
+import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecord1Entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,6 +24,6 @@ public class ImagePhotoEntity {
 
     @ManyToOne
     @JoinColumn(name = "photo_record_id")
-    private PhotoRecordEntity photoRecord;
+    private PhotoRecord1Entity photoRecord;
 
 }

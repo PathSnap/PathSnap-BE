@@ -6,7 +6,7 @@ import com.pathsnap.Backend.PhotoRecord.Component.CheckPhotoRecord;
 import com.pathsnap.Backend.PhotoRecord.Component.EditPhotoRecord;
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
-import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
+import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecord1Entity;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class EditPhotoService {
     public PhotoRecordResDto editPhoto(PhotoRecordReqDto request) {
 
         // photoId 있는지 확인
-        PhotoRecordEntity photoRecordEdit = photoRecordCheck.exec(request.getPhotoId());
+        PhotoRecord1Entity photoRecordEdit = photoRecordCheck.exec(request.getPhotoId());
 
         // photoRecord 수정
         photoRecordEdit = editPhotoRecord.exec(photoRecordEdit, request);
@@ -34,7 +34,7 @@ public class EditPhotoService {
         photoRecordEdit.setImagePhotos(updatedImagePhotos);
 
         // Edited photoRecord 저장
-        PhotoRecordEntity updatedPhotoRecord = photoRecordRepository.save(photoRecordEdit);
+        PhotoRecord1Entity updatedPhotoRecord = photoRecordRepository.save(photoRecordEdit);
 
         return PhotoRecordResDto.builder()
                 .photoId(updatedPhotoRecord.getPhotoRecordId())

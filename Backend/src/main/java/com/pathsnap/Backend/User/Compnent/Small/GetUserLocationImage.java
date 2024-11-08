@@ -4,7 +4,7 @@ import com.pathsnap.Backend.Image.Dto.Res.ImageListResDto;
 import com.pathsnap.Backend.Image.Dto.Res.ImageResDto;
 import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhotoEntity;
 import com.pathsnap.Backend.ImagePhoto.Repository.ImagePhotoRepository;
-import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
+import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecord1Entity;
 import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,7 @@ public class GetUserLocationImage {
 
     // recordId로 이미지 리스트 가져오는 메서드
     public ImageListResDto exec(String recordId) {
-        List<PhotoRecordEntity> photos = photoRecordRepository.findByRecord_RecordId(recordId);
+        List<PhotoRecord1Entity> photos = photoRecordRepository.findByRecord_RecordId(recordId);
         ImageListResDto imageListResDto = new ImageListResDto(new ArrayList<>());
 
         if (!photos.isEmpty()) {

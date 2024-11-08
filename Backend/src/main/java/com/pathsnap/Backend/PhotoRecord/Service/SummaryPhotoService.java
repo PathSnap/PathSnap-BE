@@ -5,7 +5,7 @@ import com.pathsnap.Backend.Image.Entity.ImageEntity;
 import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhotoEntity;
 import com.pathsnap.Backend.PhotoRecord.Component.CheckPhotoRecord;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoSummaryResDto;
-import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecordEntity;
+import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecord1Entity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.Comparator;
@@ -17,7 +17,7 @@ public class SummaryPhotoService {
     private final CheckPhotoRecord photoRecordCheck;
 
     public PhotoSummaryResDto getSummaryPhoto(String photoId){
-        PhotoRecordEntity photoRecordSummary = photoRecordCheck.exec(photoId);
+        PhotoRecord1Entity photoRecordSummary = photoRecordCheck.exec(photoId);
 
         ImagePhotoEntity firstImage = photoRecordSummary.getImagePhotos().stream()
                 .min(Comparator.comparing(ImagePhotoEntity::getImagePhotoId))
