@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name = "user")
-@Table
+@Entity
+@Table(name = "user")
 @Data
 @Builder
 @AllArgsConstructor

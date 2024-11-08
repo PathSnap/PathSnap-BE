@@ -8,8 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "image_photo")
-@Table
+@Entity
+@Table(name = "image_photo")
 @Data
 @Builder
 @AllArgsConstructor

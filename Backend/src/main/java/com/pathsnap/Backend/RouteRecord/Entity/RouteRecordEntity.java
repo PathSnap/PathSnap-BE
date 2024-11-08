@@ -13,8 +13,8 @@ import java.util.List;
 
 
 
-@Entity(name = "route_record")
-@Table
+@Entity
+@Table(name = "route_record")
 @Data
 @Builder
 @AllArgsConstructor

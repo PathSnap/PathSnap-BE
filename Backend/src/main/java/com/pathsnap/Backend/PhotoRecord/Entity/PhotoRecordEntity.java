@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name = "photo_record")
-@Table
+@Entity
+@Table(name = "photo_record")
 @Data
 @Builder
 @AllArgsConstructor
