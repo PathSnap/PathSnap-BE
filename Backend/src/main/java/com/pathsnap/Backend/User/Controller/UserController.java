@@ -4,9 +4,7 @@ import com.pathsnap.Backend.User.Dto.Res.CalendarResDto;
 import com.pathsnap.Backend.User.Dto.Res.LocationResDto;
 import com.pathsnap.Backend.User.Dto.Req.UserUpdateReqDto;
 import com.pathsnap.Backend.User.Dto.Res.UserResDto;
-import com.pathsnap.Backend.User.Service.CalendarListService;
-import com.pathsnap.Backend.User.Service.LocationService;
-import com.pathsnap.Backend.User.Service.UserService;
+import com.pathsnap.Backend.User.Service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,17 +14,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/profiles")
 public class UserController {
 
-    private final UserService userService;
+    private final GetProfileService profileGetService;
+    private final UpdateProfileService profileUpdateService;
 
-    private final LocationService locationService;
+    private final GetUserLocationService getLocationService;
 
-    private final CalendarListService calendarService;
+    private final GetCalendarService calendarService;
 
 
     // 프로필 정보 불러오기
     @GetMapping("/{userId}")
     public ResponseEntity<UserResDto> getProfile(@PathVariable String userId) {
-        return ResponseEntity.ok(userService.getProfile(userId));
+        return ResponseEntity.ok(profileGetService.getProfile(userId));
     }
 
     // 프로필 정보 수정
@@ -34,13 +33,13 @@ public class UserController {
     public ResponseEntity<UserResDto> updateProfile(
             @PathVariable String userId,
             @RequestBody UserUpdateReqDto userUpdateReqDTO) {
-        return ResponseEntity.ok(userService.updateProfile(userId, userUpdateReqDTO));
+        return ResponseEntity.ok(profileUpdateService.updateProfile(userId, userUpdateReqDTO));
     }
 
     // 여행 이미지 가져오기
     @GetMapping("/location/{userId}")
     public ResponseEntity<LocationResDto> getLocation(@PathVariable String userId) {
-        return ResponseEntity.ok(locationService.getLocations(userId));
+        return ResponseEntity.ok(getLocationService.getLocations(userId));
     }
 
     // 달력 불러오기

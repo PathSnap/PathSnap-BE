@@ -1,24 +1,24 @@
-package com.pathsnap.Backend.User.Service;
+package com.pathsnap.Backend.User.Compnent;
 
 import com.pathsnap.Backend.PackTrip.Dto.Res.PackTripResDto;
 import com.pathsnap.Backend.PackTrip.Entity.PackTripEntity;
 import com.pathsnap.Backend.PackTrip.Repository.PackTripRepository;
 import com.pathsnap.Backend.TripDate.Entity.TripDateEntity;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
+@Component
 @RequiredArgsConstructor
-public class CalendarPackTripService {
+public class GetCalendarPackTrip {
 
     private final PackTripRepository packTripRepository;
 
     // 달력 불러오기
-    public List<PackTripResDto> getPackTrips(String userId, Integer month) {
+    public List<PackTripResDto> exec(String userId, Integer month) {
 
         // userId로 packTrip 불러오기
         List<PackTripEntity> packTrips = packTripRepository.findByUser_UserId(userId);

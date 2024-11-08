@@ -3,6 +3,8 @@ package com.pathsnap.Backend.Record.Repository;
 import com.pathsnap.Backend.Record.Entity.RecordEntity;
 import com.pathsnap.Backend.User.Entity.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,4 +20,8 @@ public interface RecordRepository extends JpaRepository<RecordEntity,String>{
     List<RecordEntity> findByUser(UserEntity user);
 
     List<RecordEntity> findByUser_UserId(String userId);
+
+    // SQL 쿼리를 사용하여 userId와 startDate 기준으로 정렬
+    @Query("SELECT r FROM RecordEntity r WHERE r.user.userId = :userId ORDER BY r.startDate ASC")
+    List<RecordEntity> findByUser_UserIdOrderByStartDateAsc(@Param("userId") String userId);
 }

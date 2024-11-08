@@ -1,5 +1,6 @@
 package com.pathsnap.Backend.User.Dto.Res;
 
+import com.pathsnap.Backend.Image.Dto.Res.ImageResDto;
 import com.pathsnap.Backend.S3.Dto.Res.S3ResDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +16,6 @@ public class UserResDto {
     private String userName;
     private Date birthDate;
     private String phoneNumber;
-    private List<S3ResDto> images;
+    private List<ImageResDto> images;
 
 }
