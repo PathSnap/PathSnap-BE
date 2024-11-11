@@ -12,9 +12,8 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @RedisHash(value = "room")
-public class RoomRedisResDto {
+public class SaveRedisRoomDto {
 
     @Id
     private String roomId;
-    private LocalDateTime createdAt;
 }

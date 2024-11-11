@@ -1,13 +1,12 @@
 package com.pathsnap.Backend.WebSocket.Service;
 
 import com.pathsnap.Backend.Record.Component.CreateRecord;
-import com.pathsnap.Backend.Record.Dto.Res.RecordStartDTO;
 import com.pathsnap.Backend.Record.Entity.Record1Entity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.User.Compnent.UserCheck;
 import com.pathsnap.Backend.User.Entity.User1Entity;
 import com.pathsnap.Backend.WebSocket.Dto.Res.GroupRecordStartResDto;
-import com.pathsnap.Backend.WebSocket.Dto.Res.RoomRedisResDto;
+import com.pathsnap.Backend.WebSocket.Dto.Res.SaveRedisRoomDto;
 import com.pathsnap.Backend.WebSocket.Repository.RoomRedisRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,10 +35,9 @@ public class CreateGroupRecordService {
 
         // roomId 생성
         String roomId = UUID.randomUUID().toString();
-        LocalDateTime createdAt = LocalDateTime.now();
 
         //roomId Redis에 저장
-        RoomRedisResDto roomRedisResDto = new RoomRedisResDto(roomId, createdAt);
+        SaveRedisRoomDto roomRedisResDto = new SaveRedisRoomDto(roomId);
         roomRedisRepository.save(roomRedisResDto);
 
 
