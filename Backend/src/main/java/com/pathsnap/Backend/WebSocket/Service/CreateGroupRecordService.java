@@ -7,9 +7,12 @@ import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.User.Compnent.UserCheck;
 import com.pathsnap.Backend.User.Entity.User1Entity;
 import com.pathsnap.Backend.WebSocket.Dto.Res.GroupRecordStartResDto;
+import com.pathsnap.Backend.WebSocket.Dto.Res.RoomRedisResDto;
+import com.pathsnap.Backend.WebSocket.Repository.RoomRedisRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -17,6 +20,7 @@ import java.util.UUID;
 public class CreateGroupRecordService {
 
     private final RecordRepository recordRepository;
+    private final RoomRedisRepository roomRedisRepository;
     private final CreateRecord createRecord;
     private final UserCheck userCheck;
 
@@ -32,6 +36,12 @@ public class CreateGroupRecordService {
 
         // roomId 생성
         String roomId = UUID.randomUUID().toString();
+        LocalDateTime createdAt = LocalDateTime.now();
+
+        //roomId Redis에 저장
+        RoomRedisResDto roomRedisResDto = new RoomRedisResDto(roomId, createdAt);
+        roomRedisRepository.save(roomRedisResDto);
+
 
         return GroupRecordStartResDto.builder()
                 .recordId(record.getRecordId())

@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.WebSocket.Redis;
+package com.pathsnap.Backend.WebSocket.Dto.Res;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,13 +11,10 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @AllArgsConstructor
-@RedisHash(value = "people", timeToLive = 30)
-public class Person {
+@RedisHash(value = "room")
+public class RoomRedisResDto {
 
     @Id
-    private String id;
-    private String name;
-    private Integer age;
+    private String roomId;
     private LocalDateTime createdAt;
-
 }
