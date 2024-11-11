@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.Redis.Config;
+package com.pathsnap.Backend.WebSocket.Config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

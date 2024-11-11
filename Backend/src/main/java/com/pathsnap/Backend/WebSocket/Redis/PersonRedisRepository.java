@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.Redis;
+package com.pathsnap.Backend.WebSocket.Redis;
 
 import org.springframework.data.repository.CrudRepository;
 

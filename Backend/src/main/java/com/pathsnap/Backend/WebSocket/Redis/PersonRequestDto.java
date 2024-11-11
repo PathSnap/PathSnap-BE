@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.Redis;
+package com.pathsnap.Backend.WebSocket.Redis;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
