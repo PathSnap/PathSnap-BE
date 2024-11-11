@@ -24,3 +24,8 @@ spring:
                 bucket: ${S3_BUCKET_NAME}
             stack:
                 auto: false
+#    로컬 redis
+    data:
+        redis:
+            host: localhost
+            port: 6379
