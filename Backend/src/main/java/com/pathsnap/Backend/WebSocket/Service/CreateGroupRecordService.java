@@ -6,7 +6,7 @@ import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.User.Compnent.UserCheck;
 import com.pathsnap.Backend.User.Entity.User1Entity;
 import com.pathsnap.Backend.WebSocket.Dto.Res.RecordStartResDto;
-import com.pathsnap.Backend.WebSocket.Room;
+import com.pathsnap.Backend.WebSocket.Entity.Room;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.WebSocket;
+package com.pathsnap.Backend.WebSocket.Entity;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Getter
-
 public class Room {
     private String roomId;
     private Set<WebSocketSession> sessions = new HashSet<>();
