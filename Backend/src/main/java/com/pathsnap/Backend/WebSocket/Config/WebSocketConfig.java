@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.WebSocket;
+package com.pathsnap.Backend.WebSocket.Config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(webSocketHandler, "ws/chat").setAllowedOrigins("*");
+        registry.addHandler(webSocketHandler, "ws").setAllowedOrigins("*");
 
     }
 }
