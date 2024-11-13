@@ -28,7 +28,7 @@ public class WebSocketController {
     // 로그 객체를 선언
     private static final Logger log = LoggerFactory.getLogger(WebSocketController.class);
 
-    // record 생성
+    // record, room 생성
     @GetMapping("/records/start/{userId}/{recordIsGroup}")
     public WebSocketRecordResDto createRoom(@PathVariable String userId, @PathVariable boolean recordIsGroup) {
         return createGroupRecordService.createRoom(userId, recordIsGroup);
@@ -36,7 +36,7 @@ public class WebSocketController {
 
     // route 생성
     @MessageMapping("/routes/start/{recordId}/{roomId}")
-    public void chat(@DestinationVariable String recordId, @DestinationVariable String roomId) {
+    public void CreateRoute(@DestinationVariable String recordId, @DestinationVariable String roomId) {
         RouteRecordStartDto response = createRouteRecordService.startRoute(recordId);
 
         simpMessagingTemplate.convertAndSend("/sub/routes/" + roomId, response);
