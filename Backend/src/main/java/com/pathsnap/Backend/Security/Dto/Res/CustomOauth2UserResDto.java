@@ -8,13 +8,12 @@ import java.util.Collection;
 import java.util.Map;
 
 
-public class Oauth2UserRes implements OAuth2User{
-    private final OAuth2Res oAuth2Res;
-    private final String role;
+public class CustomOauth2UserResDto implements OAuth2User{
+    private Oauth2UserResDto oauth2UserResDto;
 
-    public Oauth2UserRes(OAuth2Res oAuth2Res, String role) {
-        this.oAuth2Res = oAuth2Res;
-        this.role = role;
+    public CustomOauth2UserResDto(Oauth2UserResDto oauth2UserResDto) {
+
+        this.oauth2UserResDto = oauth2UserResDto;
     }
 
     @Override
@@ -32,25 +31,27 @@ public class Oauth2UserRes implements OAuth2User{
             @Override
             public String getAuthority() {
 
-                return role;
+                return oauth2UserResDto.getRole();
             }
         });
 
         return collection;
     }
 
+
     @Override
     public String getName() {
 
-        return oAuth2Res.getName();
-    }
-
-    public String getUserName() {
-
-        return oAuth2Res.getProvider()+" "+oAuth2Res.getProviderId();
+        return oauth2UserResDto.getName(); // 빈 문자열 반환
     }
 
     public String getEmail(){
-        return oAuth2Res.getEmail();
+        return oauth2UserResDto.getEmail();
+
     }
+    public String getUserName() {
+
+        return oauth2UserResDto.getUserName();
+    }
+
 }

@@ -1,33 +1,36 @@
 package com.pathsnap.Backend.Security.Dto.Res;
 
+import lombok.RequiredArgsConstructor;
 import java.util.Map;
+import java.util.Optional;
 
-public class NaverRes implements OAuth2Res{
+public class NaverRes implements OAuth2Res {
 
-    private final Map<String,Object> attribute;
-
+    private final Map<String, Object> attribute;
     public NaverRes(Map<String,Object> attribute){
-
-        this.attribute =(Map<String,Object>)attribute.get("response");
+        this.attribute = (Map<String, Object>) attribute.get("response");
     }
 
     @Override
-    public String getProvider(){
+    public String getProvider() {
         return "naver";
     }
 
     @Override
-    public String getProviderId(){
+    public String getProviderId() {
         return (String) attribute.get("id");
     }
 
     @Override
     public String getName() {
+
         return (String) attribute.get("name");
     }
 
     @Override
     public String getEmail() {
+
         return (String) attribute.get("email");
     }
+
 }

@@ -32,7 +32,10 @@ public class User1Entity {
     private Date birthDate;
     private String email;
     private String userName;
+    private String name;
     private String role;
+    private String provider;
+    private String provideId;
     private double lat;
     private double lng;
 
