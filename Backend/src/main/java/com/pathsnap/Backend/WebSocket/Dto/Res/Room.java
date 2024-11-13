@@ -1,11 +1,14 @@
 package com.pathsnap.Backend.WebSocket.Dto.Res;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
+
 @Getter
+@Builder
 @AllArgsConstructor
-public class RecordStartResDto {
+public class Room {
     private String roomId;
-    private String recordId;
+
 }
