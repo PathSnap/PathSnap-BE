@@ -1,9 +1,9 @@
 package com.pathsnap.Backend.Config;
 
-import com.pathsnap.Backend.Security.Jwt.Component.JwtFilter;
-import com.pathsnap.Backend.Security.Service.CustomOAuth2UserService;
-import com.pathsnap.Backend.Security.Service.CustomSuccessHandler;
-import com.pathsnap.Backend.Security.Jwt.Component.JwtUtil;
+import com.pathsnap.Backend.Oauth2Login.Jwt.Component.JwtFilter;
+import com.pathsnap.Backend.Oauth2Login.Service.CustomOAuth2UserService;
+import com.pathsnap.Backend.Oauth2Login.Service.CustomSuccessHandler;
+import com.pathsnap.Backend.Oauth2Login.Jwt.Component.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -64,6 +63,7 @@ public class SecurityConfig {
         //JwtFilter 추가
         http
                 .addFilterAfter(new JwtFilter(jwtUtil), OAuth2LoginAuthenticationFilter.class);
+
         //oauth2
         http
                 .oauth2Login((oauth2) -> oauth2

@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.Security.Jwt.Component;
+package com.pathsnap.Backend.Oauth2Login.Jwt.Component;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,9 +18,9 @@ public class JwtUtil {
 
     }
 
-    public String getUsername(String token) {
+    public String getUserId(String token) {
 
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("username", String.class);
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("userId", String.class);
     }
     public String getRole (String token){
 
@@ -31,10 +31,10 @@ public class JwtUtil {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
     }
 
-    public String createJwt (String username, String role, Long expiredMs){
+    public String createJwt (String userId, String role, Long expiredMs){
 
         return Jwts.builder()
-                    .claim("username", username)
+                    .claim("userId", userId)
                     .claim("role", role)
                     .issuedAt(new Date(System.currentTimeMillis()))
                     .expiration(new Date(System.currentTimeMillis() + expiredMs))

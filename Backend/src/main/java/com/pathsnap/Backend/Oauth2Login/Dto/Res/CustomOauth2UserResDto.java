@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.Security.Dto.Res;
+package com.pathsnap.Backend.Oauth2Login.Dto.Res;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -49,9 +49,9 @@ public class CustomOauth2UserResDto implements OAuth2User{
         return oauth2UserResDto.getEmail();
 
     }
-    public String getUserName() {
+    public String getUserId() {
 
-        return oauth2UserResDto.getUserName();
+        return oauth2UserResDto.getUserId();
     }
 
 }

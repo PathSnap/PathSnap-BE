@@ -1,8 +1,6 @@
-package com.pathsnap.Backend.Security.Dto.Res;
+package com.pathsnap.Backend.Oauth2Login.Dto.Res;
 
-import lombok.RequiredArgsConstructor;
 import java.util.Map;
-import java.util.Optional;
 
 public class NaverRes implements OAuth2Res {
 

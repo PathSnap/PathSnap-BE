@@ -1,7 +1,7 @@
-package com.pathsnap.Backend.Security.Service;
+package com.pathsnap.Backend.Oauth2Login.Service;
 
-import com.pathsnap.Backend.Security.Dto.Res.CustomOauth2UserResDto;
-import com.pathsnap.Backend.Security.Jwt.Component.JwtUtil;
+import com.pathsnap.Backend.Oauth2Login.Dto.Res.CustomOauth2UserResDto;
+import com.pathsnap.Backend.Oauth2Login.Jwt.Component.JwtUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,18 +24,23 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-        //OAuth2User
+        //인증된 사용자 정보 가져오기
         CustomOauth2UserResDto customUserDetails = (CustomOauth2UserResDto) authentication.getPrincipal();
 
-        String username = customUserDetails.getUserName();
+        String userId = customUserDetails.getUserId();
 
+        //사용자의 권한 목록 가져오기
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
         GrantedAuthority auth = iterator.next();
+
+        //GrantedAuthority에서 첫번째 권한을 role 변수에 저장
         String role = auth.getAuthority();
 
-        String token = jwtUtil.createJwt(username, role, 60*60*60L);
-
+        //jwt token 생성
+        String token = jwtUtil.createJwt(userId, role, 604800L);
+        System.out.println("token = "+ token);
+        //jwt token을 담은 cookie 생성후 응답에 추가
         response.addCookie(createCookie("Authorization", token));
         response.sendRedirect("http://localhost:3000/");
     }

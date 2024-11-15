@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.Security.Dto.Res;
+package com.pathsnap.Backend.Oauth2Login.Dto.Res;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,5 @@ public class Oauth2UserResDto{
     private String userId;
     private String name;
     private String email;
-    private String userName;
-
 }
 

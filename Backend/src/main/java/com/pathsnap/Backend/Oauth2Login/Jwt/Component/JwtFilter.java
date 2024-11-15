@@ -1,8 +1,8 @@
-package com.pathsnap.Backend.Security.Jwt.Component;
+package com.pathsnap.Backend.Oauth2Login.Jwt.Component;
 
 
-import com.pathsnap.Backend.Security.Dto.Res.CustomOauth2UserResDto;
-import com.pathsnap.Backend.Security.Dto.Res.Oauth2UserResDto;
+import com.pathsnap.Backend.Oauth2Login.Dto.Res.CustomOauth2UserResDto;
+import com.pathsnap.Backend.Oauth2Login.Dto.Res.Oauth2UserResDto;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -59,13 +59,13 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-        //토큰에서 username과 role 획득
-        String username = jwtUtil.getUsername(token);
+        //토큰에서 userId와 role 획득
+        String userId = jwtUtil.getUserId(token);
         String role = jwtUtil.getRole(token);
 
         //userDTO를 생성하여 값 set
         Oauth2UserResDto oauth2UserResDto = new Oauth2UserResDto();
-        oauth2UserResDto.setUserName(username);
+        oauth2UserResDto.setUserId(userId);
         oauth2UserResDto.setRole(role);
 
         //UserDetails에 회원 정보 객체 담기

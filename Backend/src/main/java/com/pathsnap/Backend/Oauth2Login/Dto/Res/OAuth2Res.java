@@ -1,4 +1,4 @@
-package com.pathsnap.Backend.Security.Dto.Res;
+package com.pathsnap.Backend.Oauth2Login.Dto.Res;
 
 public interface OAuth2Res {
 
