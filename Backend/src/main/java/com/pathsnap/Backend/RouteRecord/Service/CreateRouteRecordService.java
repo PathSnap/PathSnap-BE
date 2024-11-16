@@ -17,13 +17,13 @@ public class CreateRouteRecordService {
     private final CreateRouteRecord createRouteRecord;
     private final RouteRecordRepository routeRecordRepository;
 
-    public RouteRecordStartDto startRoute(String recordId){
+    public RouteRecordStartDto startRoute(String recordId, int seq){
 
         //recordId 있는지 확인
         Record1Entity record = recordCheck.exec(recordId);
 
         //routeRecord 생성
-        RouteRecord1Entity routeRecord= createRouteRecord.exec(record);
+        RouteRecord1Entity routeRecord= createRouteRecord.exec(record, seq);
 
         //routeRecord 저장
         routeRecordRepository.save(routeRecord);

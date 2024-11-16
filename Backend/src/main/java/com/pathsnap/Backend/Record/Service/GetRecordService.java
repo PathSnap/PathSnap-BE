@@ -39,11 +39,8 @@ public class GetRecordService {
                 .recordName(record.getRecordName())
                 .isGroup(record.isRecordIsGroup())
                 .photoRecords(getPhotoRecord.exec(recordId)) // 포토기록을 조회
-                .routeRecords(getRouteRecord.exec(recordId)) // 경로기록을 조회
+                .routeRecords(determineTransportMode.exec(getRouteRecord.exec(recordId))) // 경로기록을 조회
                 .build();
-
-        //각 경로의 이동 수단 결정
-        determineTransportMode.exec(getRouteRecord.exec(recordId));
 
         return response;
     }
