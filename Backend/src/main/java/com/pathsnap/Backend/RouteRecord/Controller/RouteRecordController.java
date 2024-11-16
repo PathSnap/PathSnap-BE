@@ -16,10 +16,10 @@ public class RouteRecordController {
     private final CreateRouteRecordService createRouteRecordService;
     private final EditRouteRecordService editRouteRecordService;
 
-    @GetMapping("/start/{recordId}")
-    public ResponseEntity<RouteRecordStartDto> RouteRecordStart(@PathVariable String recordId){
+    @GetMapping("/start/{recordId}/{seq}")
+    public ResponseEntity<RouteRecordStartDto> RouteRecordStart(@PathVariable String recordId, @PathVariable int seq){
 
-        return ResponseEntity.ok(createRouteRecordService.startRoute(recordId));
+        return ResponseEntity.ok(createRouteRecordService.startRoute(recordId, seq));
 
     }
 

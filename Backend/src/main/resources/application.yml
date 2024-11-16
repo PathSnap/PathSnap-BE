@@ -11,7 +11,7 @@ spring:
     jpa:
         hibernate:
             dialect: org.hibernate.dialect.MySQL8Dialect
-            ddl-auto: create
+            ddl-auto: update
         show-sql: true
     cloud:
         aws:
@@ -24,3 +24,8 @@ spring:
                 bucket: ${S3_BUCKET_NAME}
             stack:
                 auto: false
+springdoc:
+    swagger-ui:
+        path: /swagger-ui.html
+    api-docs:
+        enabled: true

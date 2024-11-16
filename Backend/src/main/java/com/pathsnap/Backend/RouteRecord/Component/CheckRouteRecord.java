@@ -6,6 +6,8 @@ import com.pathsnap.Backend.RouteRecord.Repository.RouteRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class CheckRouteRecord {
@@ -13,5 +15,9 @@ public class CheckRouteRecord {
     public RouteRecord1Entity exec(String routeRecordId) {
         return routeRecordRepository.findById(routeRecordId)
                 .orElseThrow(() -> new RouteRecordNotFoundException(routeRecordId));
+    }
+
+    public List<RouteRecord1Entity> exec2(String recordId) {
+        return routeRecordRepository.findByRecordIdWithCoordinates(recordId);
     }
 }

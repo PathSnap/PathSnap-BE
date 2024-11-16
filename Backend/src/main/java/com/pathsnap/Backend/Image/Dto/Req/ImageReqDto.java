@@ -11,5 +11,4 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ImageReqDto {
     private String imageId;
-    private String url;
 }

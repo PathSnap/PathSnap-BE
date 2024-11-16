@@ -1,6 +1,7 @@
 package com.pathsnap.Backend.PhotoRecord.Controller;
 
-import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordReqDto;
+import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordCreateReqDto;
+import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordEditReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoLocationResDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoSummaryResDto;
@@ -32,12 +33,12 @@ public class PhotoRecordController {
 
     @PostMapping("/create/{recordId}")
     public ResponseEntity<PhotoRecordResDto> addPhoto(@PathVariable String recordId,
-                                                      @RequestBody PhotoRecordReqDto request) {
+                                                      @RequestBody PhotoRecordCreateReqDto request) {
         return ResponseEntity.ok(photoRecordService.createPhoto(recordId, request));
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<PhotoRecordResDto> editPhoto(@RequestBody PhotoRecordReqDto request) {
+    public ResponseEntity<PhotoRecordResDto> editPhoto(@RequestBody PhotoRecordEditReqDto request) {
         return ResponseEntity.ok(editPhotoService.editPhoto(request));
     }
   
