@@ -6,6 +6,8 @@ import com.pathsnap.Backend.PhotoRecord.Repository.PhotoRecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class CheckPhotoRecord {
@@ -15,5 +17,9 @@ public class CheckPhotoRecord {
     public PhotoRecord1Entity exec(String photoRecordId) {
         return photoRecordRepository.findById(photoRecordId)
                 .orElseThrow(() -> new RecordNotFoundException(photoRecordId));
+    }
+
+    public List<PhotoRecord1Entity> exec2(String recordId) {
+        return photoRecordRepository.findByRecord_RecordId(recordId);
     }
 }

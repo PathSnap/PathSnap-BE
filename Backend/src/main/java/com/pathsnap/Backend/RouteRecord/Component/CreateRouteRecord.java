@@ -12,7 +12,7 @@ import java.util.UUID;
 @Component
 public class CreateRouteRecord {
 
-    public RouteRecord1Entity exec(Record1Entity record) {
+    public RouteRecord1Entity exec(Record1Entity record, int seq) {
 
         // 현재 날짜를 Date 형식으로 변환
         Date startDate = Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant());
@@ -22,7 +22,7 @@ public class CreateRouteRecord {
                 .routeId(UUID.randomUUID().toString())
                 .record(record)
                 .startDate(startDate)
-                .seq(0)
+                .seq(seq)
                 .build();
     }
 }

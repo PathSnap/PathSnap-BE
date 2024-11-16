@@ -2,13 +2,14 @@ package com.pathsnap.Backend.RouteRecord.Component;
 
 import com.pathsnap.Backend.Coordinate.Dto.Res.CoordinateResDto;
 import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordResDto;
+import com.pathsnap.Backend.RouteRecord.Entity.TransportMode;
 import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
 public class DetermineTransportMode{
 
-    public void exec(List<RouteRecordResDto> routes) {
+    public List<RouteRecordResDto> exec(List<RouteRecordResDto> routes) {
         for (RouteRecordResDto route : routes) {
             List<CoordinateResDto> coordinates = route.getCoordinates();
 
@@ -36,12 +37,13 @@ public class DetermineTransportMode{
 
                 // 평균 속도를 기준으로 이동 수단 결정
                 if (averageSpeed < 1.4) {  // 걷기 속도 기준 (1.4 m/s 이하)
-                    route.setTransportMode("Walking");
+                    route.setTransportMode(TransportMode.WALK);
                 } else {  // 그 외는 차로 간주
-                    route.setTransportMode("Car");
+                    route.setTransportMode(TransportMode.CAR);
                 }
             }
         }
+        return routes;
     }
 
     private double calculateDistance(double lat1, double lng1, double lat2, double lng2) {

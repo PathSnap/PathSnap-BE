@@ -1,12 +1,10 @@
 package com.pathsnap.Backend.PhotoRecord.Entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.pathsnap.Backend.ImagePhoto.Entity.ImagePhoto1Entity;
 import com.pathsnap.Backend.Record.Entity.Record1Entity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,7 +30,10 @@ public class PhotoRecord1Entity {
     private int seq;
     private String photoTitle;
     private String photoContent;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date photoDate;
+
     private double lat;
     private double lng;
 

@@ -1,6 +1,6 @@
 package com.pathsnap.Backend.PhotoRecord.Component;
 
-import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordReqDto;
+import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordCreateReqDto;
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecord1Entity;
 import com.pathsnap.Backend.Record.Entity.Record1Entity;
 import org.springframework.stereotype.Component;
@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Component
 public class CreatePhotoRecord {
-    public PhotoRecord1Entity exec(String photoId, Record1Entity record, PhotoRecordReqDto request) {
+    public PhotoRecord1Entity exec(String photoId, Record1Entity record, PhotoRecordCreateReqDto request) {
 
         return PhotoRecord1Entity.builder()
                 .photoRecordId(photoId)
