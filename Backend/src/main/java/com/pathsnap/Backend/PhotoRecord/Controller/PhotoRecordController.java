@@ -19,7 +19,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/photos")
-public class PhotoRecordController {
+public class PhotoRecordController implements  PhotoRecordControllerDocs{
 
     private final CreatePhotoService photoRecordService;
 
@@ -63,4 +63,5 @@ public class PhotoRecordController {
         return ResponseEntity.ok().build();
 
     }
+
 }
