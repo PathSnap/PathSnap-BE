@@ -5,7 +5,6 @@ import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordEditReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Service.CreatePhotoService;
 import com.pathsnap.Backend.PhotoRecord.Service.EditPhotoService;
-import com.pathsnap.Backend.Record.Component.CheckRecord;
 import com.pathsnap.Backend.RouteRecord.Dto.Req.RouteReqDto;
 import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordStartDto;
 import com.pathsnap.Backend.RouteRecord.Service.CreateRouteRecordService;
@@ -70,7 +69,7 @@ public class WebSocketController {
     @Transactional
     @MessageMapping("/photos/edit/{recordId}")
     public void EditPhoto(PhotoRecordEditReqDto request, @DestinationVariable String recordId) {
-        //recordId 있는지 확인
+        //recordId 존재하는지 확인
         webSocketAuthService.getRecord(recordId);
 
         //photo 수정
