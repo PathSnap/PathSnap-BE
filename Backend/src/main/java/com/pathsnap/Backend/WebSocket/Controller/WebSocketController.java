@@ -1,8 +1,11 @@
 package com.pathsnap.Backend.WebSocket.Controller;
 
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordCreateReqDto;
+import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordEditReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Service.CreatePhotoService;
+import com.pathsnap.Backend.PhotoRecord.Service.EditPhotoService;
+import com.pathsnap.Backend.Record.Component.CheckRecord;
 import com.pathsnap.Backend.RouteRecord.Dto.Req.RouteReqDto;
 import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordStartDto;
 import com.pathsnap.Backend.RouteRecord.Service.CreateRouteRecordService;
@@ -21,11 +24,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class WebSocketController {
     private final SimpMessagingTemplate simpMessagingTemplate;
-
     private final WebSocketAuthService webSocketAuthService;
+
     private final CreateRouteRecordService createRouteRecordService;
     private final EditRouteRecordService editRouteRecordService;
+
     private final CreatePhotoService photoRecordService;
+    private final EditPhotoService editPhotoService;
 
     // route 생성
     @MessageMapping("/routes/start/{userId}/{recordId}/{seq}")
@@ -57,6 +62,19 @@ public class WebSocketController {
     public void CreatePhoto(PhotoRecordCreateReqDto request, @DestinationVariable String recordId) {
         //photo 저장
         PhotoRecordResDto response = photoRecordService.createPhoto(recordId, request);
+
+        simpMessagingTemplate.convertAndSend("/sub/photos/" + recordId, response);
+    }
+
+    // photo 데이터 수정
+    @Transactional
+    @MessageMapping("/photos/edit/{recordId}")
+    public void EditPhoto(PhotoRecordEditReqDto request, @DestinationVariable String recordId) {
+        //recordId 있는지 확인
+        webSocketAuthService.getRecord(recordId);
+
+        //photo 수정
+        PhotoRecordResDto response = editPhotoService.editPhoto(request);
 
         simpMessagingTemplate.convertAndSend("/sub/photos/" + recordId, response);
     }
