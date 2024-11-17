@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface RecordRepository extends JpaRepository<Record1Entity,String>{
@@ -24,4 +25,7 @@ public interface RecordRepository extends JpaRepository<Record1Entity,String>{
     // SQL 쿼리를 사용하여 userId와 startDate 기준으로 정렬
     @Query("SELECT r FROM Record1Entity r WHERE r.user.userId = :userId ORDER BY r.startDate ASC")
     List<Record1Entity> findByUser_UserIdOrderByStartDateAsc(@Param("userId") String userId);
+
+    // recordId로 Record1Entity를 조회
+    Optional<Record1Entity> findByRecordId(String recordId);
 }
