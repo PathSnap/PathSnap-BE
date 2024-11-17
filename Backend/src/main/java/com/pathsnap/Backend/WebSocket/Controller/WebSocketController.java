@@ -53,11 +53,8 @@ public class WebSocketController {
     }
 
     // photo 데이터 저장
-    @MessageMapping("/photos/create/{userId}/{recordId}")
-    public void CreatePhoto(PhotoRecordCreateReqDto request , @DestinationVariable String userId, @DestinationVariable String recordId) {
-        // userId 확인
-        webSocketAuthService.webSocketUser(userId, recordId);
-
+    @MessageMapping("/photos/create/{recordId}")
+    public void CreatePhoto(PhotoRecordCreateReqDto request, @DestinationVariable String recordId) {
         //photo 저장
         PhotoRecordResDto response = photoRecordService.createPhoto(recordId, request);
 
