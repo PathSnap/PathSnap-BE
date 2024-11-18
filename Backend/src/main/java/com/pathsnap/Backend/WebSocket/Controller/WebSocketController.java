@@ -4,6 +4,7 @@ import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordCreateReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordEditReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Service.CreatePhotoService;
+import com.pathsnap.Backend.PhotoRecord.Service.DeletePhotoService;
 import com.pathsnap.Backend.PhotoRecord.Service.EditPhotoService;
 import com.pathsnap.Backend.RouteRecord.Dto.Req.RouteReqDto;
 import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordStartDto;
@@ -30,6 +31,7 @@ public class WebSocketController {
 
     private final CreatePhotoService photoRecordService;
     private final EditPhotoService editPhotoService;
+    private final DeletePhotoService deletePhotoService;
 
     // route 생성
     @MessageMapping("/routes/start/{userId}/{recordId}/{seq}")
@@ -76,6 +78,18 @@ public class WebSocketController {
         PhotoRecordResDto response = editPhotoService.editPhoto(request);
 
         simpMessagingTemplate.convertAndSend("/sub/photos/" + recordId, response);
+    }
+
+    // photo 데이터 삭제
+    @MessageMapping("/photos/delete/{photoId}/{recordId}")
+    public void EditPhoto( @DestinationVariable String photoId, @DestinationVariable String recordId) {
+        //recordId 존재하는지 확인
+        webSocketAuthService.getRecord(recordId);
+
+        //photo 삭제
+        deletePhotoService.deletePhoto(photoId);
+
+        simpMessagingTemplate.convertAndSend("/sub/photos/" + recordId, "200 ok");
     }
 
 
