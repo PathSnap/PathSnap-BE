@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/routes")
-public class RouteRecordController {
+public class RouteRecordController implements RouteRecordControllerDocs{
 
     private final CreateRouteRecordService createRouteRecordService;
     private final EditRouteRecordService editRouteRecordService;
