@@ -16,17 +16,14 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "S3 API", description = "S3에 관한 Controller")
 @RequestMapping("/images")
-public class S3Controller {
+public class S3Controller implements S3ControllerDocs{
 
     private final CreateS3Service s3UploadService;
 
     private final DeleteS3Service deleteService;
 
     //S3 이미지 업로드
-
-    @Operation(summary = "S3 이미지 업로드", description = "이미지 파일을 업로드하여 imageId와 url 전달")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<List<S3ListResDto>> uploadImage(@ModelAttribute S3UploadReqDto imageReqDTO) {
         return ResponseEntity.ok(s3UploadService.uploadImages(imageReqDTO));
@@ -34,7 +31,6 @@ public class S3Controller {
 
 
     // 이미지 삭제
-    @Operation(summary = "S3 이미지 삭제", description = "S3와 이미지테이블 필드 삭제")
     @DeleteMapping("/{imageId}")
     public ResponseEntity<Void> deleteImage(@PathVariable String imageId) {
         deleteService.deleteImage(imageId);
