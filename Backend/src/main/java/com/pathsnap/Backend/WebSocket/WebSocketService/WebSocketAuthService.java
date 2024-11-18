@@ -11,17 +11,22 @@ public class WebSocketAuthService {
 
     private final CheckRecord checkRecord;
 
-    // 권한 확인
-    public void webSocketUser(String userId, String recordId) {
-        // record 불러오기
-        Record1Entity record = checkRecord.exec(recordId);
+    // record 조회
+    public Record1Entity getRecord(String recordId) {
+        return checkRecord.exec(recordId);
+    }
 
-        // record에서 userId 추출
+    // userId와 recordUserId 비교
+    private void checkUserAccess(String userId, Record1Entity record) {
         String recordUserId = record.getUser().getUserId();
-
-        // userId와 recordUserId 비교
         if (!userId.equals(recordUserId)) {
             throw new IllegalArgumentException("접근 권한이 없습니다.");
         }
+    }
+
+    // 비교 함수 호출
+    public void webSocketUser(String userId, String recordId) {
+        Record1Entity record = getRecord(recordId);
+        checkUserAccess(userId, record);
     }
 }
