@@ -59,16 +59,16 @@ public interface RecordControllerDocs {
             ) RecordUpdateReqDto request
     );
 
-    //Record 수정 api
-    @Operation(summary = "기록 수정", description = "수정된 기록을 받아 저장하고 전달")
+    //Record 이름 수정 api
+    @Operation(summary = "기록 이름 수정", description = "수정된 기록 이름을 받아 저장하고 전달")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "기록 수정 완료", content = @Content(
+            @ApiResponse(responseCode = "200", description = "기록 이름 수정 완료", content = @Content(
                     mediaType = "application/json",
-                    schema = @Schema(implementation = RecordUpdateResDto.class)))
+                    schema = @Schema(implementation = RecordEditResDto.class)))
     })
     ResponseEntity<RecordEditResDto> editRecordName(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "변경된 기록의 정보를 요청",
+                    description = "기록아이디와 변경된 기록 이름 요청",
                     required = true,
                     content = @Content(
                             schema = @Schema(implementation = RecordEditReqDto.class)
@@ -81,8 +81,8 @@ public interface RecordControllerDocs {
     @Operation(summary = "기록 삭제", description = "피라미터로 받은 기록을 삭제")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "기록 삭제 완료", content = @Content (
-                    mediaType = "application/json",
-                    schema = @Schema(implementation = RecordStartDTO.class)))
+                    mediaType = "application/json"
+            ))
     })
     ResponseEntity<Void> deleteRecord(String recordId);
 }
