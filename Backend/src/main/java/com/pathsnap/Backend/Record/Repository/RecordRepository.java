@@ -31,4 +31,5 @@ public interface RecordRepository extends JpaRepository<Record1Entity,String>{
             "LEFT JOIN FETCH r.friends f " +
             "WHERE r.recordId = :recordId")
     Optional<Record1Entity> findByIdWithUserAndFriends(@Param("recordId") String recordId);
+
 }
