@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/profiles")
-public class UserController {
+public class UserController implements UserControllerDocs{
 
     private final GetProfileService profileGetService;
     private final UpdateProfileService profileUpdateService;

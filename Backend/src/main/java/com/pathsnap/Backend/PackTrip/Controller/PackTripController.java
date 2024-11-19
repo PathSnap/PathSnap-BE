@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-public class PackTripController {
+public class PackTripController implements PackTripControllerDocs{
 
     private final CreatePackTripService packTripService;
 
