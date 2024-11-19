@@ -47,10 +47,8 @@ public interface UserControllerDocs {
                     )
             )
     })
-    @PatchMapping("/{userId}")
+    @PatchMapping
     ResponseEntity<UserResDto> updateProfile(
-            @Parameter(description = "수정할 사용자 ID", required = true)
-            @PathVariable String userId,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "사용자 프로필 정보 수정 요청 데이터",
                     required = true,
