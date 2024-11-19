@@ -25,7 +25,7 @@ public class S3Controller implements S3ControllerDocs{
 
     //S3 이미지 업로드
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<List<S3ListResDto>> uploadImage(@ModelAttribute S3UploadReqDto imageReqDTO) {
+    public ResponseEntity<S3ListResDto> uploadImage(@ModelAttribute S3UploadReqDto imageReqDTO) {
         return ResponseEntity.ok(s3UploadService.uploadImages(imageReqDTO));
     }
 
