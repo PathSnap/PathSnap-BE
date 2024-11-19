@@ -1,6 +1,5 @@
 package com.pathsnap.Backend.Friend.Controller;
 
-
 import com.pathsnap.Backend.Friend.Dto.Res.FriendAddResDto;
 import com.pathsnap.Backend.Friend.Dto.Res.FriendListResDto;
 import com.pathsnap.Backend.Friend.Dto.Res.FriendSearchResDto;
@@ -31,7 +30,7 @@ public interface FriendControllerDocs {
 
 
     //유저 추가 api
-    @Operation(summary = "기록에 유저 추가", description = "기록 아이디와 유저 아이디를 받아 기록에 유저를 추가")
+    @Operation(summary = "기록에 유저 추가", description = "기록에 유저를 추가하면 추가된 유저의 친구 아이디를 전달")
     @Parameters(value = {
             @Parameter(name = "recordId", description = "유저를 추가하려는 기록 아이디"),
             @Parameter(name = "userId", description = "기록에 추가하려는 유저")
@@ -39,7 +38,7 @@ public interface FriendControllerDocs {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "유저 추가 완료", content = @Content(
                     mediaType = "application/json",
-                    schema = @Schema(implementation = FriendListResDto.class)))
+                    schema = @Schema(implementation = FriendAddResDto.class)))
     })
     ResponseEntity<FriendAddResDto> addFriendToRecord(String userId, String recordId);
 
@@ -55,8 +54,8 @@ public interface FriendControllerDocs {
     ResponseEntity<List<FriendSearchResDto>> searchFriends(String name);
 
     //유저 삭제 api
-    @Parameter(name = "friendId", description = "삭제하려는 친구 아이디" )
-    @Operation(summary = "친구 삭제", description = "피라미터로 받은 친구를 삭제")
+    @Parameter(name = "friendId", description = "삭제하려는 팀원 아이디" )
+    @Operation(summary = "팀원 삭제", description = "피라미터로 받은 팀원 아이디로 삭제")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "친구 삭제 완료", content = @Content (
                     mediaType = "application/json"
