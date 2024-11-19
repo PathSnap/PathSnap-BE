@@ -1,5 +1,6 @@
 package com.pathsnap.Backend.Record.Entity;
 
+import com.pathsnap.Backend.Friend.Entity.Friend1Entity;
 import com.pathsnap.Backend.PhotoRecord.Entity.PhotoRecord1Entity;
 import com.pathsnap.Backend.RouteRecord.Entity.RouteRecord1Entity;
 import com.pathsnap.Backend.User.Entity.User1Entity;
@@ -9,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +27,9 @@ public class Record1Entity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User1Entity user;
+
+    @OneToMany(mappedBy = "record", cascade = CascadeType.ALL)
+    private List<Friend1Entity> friends;
 
     @OneToMany(mappedBy = "record", cascade = CascadeType.ALL)  // 양방향 관계 설정
     private List<PhotoRecord1Entity> photoRecords;

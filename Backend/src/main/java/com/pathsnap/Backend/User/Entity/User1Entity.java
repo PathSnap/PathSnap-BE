@@ -1,5 +1,6 @@
 package com.pathsnap.Backend.User.Entity;
 
+import com.pathsnap.Backend.Friend.Entity.Friend1Entity;
 import com.pathsnap.Backend.Image.Entity.Image1Entity;
 import com.pathsnap.Backend.Record.Entity.Record1Entity;
 import jakarta.persistence.*;
@@ -27,6 +28,9 @@ public class User1Entity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)  // 양방향 관계 설정
     private List<Record1Entity> records;
+
+    @OneToMany(mappedBy = "user")
+    private List<Friend1Entity> friends;
 
     private String phoneNumber;
     private Date birthDate;
