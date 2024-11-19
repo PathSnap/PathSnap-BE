@@ -1,9 +1,5 @@
 package com.pathsnap.Backend.RouteRecord.Controller;
 
-import com.pathsnap.Backend.Record.Dto.Req.RecordEditReqDto;
-import com.pathsnap.Backend.Record.Dto.Res.RecordEditResDto;
-import com.pathsnap.Backend.Record.Dto.Res.RecordStartDTO;
-import com.pathsnap.Backend.Record.Dto.Res.RecordUpdateResDto;
 import com.pathsnap.Backend.RouteRecord.Dto.Req.RouteReqDto;
 import com.pathsnap.Backend.RouteRecord.Dto.Res.RouteRecordStartDto;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,9 +9,11 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 
+
+@Tag(name = "경로 기록 API", description = "경로 기록에 관한 Controller")
 public interface RouteRecordControllerDocs {
 
     //경로 기록 시작 api
