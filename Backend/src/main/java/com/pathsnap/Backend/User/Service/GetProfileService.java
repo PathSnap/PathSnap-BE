@@ -29,6 +29,9 @@ public class GetProfileService {
                 user.getUserName(),
                 user.getBirthDate(),
                 user.getPhoneNumber(),
+                user.getAddress(),
+                user.getLat(),
+                user.getLng(),
                 images
         );
     }

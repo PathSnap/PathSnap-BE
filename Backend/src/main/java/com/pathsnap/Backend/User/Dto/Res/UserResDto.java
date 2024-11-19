@@ -16,6 +16,9 @@ public class UserResDto {
     private String userName;
     private Date birthDate;
     private String phoneNumber;
+    private String address;
+    private Double lat;
+    private Double lng;
     private List<ImageResDto> images;
 
 }
