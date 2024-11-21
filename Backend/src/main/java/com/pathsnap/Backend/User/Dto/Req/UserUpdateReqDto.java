@@ -9,6 +9,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class UserUpdateReqDto {
+    private String userId;
     private String userName;
     private Date birthDate;
     private String phoneNumber;

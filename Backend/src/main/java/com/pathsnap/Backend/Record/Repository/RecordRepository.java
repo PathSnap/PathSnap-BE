@@ -32,4 +32,9 @@ public interface RecordRepository extends JpaRepository<Record1Entity,String>{
             "WHERE r.recordId = :recordId")
     Optional<Record1Entity> findByIdWithUserAndFriends(@Param("recordId") String recordId);
 
+    //  SQL 쿼리를 사용하여 userId와 startDate 기준으로 정렬 && 월 기준 정렬
+    @Query("SELECT r FROM Record1Entity r WHERE r.user.userId = :userId AND " +
+            "MONTH(r.startDate) = :month ORDER BY r.startDate ASC")
+    List<Record1Entity> findByUserIdAndStartDateMonth(@Param("userId") String userId, @Param("month") int month);
+
 }

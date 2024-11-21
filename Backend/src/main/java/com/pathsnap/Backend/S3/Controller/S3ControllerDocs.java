@@ -26,7 +26,7 @@ public interface S3ControllerDocs {
                     schema = @Schema(implementation = S3ListResDto.class)
             )),
     })
-    ResponseEntity<List<S3ListResDto>> uploadImage(
+    ResponseEntity<S3ListResDto> uploadImage(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "업로드할 이미지 파일 리스트", // 요청 본문 설명
                     required = true, // 필수 여부

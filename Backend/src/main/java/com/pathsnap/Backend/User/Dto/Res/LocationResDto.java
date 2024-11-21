@@ -1,6 +1,6 @@
 package com.pathsnap.Backend.User.Dto.Res;
 
-import com.pathsnap.Backend.Image.Dto.Res.ImageListResDto;
+import com.pathsnap.Backend.Image.Dto.Res.ImageResDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +19,6 @@ public class LocationResDto {
     public static class LocationDto {
         private String recordId;
         private String recordName;
-        private ImageListResDto images;
+        private ImageResDto images;
     }
 }
