@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/profiles")
-public class UserController {
+public class UserController implements UserControllerDocs{
 
     private final GetProfileService profileGetService;
     private final UpdateProfileService profileUpdateService;
@@ -29,11 +29,10 @@ public class UserController {
     }
 
     // 프로필 정보 수정
-    @PatchMapping("/{userId}")
+    @PatchMapping
     public ResponseEntity<UserResDto> updateProfile(
-            @PathVariable String userId,
             @RequestBody UserUpdateReqDto userUpdateReqDTO) {
-        return ResponseEntity.ok(profileUpdateService.updateProfile(userId, userUpdateReqDTO));
+        return ResponseEntity.ok(profileUpdateService.updateProfile(userUpdateReqDTO.getUserId(), userUpdateReqDTO));
     }
 
     // 여행 이미지 가져오기

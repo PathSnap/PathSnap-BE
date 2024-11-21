@@ -29,9 +29,8 @@ public class GetCalendarService {
         // 사용자 존재 여부 확인 및 예외 처리
         checkUser.exec(userId);
 
-        // Date기준으로 오름차순 정렬
-        List<Record1Entity> records = recordRepository.findByUser_UserIdOrderByStartDateAsc(userId);
-
+        // 월에 해당하는 레코드만 가져오기
+        List<Record1Entity> records = recordRepository.findByUserIdAndStartDateMonth(userId, month);
 
         // getCalendar에서 반복문을 사용하여 calendarDto 생성
         List<CalendarResDto.CalendarDto> calendarDtos = getCalendar.exec(records);

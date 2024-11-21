@@ -1,6 +1,6 @@
 package com.pathsnap.Backend.User.Compnent;
 
-import com.pathsnap.Backend.Image.Dto.Res.ImageListResDto;
+import com.pathsnap.Backend.Image.Dto.Res.ImageResDto;
 import com.pathsnap.Backend.Record.Entity.Record1Entity;
 import com.pathsnap.Backend.User.Compnent.Small.GetUserLocationImage;
 import com.pathsnap.Backend.User.Dto.Res.LocationResDto;
@@ -20,11 +20,11 @@ public class GetUserLocation {
     public List<LocationResDto.LocationDto> exec(List<Record1Entity> records) {
         List<LocationResDto.LocationDto> locationDTOs = new ArrayList<>();
         for (Record1Entity record : records) {
-            ImageListResDto imageListResDto = getUserLocationImage.exec(record.getRecordId());
+            ImageResDto imageResDto = getUserLocationImage.exec(record.getRecordId());
             LocationResDto.LocationDto locationDto = new LocationResDto.LocationDto(
                     record.getRecordId(),
                     record.getRecordName(),
-                    imageListResDto
+                    imageResDto
             );
             locationDTOs.add(locationDto);
         }

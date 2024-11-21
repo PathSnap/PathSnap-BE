@@ -33,6 +33,16 @@ public class WebSocketController {
     private final EditPhotoService editPhotoService;
     private final DeletePhotoService deletePhotoService;
 
+    // record 저장
+    @Transactional
+    @MessageMapping("/records/save/{userId}/{recordId}")
+    public void SaveRecord(@DestinationVariable String userId, @DestinationVariable String recordId) {
+        // userId 확인
+        webSocketAuthService.webSocketUser(userId, recordId);
+
+        simpMessagingTemplate.convertAndSend("/sub/records/" + recordId, "closed");
+    }
+
     // route 생성
     @MessageMapping("/routes/start/{userId}/{recordId}/{seq}")
     public void CreateRoute(@DestinationVariable String userId, @DestinationVariable String recordId, @DestinationVariable Integer seq) {
