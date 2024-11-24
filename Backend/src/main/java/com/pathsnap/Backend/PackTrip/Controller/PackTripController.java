@@ -11,14 +11,13 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 @RequestMapping("/profiles/trips")
 @RequiredArgsConstructor
-public class PackTripController {
+public class PackTripController implements PackTripControllerDocs{
 
     private final CreatePackTripService packTripService;
 
-    @PostMapping("/{userId}")
+    @PostMapping("/profiles/trips")
     public ResponseEntity<PackTripResDto> createPackTrip(
-            @PathVariable String userId,
             @RequestBody PackTripReqDto packTripReqDTO) {
-        return ResponseEntity.ok(packTripService.createPackTrip(userId, packTripReqDTO));
+        return ResponseEntity.ok(packTripService.createPackTrip(packTripReqDTO.getUserId(), packTripReqDTO));
     }
 }

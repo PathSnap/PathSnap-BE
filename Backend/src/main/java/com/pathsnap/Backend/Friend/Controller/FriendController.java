@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/friends")
 
-public class FriendController {
+public class FriendController implements FriendControllerDocs {
     private final SearchFriendService searchFriendService;
     private final AddFriendService addFriendService;
     private final ListFriendService listFriendService;

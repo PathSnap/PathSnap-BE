@@ -1,6 +1,7 @@
 package com.pathsnap.Backend.User.Dto.Res;
 
-import com.pathsnap.Backend.Image.Dto.Res.ImageListResDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.pathsnap.Backend.Image.Dto.Res.ImageResDto;
 import com.pathsnap.Backend.PackTrip.Dto.Res.PackTripResDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,8 +22,9 @@ public class CalendarResDto {
     @AllArgsConstructor
     public static class CalendarDto {
         private String recordId;
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
         private Date startDate;
         private String recordName;
-        private ImageListResDto images;
+        private ImageResDto image;
     }
 }

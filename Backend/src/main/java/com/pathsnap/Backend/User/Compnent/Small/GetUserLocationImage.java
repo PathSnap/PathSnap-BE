@@ -21,9 +21,8 @@ public class GetUserLocationImage {
 
 
     // recordId로 이미지 리스트 가져오는 메서드
-    public ImageListResDto exec(String recordId) {
+    public ImageResDto exec(String recordId) {
         List<PhotoRecord1Entity> photos = photoRecordRepository.findByRecord_RecordId(recordId);
-        ImageListResDto imageListResDto = new ImageListResDto(new ArrayList<>());
 
         if (!photos.isEmpty()) {
             String photoRecordId = photos.get(0).getPhotoRecordId();
@@ -31,13 +30,12 @@ public class GetUserLocationImage {
 
             if (!imagePhotos.isEmpty()) {
                 ImagePhoto1Entity firstImagePhoto = imagePhotos.get(0);
-                ImageResDto imageResDto = new ImageResDto(
+                return new ImageResDto(
                         firstImagePhoto.getImage().getImageId(),
                         firstImagePhoto.getImage().getUrl()
                 );
-                imageListResDto.getImages().add(imageResDto);
             }
         }
-        return imageListResDto;
+        return null;
     }
 }

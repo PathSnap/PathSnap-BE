@@ -40,6 +40,7 @@ public class User1Entity {
     private String role;
     private String provider;
     private String provideId;
+    private String address;
     private double lat;
     private double lng;
     private boolean isFirstLogin;
