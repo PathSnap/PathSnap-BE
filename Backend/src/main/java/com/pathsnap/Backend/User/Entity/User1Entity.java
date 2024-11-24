@@ -42,5 +42,6 @@ public class User1Entity {
     private String provideId;
     private double lat;
     private double lng;
+    private boolean isFirstLogin;
 
 }
