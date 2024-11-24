@@ -52,6 +52,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             userEntity.setEmail(oAuth2Res.getEmail());
             userEntity.setName(oAuth2Res.getName());
             userEntity.setRole("ROLE_USER");
+            userEntity.setFirstLogin(true);
 
             userRepository.save(userEntity);
             //dto로 정보를 담아 반환
@@ -66,10 +67,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         //회원정보가 존재할 경우 이메일과 이름만 다시 갱신하여 저장
         else {
             User1Entity user1Entity = existData.get();
-            user1Entity.setEmail(oAuth2Res.getEmail());
-            user1Entity.setName(oAuth2Res.getName());
 
-            userRepository.save(user1Entity);
             //dto로 정보를 담아 반환
             Oauth2UserResDto oauth2UserResDto = new Oauth2UserResDto();
             oauth2UserResDto.setUserId(user1Entity.getUserId());

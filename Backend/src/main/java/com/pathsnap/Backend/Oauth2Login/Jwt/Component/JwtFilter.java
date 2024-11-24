@@ -3,6 +3,7 @@ package com.pathsnap.Backend.Oauth2Login.Jwt.Component;
 
 import com.pathsnap.Backend.Oauth2Login.Dto.Res.CustomOauth2UserResDto;
 import com.pathsnap.Backend.Oauth2Login.Dto.Res.Oauth2UserResDto;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -15,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
@@ -24,44 +26,57 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        //cookie들을 불러온 뒤 Authorization Key에 담긴 쿠키를 찾음
-        String authorization = null;
-        Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-
-            System.out.println(cookie.getName());
-            if (cookie.getName().equals("Authorization")) {
-
-                authorization = cookie.getValue();
-            }
-        }
-
-        //Authorization 헤더 검증
-        if (authorization == null) {
-
-            System.out.println("token null");
+        String requestUri = request.getRequestURI();
+        System.out.println("2.requestUri =   " + requestUri);
+        if (!requestUri.matches("^\\/oauth2/authorization/naver$")) {
             filterChain.doFilter(request, response);
-
-            //조건이 해당되면 메소드 종료 (필수)
             return;
         }
 
-        //토큰
-        String token = authorization;
+        System.out.println("success(a)");
 
-        //토큰 소멸 시간 검증
-        if (jwtUtil.isExpired(token)) {
+        // 헤더에서 access키에 담긴 토큰을 꺼냄
+        String accessToken = request.getHeader("access");
 
-            System.out.println("token expired");
+        // 토큰이 없다면 다음 필터로 넘김
+        if (accessToken == null) {
+
             filterChain.doFilter(request, response);
 
-            //조건이 해당되면 메소드 종료 (필수)
+            return;
+        }
+
+        // 토큰 만료 여부 확인, 만료시 다음 필터로 넘기지 않음
+        try {
+            jwtUtil.isExpired(accessToken);
+        } catch (ExpiredJwtException e) {
+
+            //response body
+            PrintWriter writer = response.getWriter();
+            writer.print("access token expired");
+
+            //response status code
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
+
+        // 토큰이 access인지 확인 (발급시 페이로드에 명시)
+        String category = jwtUtil.getCategory(accessToken);
+
+        if (!category.equals("access")) {
+
+            //response body
+            PrintWriter writer = response.getWriter();
+            writer.print("invalid access token");
+
+            //response status code
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 
         //토큰에서 userId와 role 획득
-        String userId = jwtUtil.getUserId(token);
-        String role = jwtUtil.getRole(token);
+        String userId = jwtUtil.getUserId(accessToken);
+        String role = jwtUtil.getRole(accessToken);
 
         //userDTO를 생성하여 값 set
         Oauth2UserResDto oauth2UserResDto = new Oauth2UserResDto();

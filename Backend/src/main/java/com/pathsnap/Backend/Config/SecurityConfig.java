@@ -1,9 +1,12 @@
 package com.pathsnap.Backend.Config;
 
+import com.pathsnap.Backend.Oauth2Login.Jwt.Component.CustomLogoutFilter;
 import com.pathsnap.Backend.Oauth2Login.Jwt.Component.JwtFilter;
+import com.pathsnap.Backend.Oauth2Login.Repository.RefreshRepository;
 import com.pathsnap.Backend.Oauth2Login.Service.CustomOAuth2UserService;
 import com.pathsnap.Backend.Oauth2Login.Service.CustomSuccessHandler;
 import com.pathsnap.Backend.Oauth2Login.Jwt.Component.JwtUtil;
+import com.pathsnap.Backend.Oauth2Login.Service.RefreshService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -26,6 +30,8 @@ public class SecurityConfig {
     private final CustomOAuth2UserService customOAuth2UserService;
     private final CustomSuccessHandler customSuccessHandler;
     private final JwtUtil jwtUtil;
+    private final RefreshService refreshService;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -60,6 +66,12 @@ public class SecurityConfig {
         http
                 .httpBasic((auth) -> auth.disable());
 
+
+
+        //로그아웃
+        http
+                .addFilterBefore(new CustomLogoutFilter(jwtUtil,refreshService), LogoutFilter.class);
+
         //JwtFilter 추가
         http
                 .addFilterAfter(new JwtFilter(jwtUtil), OAuth2LoginAuthenticationFilter.class);
@@ -76,7 +88,9 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/").permitAll()
+                        .requestMatchers("/reissue").permitAll()
                         .anyRequest().authenticated());
+
 
         //세션 설정 : STATELESS
         http

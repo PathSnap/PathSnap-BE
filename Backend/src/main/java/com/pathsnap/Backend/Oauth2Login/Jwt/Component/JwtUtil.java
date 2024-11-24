@@ -26,20 +26,28 @@ public class JwtUtil {
 
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class);
     }
+    public String getCategory(String token){
+
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("category",String.class);
+    }
     public Boolean isExpired (String token){
 
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
     }
 
-    public String createJwt (String userId, String role, Long expiredMs){
+    public String createJwt (String category, String userId, String role, Long expiredMs){
+        System.out.println("IssuedAt: " + System.currentTimeMillis());
+        System.out.println("ExpiredAt: " + (System.currentTimeMillis() + expiredMs));
 
         return Jwts.builder()
-                    .claim("userId", userId)
-                    .claim("role", role)
-                    .issuedAt(new Date(System.currentTimeMillis()))
-                    .expiration(new Date(System.currentTimeMillis() + expiredMs))
-                    .signWith(secretKey)
-                    .compact();
+                .claim("category",category)
+                .claim("userId", userId)
+                .claim("role", role)
+                .claim("iat", System.currentTimeMillis())
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + expiredMs))
+                .signWith(secretKey)
+                .compact();
     }
 }
 
