@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
-@CrossOrigin("*")
 public class WebSocketController {
     private final SimpMessagingTemplate simpMessagingTemplate;
     private final WebSocketAuthService webSocketAuthService;

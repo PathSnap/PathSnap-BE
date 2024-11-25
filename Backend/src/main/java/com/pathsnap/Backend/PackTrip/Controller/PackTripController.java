@@ -8,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("*")
-@RequestMapping("/profiles/trips")
 @RequiredArgsConstructor
 public class PackTripController implements PackTripControllerDocs{
 
