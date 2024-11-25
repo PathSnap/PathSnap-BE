@@ -33,6 +33,13 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
+        // 특정 경로 필터 제외
+        String requestUri1 = request.getRequestURI();
+        if (requestUri1.equals("/reissue")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         System.out.println("success(a)");
 
         // 헤더에서 access키에 담긴 토큰을 꺼냄
@@ -46,14 +53,23 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
+        System.out.println("success(b)");
         // 토큰 만료 여부 확인, 만료시 다음 필터로 넘기지 않음
         try {
             jwtUtil.isExpired(accessToken);
         } catch (ExpiredJwtException e) {
 
+            // 엑세스 토큰이 만료된 경우, 리프레시 토큰으로 새로운 엑세스 토큰 발급
+            String refreshToken = getRefreshTokenFromCookies(request);
+            if (refreshToken != null) {
+                // 리프레시 토큰을 사용하여 새 엑세스 토큰을 발급하는 API 호출 (예: /reissue)
+                response.sendRedirect("/reissue");  // 예시로 리디렉션 처리
+                return;
+            }
+
             //response body
             PrintWriter writer = response.getWriter();
-            writer.print("access token expired");
+            writer.print("access token expired and refresh token missing");
 
             //response status code
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -92,5 +108,16 @@ public class JwtFilter extends OncePerRequestFilter {
         SecurityContextHolder.getContext().setAuthentication(authToken);
 
         filterChain.doFilter(request, response);
+    }
+
+
+    private String getRefreshTokenFromCookies(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if ("refresh".equals(cookie.getName())) {
+                return cookie.getValue();
+            }
+        }
+        return null;
     }
 }
