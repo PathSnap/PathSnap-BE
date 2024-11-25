@@ -79,10 +79,12 @@ public class SecurityConfig {
         //oauth2
         http
                 .oauth2Login((oauth2) -> oauth2
+                        .loginPage("/oauth2/authorization/naver") // 로그인 페이지 경로
                         .userInfoEndpoint((userInfoEndpointConfig) -> userInfoEndpointConfig
-                                .userService( customOAuth2UserService))
-                        .successHandler(customSuccessHandler)
+                                .userService(customOAuth2UserService)) // CustomOAuth2UserService 설정
+                        .successHandler(customSuccessHandler) // 성공 핸들러
                 );
+
 
         //경로별 인가 작업
         http
