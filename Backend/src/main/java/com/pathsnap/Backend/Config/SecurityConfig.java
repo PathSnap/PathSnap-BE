@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 @Configuration
@@ -43,18 +44,19 @@ public class SecurityConfig {
 
                         CorsConfiguration configuration = new CorsConfiguration();
 
-                        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
-                        configuration.setAllowedMethods(Collections.singletonList("*"));
-                        configuration.setAllowCredentials(true);
-                        configuration.setAllowedHeaders(Collections.singletonList("*"));
-                        configuration.setMaxAge(3600L);
+                        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000")); // 허용할 Origin 설정
+                        configuration.setAllowedMethods(Collections.singletonList("*")); // 모든 HTTP 메서드 허용
+                        configuration.setAllowCredentials(true); // 인증 정보 포함 허용
+                        configuration.setAllowedHeaders(Collections.singletonList("*")); // 모든 헤더 허용
+                        configuration.setMaxAge(3600L); // 사전 플라이트 요청 캐싱 시간 설정
 
-                        configuration.setExposedHeaders(Collections.singletonList("Set-Cookie"));
-                        configuration.setExposedHeaders(Collections.singletonList("Authorization"));
+                        // 노출할 헤더 설정
+                        configuration.setExposedHeaders(Arrays.asList("Set-Cookie", "Authorization"));
 
                         return configuration;
                     }
                 }));
+
 
         http
                 .csrf(csrf -> csrf.disable());// CSRF 비활성화
