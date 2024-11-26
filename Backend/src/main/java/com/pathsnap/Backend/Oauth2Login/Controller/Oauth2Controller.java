@@ -6,6 +6,7 @@ import com.pathsnap.Backend.Oauth2Login.Repository.RefreshRepository;
 import com.pathsnap.Backend.Oauth2Login.Service.CustomSuccessHandler;
 import com.pathsnap.Backend.Oauth2Login.Service.RefreshService;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,7 +30,7 @@ public class Oauth2Controller {
     private final CustomSuccessHandler customSuccessHandler;
 
     @PostMapping("/reissue")
-    public ResponseEntity<?> reissue(HttpServletRequest request, HttpServletResponse response){
+    public ResponseEntity<?> reissue(HttpServletRequest request, HttpServletResponse response) {
 
         //get refresh token
         String refresh = null;
@@ -40,7 +41,6 @@ public class Oauth2Controller {
         for (Cookie cookie : cookies) {
 
             if (cookie.getName().equals("refresh")) {
-
                 refresh = cookie.getValue();
             }
         }
@@ -48,18 +48,14 @@ public class Oauth2Controller {
         System.out.println("AA");
 
         if (refresh == null) {
-
             //response status code
             return new ResponseEntity<>("refresh token null", HttpStatus.BAD_REQUEST);
         }
-
-
 
         //expired check
         try {
             jwtUtil.isExpired(refresh);
         } catch (ExpiredJwtException e) {
-
             //response status code
             return new ResponseEntity<>("refresh token expired", HttpStatus.BAD_REQUEST);
         }
@@ -68,7 +64,6 @@ public class Oauth2Controller {
         String category = jwtUtil.getCategory(refresh);
 
         if (!category.equals("refresh")) {
-
             //response status code
             return new ResponseEntity<>("invalid refresh token", HttpStatus.BAD_REQUEST);
         }
@@ -76,12 +71,19 @@ public class Oauth2Controller {
         //DB에 저장되어 있는지 확인
         Boolean isExist = refreshService.existsByRefresh(refresh);
         if (!isExist) {
-
             //response body
             return new ResponseEntity<>("invalid refresh token", HttpStatus.BAD_REQUEST);
         }
 
-        String userId = jwtUtil.getUserId(refresh);
+        // 사용자 ID 추출 시 예외 처리 추가
+        String userId;
+        try {
+            userId = jwtUtil.getUserId(refresh);  // 여기에서 MalformedJwtException이 발생할 수 있습니다.
+        } catch (MalformedJwtException e) {
+            // JWT 형식이 잘못되었을 경우
+            return new ResponseEntity<>("Invalid JWT format", HttpStatus.BAD_REQUEST);
+        }
+
         String role = jwtUtil.getRole(refresh);
 
         //make new JWT
@@ -90,13 +92,15 @@ public class Oauth2Controller {
 
         //Refresh 토큰 저장 DB에 기존의 Refresh 토큰 삭제 후 새 Refresh 토큰 저장
         refreshService.deleteRefreshToken(refresh);
-        customSuccessHandler.addRefreshEntity(jwtUtil.getUserId(userId), newRefresh, 86400000L);
+        customSuccessHandler.addRefreshEntity(userId, newRefresh, 86400000L);
         System.out.println("Deleting refresh token: " + refresh);
         System.out.println("Token exists in DB before delete: " + refreshService.existsByRefresh(refresh));
 
         //response
         response.setHeader("access", newAccess);
         response.addCookie(createCookie("refresh", newRefresh));
+
+        System.out.println("new response access = " + response.getHeader("access"));
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -105,7 +109,7 @@ public class Oauth2Controller {
 
         Cookie cookie = new Cookie(key, value);
         cookie.setMaxAge(24*60*60);
-        cookie.setSecure(true);
+        //cookie.setSecure(true);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
 

@@ -11,9 +11,10 @@ public class CorsMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry corsRegistry) {
 
         corsRegistry.addMapping("/")
-                .allowedOrigins("http://localhost:3000","http://back.pathsnap.shop")
+                .allowedOrigins("http://localhost:5173","http://back.pathsnap.shop")
                 .allowedMethods("*")
                 .allowCredentials(true)
+                .allowedHeaders("*")
                 .exposedHeaders("Set-Cookie");
     }
 }
