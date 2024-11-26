@@ -22,7 +22,6 @@ public class CustomLogoutFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
     private final RefreshService refreshTokenService;
 
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
@@ -77,11 +76,10 @@ public class CustomLogoutFilter extends OncePerRequestFilter {
             return;
         }
 
-
         System.out.println("success(g)");
         // 로그아웃 처리
-         if (refreshTokenService.existsByRefresh(refresh)) {
-             refreshTokenService.deleteRefreshToken(refresh);
+        if (refreshTokenService.existsByRefresh(refresh)) {
+            refreshTokenService.deleteRefreshToken(refresh);
         } else {
             System.out.println("Refresh token not found: " + refresh);
         }
@@ -93,8 +91,8 @@ public class CustomLogoutFilter extends OncePerRequestFilter {
         expiredCookie.setPath("/");
         response.addCookie(expiredCookie);
 
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.sendRedirect("http://pathsnap.shop");
-
+        System.out.println("success(h)");
+        response.sendRedirect("http://pathsnap.shop/register");
+        System.out.println("success(k)");
     }
 }
