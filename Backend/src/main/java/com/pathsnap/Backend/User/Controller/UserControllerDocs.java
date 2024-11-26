@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public interface UserControllerDocs {
 
     // 프로필 정보 불러오기
-    @Operation(summary = "사용자 프로필 정보 조회", description = "사용자의 프로필 정보를 조회")
+    @Operation(summary = "사용자 프로필 정보 조회", description = "사용자의 프로필 정보를 조회", security = @SecurityRequirement(name = "AuthToken"))
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -36,7 +37,7 @@ public interface UserControllerDocs {
     );
 
     // 프로필 정보 수정
-    @Operation(summary = "사용자 프로필 정보 수정", description = "사용자의 프로필 정보를 수정")
+    @Operation(summary = "사용자 프로필 정보 수정", description = "사용자의 프로필 정보를 수정", security = @SecurityRequirement(name = "AuthToken"))
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -59,7 +60,7 @@ public interface UserControllerDocs {
     );
 
     // 여행 이미지 가져오기
-    @Operation(summary = "사용자 여행 이미지 조회", description = "사용자의 여행 이미지를 조회")
+    @Operation(summary = "사용자 여행 이미지 조회", description = "사용자의 여행 이미지를 조회", security = @SecurityRequirement(name = "AuthToken"))
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -77,7 +78,7 @@ public interface UserControllerDocs {
     );
 
     // 달력 불러오기
-    @Operation(summary = "사용자 달력 조회", description = "사용자의 달력을 조회")
+    @Operation(summary = "사용자 달력 조회", description = "사용자의 달력을 조회", security = @SecurityRequirement(name = "AuthToken"))
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",

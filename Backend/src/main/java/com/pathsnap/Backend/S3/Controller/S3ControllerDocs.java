@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ import java.util.List;
 public interface S3ControllerDocs {
 
     // S3 이미지 업로드
-    @Operation(summary = "S3 이미지 업로드", description = "이미지 파일을 업로드하여 imageId와 URL을 반환")
+    @Operation(summary = "S3 이미지 업로드", description = "이미지 파일을 업로드하여 imageId와 URL을 반환", security = @SecurityRequirement(name = "AuthToken"))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "이미지 업로드 성공", content = @Content(
                     mediaType = "application/json",
@@ -38,7 +39,7 @@ public interface S3ControllerDocs {
     );
 
     // S3 이미지 삭제
-    @Operation(summary = "S3 이미지 삭제", description = "S3 버킷에서 이미지와 관련된 데이터 삭제")
+    @Operation(summary = "S3 이미지 삭제", description = "S3 버킷에서 이미지와 관련된 데이터 삭제", security = @SecurityRequirement(name = "AuthToken"))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "이미지 삭제 성공", content = @Content),
     })

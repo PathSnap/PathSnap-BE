@@ -28,7 +28,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String requestUri = request.getRequestURI();
         System.out.println("2.requestUri =   " + requestUri);
-        if (requestUri.matches("^\\/oauth2/authorization/naver$")) {
+        if (requestUri.startsWith("/swagger-ui") || requestUri.startsWith("/v3/api-docs")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -48,8 +48,8 @@ public class JwtFilter extends OncePerRequestFilter {
         // 토큰이 없다면 다음 필터로 넘김
         if (accessToken == null) {
 
-            filterChain.doFilter(request, response);
-
+//            filterChain.doFilter(request, response);
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
 

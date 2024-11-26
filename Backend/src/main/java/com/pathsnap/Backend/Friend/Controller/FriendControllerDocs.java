@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 
@@ -19,7 +20,7 @@ import java.util.List;
 public interface FriendControllerDocs {
 
     //기록에 속한 유저 조회 api
-    @Operation(summary = "기록에 속한 유저 조회", description = "기록을 생성한 유저와 해당 기록에 포함된 유저를 조회")
+    @Operation(summary = "기록에 속한 유저 조회", description = "기록을 생성한 유저와 해당 기록에 포함된 유저를 조회", security = @SecurityRequirement(name = "AuthToken"))
     @Parameter(name = "recordId", description = "조회하려는 기록 아이디")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "유저 조회 완료(user = 팀장, friend = 팀원)", content = @Content(
@@ -30,7 +31,7 @@ public interface FriendControllerDocs {
 
 
     //유저 추가 api
-    @Operation(summary = "기록에 유저 추가", description = "기록에 유저를 추가하면 추가된 유저의 친구 아이디를 전달")
+    @Operation(summary = "기록에 유저 추가", description = "기록에 유저를 추가하면 추가된 유저의 친구 아이디를 전달", security = @SecurityRequirement(name = "AuthToken"))
     @Parameters(value = {
             @Parameter(name = "recordId", description = "유저를 추가하려는 기록 아이디"),
             @Parameter(name = "userId", description = "기록에 추가하려는 유저")
@@ -43,7 +44,7 @@ public interface FriendControllerDocs {
     ResponseEntity<FriendAddResDto> addFriendToRecord(String userId, String recordId);
 
     //유저 검색 api
-    @Operation(summary = "유저 검색", description = "기록에 추가하려는 유저를 이름으로 검색 ")
+    @Operation(summary = "유저 검색", description = "기록에 추가하려는 유저를 이름으로 검색 ", security = @SecurityRequirement(name = "AuthToken"))
     @Parameter(name = "name", description = "검색하려는 유저 이름")
 
     @ApiResponses(value = {
@@ -55,7 +56,7 @@ public interface FriendControllerDocs {
 
     //유저 삭제 api
     @Parameter(name = "friendId", description = "삭제하려는 팀원 아이디" )
-    @Operation(summary = "팀원 삭제", description = "피라미터로 받은 팀원 아이디로 삭제")
+    @Operation(summary = "팀원 삭제", description = "피라미터로 받은 팀원 아이디로 삭제", security = @SecurityRequirement(name = "AuthToken"))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "친구 삭제 완료", content = @Content (
                     mediaType = "application/json"

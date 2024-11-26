@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 
@@ -24,7 +25,7 @@ public interface RecordControllerDocs {
             @Parameter(name = "userId", description = "기록을 생성하려는 유저의 아이디"),
             @Parameter(name = "recordIsGroup", description = "개인 기록인지 그룹 기록인지 구분(개인 기록 = false, 그룹 기록 = true)")
     })
-    @Operation(summary = "기록 시작 생성", description = "유저 아이디와 기록 구분을 받아 유저의 기록을 생성한다음 기록ID를 전달")
+    @Operation(summary = "기록 시작 생성", description = "유저 아이디와 기록 구분을 받아 유저의 기록을 생성한다음 기록ID를 전달", security = @SecurityRequirement(name = "AuthToken"))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "기록 생성 완료", content = @Content (
                     mediaType = "application/json",
@@ -34,7 +35,7 @@ public interface RecordControllerDocs {
 
     //Record 조회 api
     @Parameter(name = "recordId", description = "유저의 기록아이디" )
-    @Operation(summary = "기록 상세 조회", description = "피라미터로 받은 기록으로 기록 관련 정보들을 전달")
+    @Operation(summary = "기록 상세 조회", description = "피라미터로 받은 기록으로 기록 관련 정보들을 전달", security = @SecurityRequirement(name = "AuthToken"))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "기록 조회 완료", content = @Content (
                     mediaType = "application/json",
@@ -43,7 +44,7 @@ public interface RecordControllerDocs {
     ResponseEntity<RecordDetailResDto> getRecordDetails(String recordId);
 
     //Record 순서 변경 api
-    @Operation(summary = "기록 순서 변경", description = "포토 기록과 경로 기록의 순서를 변경하고 변경된 정보들을 전달")
+    @Operation(summary = "기록 순서 변경", description = "포토 기록과 경로 기록의 순서를 변경하고 변경된 정보들을 전달", security = @SecurityRequirement(name = "AuthToken"))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "기록 순서 변경 완료", content = @Content(
                     mediaType = "application/json",
@@ -60,7 +61,7 @@ public interface RecordControllerDocs {
     );
 
     //Record 이름 수정 api
-    @Operation(summary = "기록 이름 수정", description = "수정된 기록 이름을 받아 저장하고 전달")
+    @Operation(summary = "기록 이름 수정", description = "수정된 기록 이름을 받아 저장하고 전달", security = @SecurityRequirement(name = "AuthToken"))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "기록 이름 수정 완료", content = @Content(
                     mediaType = "application/json",
@@ -78,7 +79,7 @@ public interface RecordControllerDocs {
 
     //Record 삭제 api
     @Parameter(name = "recordId", description = "유저의 기록아이디" )
-    @Operation(summary = "기록 삭제", description = "피라미터로 받은 기록을 삭제")
+    @Operation(summary = "기록 삭제", description = "피라미터로 받은 기록을 삭제", security = @SecurityRequirement(name = "AuthToken"))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "기록 삭제 완료", content = @Content (
                     mediaType = "application/json"
