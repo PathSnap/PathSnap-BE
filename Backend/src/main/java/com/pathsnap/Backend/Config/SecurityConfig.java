@@ -2,7 +2,6 @@ package com.pathsnap.Backend.Config;
 
 import com.pathsnap.Backend.Oauth2Login.Jwt.Component.CustomLogoutFilter;
 import com.pathsnap.Backend.Oauth2Login.Jwt.Component.JwtFilter;
-import com.pathsnap.Backend.Oauth2Login.Repository.RefreshRepository;
 import com.pathsnap.Backend.Oauth2Login.Service.CustomOAuth2UserService;
 import com.pathsnap.Backend.Oauth2Login.Service.CustomSuccessHandler;
 import com.pathsnap.Backend.Oauth2Login.Jwt.Component.JwtUtil;

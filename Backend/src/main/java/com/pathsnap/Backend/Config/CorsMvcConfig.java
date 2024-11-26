@@ -14,6 +14,7 @@ public class CorsMvcConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:3000","http://back.pathsnap.shop")
                 .allowedMethods("*")
                 .allowCredentials(true)
+                .allowedHeaders("*")
                 .exposedHeaders("Set-Cookie");
     }
 }
