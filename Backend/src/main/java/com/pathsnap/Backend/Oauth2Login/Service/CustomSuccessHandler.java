@@ -64,12 +64,12 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         User1Entity user1Entity = userRepository.findById(userId).get();
         if (user1Entity.isFirstLogin()) {
             // 신규 회원이면 /register로 리다이렉트
-            getRedirectStrategy().sendRedirect(request, response, "http://pathsnap.shop/register");
+            getRedirectStrategy().sendRedirect(request, response, "https://pathsnap.shop/register");
             user1Entity.setFirstLogin(false);
             userRepository.save(user1Entity);
         } else {
             // 기존 회원이면 /로 리다이렉트
-            getRedirectStrategy().sendRedirect(request, response, "http://pathsnap.shop");
+            getRedirectStrategy().sendRedirect(request, response, "https://pathsnap.shop");
         }
 
     }
