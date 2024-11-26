@@ -7,6 +7,8 @@ import com.pathsnap.Backend.Oauth2Login.Service.CustomSuccessHandler;
 import com.pathsnap.Backend.Oauth2Login.Service.RefreshService;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -29,6 +31,7 @@ public class Oauth2Controller {
     private final RefreshService refreshService;
     private final CustomSuccessHandler customSuccessHandler;
 
+    @Operation(summary = "토큰 재발급", description = "토큰 재발급", security = @SecurityRequirement(name = "AuthToken"))
     @PostMapping("/reissue")
     public ResponseEntity<?> reissue(HttpServletRequest request, HttpServletResponse response) {
 

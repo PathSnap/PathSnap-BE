@@ -50,7 +50,7 @@ spring:
         cors:
             mappings:
                 - path-pattern: "/swagger-ui/**"
-                  allowed-origins: "http://back.pathsnap.shop"
+                  allowed-origins: "https://back.pathsnap.shop"
                   allowed-methods: GET,POST,PUT,DELETE,OPTIONS
                   allow-credentials: true
 

@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 
@@ -21,7 +22,7 @@ public interface RouteRecordControllerDocs {
             @Parameter(name = "recordId", description = "경로 기록을 시작하려는 기록 아이디"),
             @Parameter(name = "seq", description = "경로 기록 순서")
     })
-    @Operation(summary = "경로 기록 시작 저장", description = " 기록 아이디와 경로 기록 순서를 받아 저장")
+    @Operation(summary = "경로 기록 시작 저장", description = " 기록 아이디와 경로 기록 순서를 받아 저장", security = @SecurityRequirement(name = "AuthToken"))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "경로 기록 완료", content = @Content(
                     mediaType = "application/json",
@@ -32,7 +33,7 @@ public interface RouteRecordControllerDocs {
 
 
         //경로 저장 api
-    @Operation(summary = "경로 기록 저장", description = " 경로 기록 아이디와 경로와 관련된 정보들을 받아 저장")
+    @Operation(summary = "경로 기록 저장", description = " 경로 기록 아이디와 경로와 관련된 정보들을 받아 저장", security = @SecurityRequirement(name = "AuthToken"))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "경로 기록 완료", content = @Content(
                     mediaType = "application/json",
