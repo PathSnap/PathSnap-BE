@@ -19,19 +19,19 @@ public class JwtUtil {
     }
 
     public String getUserId(String token) {
-
+        token = token.trim().replaceAll("\\s", ""); // 공백 제거
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("userId", String.class);
     }
     public String getRole (String token){
-
+        token = token.trim().replaceAll("\\s", ""); // 공백 제거
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class);
     }
     public String getCategory(String token){
-
+        token = token.trim().replaceAll("\\s", ""); // 공백 제거
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("category",String.class);
     }
     public Boolean isExpired (String token){
-
+        token = token.trim().replaceAll("\\s", ""); // 공백 제거
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
     }
 
