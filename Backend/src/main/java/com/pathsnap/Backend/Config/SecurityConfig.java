@@ -44,7 +44,7 @@ public class SecurityConfig {
 
                         CorsConfiguration configuration = new CorsConfiguration();
 
-                        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000")); // 허용할 Origin 설정
+                        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000","http://back.pathsnap.shop"));
                         configuration.setAllowedMethods(Collections.singletonList("*")); // 모든 HTTP 메서드 허용
                         configuration.setAllowCredentials(true); // 인증 정보 포함 허용
                         configuration.setAllowedHeaders(Collections.singletonList("*")); // 모든 헤더 허용
@@ -91,7 +91,7 @@ public class SecurityConfig {
         //경로별 인가 작업
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // Swagger 경로 허용
                         .anyRequest().authenticated());
 

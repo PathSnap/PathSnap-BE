@@ -11,7 +11,7 @@ spring:
     jpa:
         hibernate:
             dialect: org.hibernate.dialect.MySQL8Dialect
-            ddl-auto: create
+            ddl-auto: update
         show-sql: true
     cloud:
         aws:
@@ -46,10 +46,17 @@ spring:
     jwt:
         secret: ${JWT_SECRET}
 
+    web:
+        cors:
+            mappings:
+                - path-pattern: "/swagger-ui/**"
+                  allowed-origins: "http://back.pathsnap.shop"
+                  allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+                  allow-credentials: true
+
 springdoc:
     swagger-ui:
-        path: /swagger-ui.html
-        url: http://back.pathsnap.shop/swagger-ui/index.html
+        path: /swagger-ui/index.html
     api-docs:
         enabled: true
         path: /v3/api-docs
