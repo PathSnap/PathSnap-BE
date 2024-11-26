@@ -90,7 +90,7 @@ public class SecurityConfig {
         //경로별 인가 작업
         http
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // Swagger 경로 허용
                         .anyRequest().authenticated());
 
