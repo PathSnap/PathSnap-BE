@@ -92,7 +92,7 @@ public class CustomLogoutFilter extends OncePerRequestFilter {
         response.addCookie(expiredCookie);
 
         System.out.println("success(h)");
-        response.sendRedirect("http://pathsnap.shop/register");
+        response.sendRedirect("https://pathsnap.shop/register");
         System.out.println("success(k)");
     }
 }
