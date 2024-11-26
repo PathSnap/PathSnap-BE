@@ -16,7 +16,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
-import org.springframework.security.web.context.SecurityContextPersistenceFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -76,7 +75,14 @@ public class SecurityConfig {
 
         //JwtFilter 추가
         http
-                .addFilterBefore(new JwtFilter(jwtUtil), SecurityContextPersistenceFilter.class);
+                .addFilterAfter(new JwtFilter(jwtUtil), OAuth2LoginAuthenticationFilter.class);
+
+        //경로별 인가 작업
+        http
+                .authorizeHttpRequests((auth) -> auth
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // Swagger 경로 허용
+                        .anyRequest().authenticated());
 
         //oauth2
         http
@@ -86,15 +92,6 @@ public class SecurityConfig {
                                 .userService(customOAuth2UserService)) // CustomOAuth2UserService 설정
                         .successHandler(customSuccessHandler) // 성공 핸들러
                 );
-
-
-        //경로별 인가 작업
-        http
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/").permitAll()
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // Swagger 경로 허용
-                        .anyRequest().authenticated());
-
 
         //세션 설정 : STATELESS
         http
