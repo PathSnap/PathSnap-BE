@@ -28,10 +28,10 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String requestUri = request.getRequestURI();
         System.out.println("2.requestUri =   " + requestUri);
-//        if (!requestUri.matches("^\\/oauth2/authorization/naver$")) {
-//            filterChain.doFilter(request, response);
-//            return;
-//        }
+        if (requestUri.matches("^\\/oauth2/authorization/naver$")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         // 특정 경로 필터 제외
         String requestUri1 = request.getRequestURI();
