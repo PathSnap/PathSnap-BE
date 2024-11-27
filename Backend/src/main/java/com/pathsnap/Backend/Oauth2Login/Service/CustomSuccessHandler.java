@@ -60,13 +60,20 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         response.addCookie(createCookie("refresh",refresh)); // JSON 응답으로 access 토큰과 리다이렉트 URL 반환
 
         User1Entity user1Entity = userRepository.findById(userId).get();
-        String redirectUrl = user1Entity.isFirstLogin() ? "/register" : "/";
+//        String redirectUrl = user1Entity.isFirstLogin() ? "/register" : "/";
         user1Entity.setFirstLogin(false);
         userRepository.save(user1Entity);
 
-        response.setContentType("application/json");
-        response.setStatus(HttpStatus.OK.value());
-        response.getWriter().write(String.format("{\"userId\":\"%s\", \"access\":\"%s\", \"redirect\":\"%s\"}", userId, access, redirectUrl));
+//        response.setContentType("application/json");
+//        response.setStatus(HttpStatus.OK.value());
+//        response.getWriter().write(String.format("{\"userId\":\"%s\", \"access\":\"%s\", \"redirect\":\"%s\"}", userId, access, redirectUrl));
+
+        // 프론트엔드로 리다이렉트
+        String redirectUrl = String.format(
+                    "http://localhost:5173/oauth2/callback?userId=%s&access=%s&redirect=%s",
+                userId, access, user1Entity.isFirstLogin() ? "/register" : "/"
+        );
+        response.sendRedirect(redirectUrl);
     }
 
 
