@@ -48,30 +48,25 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         String role = auth.getAuthority();
 
         //token 발급
-        String access = jwtUtil.createJwt("access",userId,role,600000L);
-        String refresh = jwtUtil.createJwt("refresh",userId,role,86400000L);
+        String access = jwtUtil.createJwt("access", userId, role, 600000L);
+        String refresh = jwtUtil.createJwt("refresh", userId, role, 86400000L);
         System.out.println(access);
         System.out.println(refresh);
 
         //Refresh token 저장
-        addRefreshEntity(userId,refresh,8640000l);
+        addRefreshEntity(userId, refresh, 8640000l);
 
         //응답 설정
-        response.setHeader("access",access);
-        response.addCookie(createCookie("refresh",refresh));
-        response.setStatus(HttpStatus.OK.value());
+        response.addCookie(createCookie("refresh", refresh)); // JSON 응답으로 access 토큰과 리다이렉트 URL 반환
 
         User1Entity user1Entity = userRepository.findById(userId).get();
-        if (user1Entity.isFirstLogin()) {
-            // 신규 회원이면 /register로 리다이렉트
-            getRedirectStrategy().sendRedirect(request, response, "https://pathsnap.shop/register");
-            user1Entity.setFirstLogin(false);
-            userRepository.save(user1Entity);
-        } else {
-            // 기존 회원이면 /로 리다이렉트
-            getRedirectStrategy().sendRedirect(request, response, "https://pathsnap.shop");
-        }
+        String redirectUrl = user1Entity.isFirstLogin() ? "/register" : "/";
+        user1Entity.setFirstLogin(false);
+        userRepository.save(user1Entity);
 
+        response.setContentType("application/json");
+        response.setStatus(HttpStatus.OK.value());
+        response.getWriter().write(String.format("{\"access\":\"%s\", \"redirect\":\"%s\"}", access, redirectUrl));
     }
 
 
