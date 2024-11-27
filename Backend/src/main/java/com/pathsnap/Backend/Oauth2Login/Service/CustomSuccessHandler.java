@@ -67,9 +67,8 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         response.setContentType("application/json");
         response.setStatus(HttpStatus.OK.value());
         response.getWriter().write(String.format("{\"userId\":\"%s\", \"access\":\"%s\", \"redirect\":\"%s\"}", userId, access, redirectUrl));
-        }
-
     }
+
 
 
     private Cookie createCookie(String key, String value) {
