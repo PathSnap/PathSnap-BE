@@ -48,16 +48,16 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         String role = auth.getAuthority();
 
         //token 발급
-        String access = jwtUtil.createJwt("access", userId, role, 600000L);
-        String refresh = jwtUtil.createJwt("refresh", userId, role, 86400000L);
+        String access = jwtUtil.createJwt("access",userId,role,600000L);
+        String refresh = jwtUtil.createJwt("refresh",userId,role,86400000L);
         System.out.println(access);
         System.out.println(refresh);
 
         //Refresh token 저장
-        addRefreshEntity(userId, refresh, 8640000l);
+        addRefreshEntity(userId,refresh,8640000l);
 
         //응답 설정
-        response.addCookie(createCookie("refresh", refresh)); // JSON 응답으로 access 토큰과 리다이렉트 URL 반환
+        response.addCookie(createCookie("refresh",refresh)); // JSON 응답으로 access 토큰과 리다이렉트 URL 반환
 
         User1Entity user1Entity = userRepository.findById(userId).get();
         String redirectUrl = user1Entity.isFirstLogin() ? "/register" : "/";
@@ -66,7 +66,9 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         response.setContentType("application/json");
         response.setStatus(HttpStatus.OK.value());
-        response.getWriter().write(String.format("{\"access\":\"%s\", \"redirect\":\"%s\"}", access, redirectUrl));
+        response.getWriter().write(String.format("{\"userId\":\"%s\", \"access\":\"%s\", \"redirect\":\"%s\"}", userId, access, redirectUrl));
+        }
+
     }
 
 
