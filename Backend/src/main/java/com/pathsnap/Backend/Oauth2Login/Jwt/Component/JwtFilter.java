@@ -58,21 +58,14 @@ public class JwtFilter extends OncePerRequestFilter {
         try {
             jwtUtil.isExpired(accessToken);
         } catch (ExpiredJwtException e) {
+            // 엑세스 토큰이 만료되었으면 클라이언트에 에러 응답 반환
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);  // 401 상태 코드
+            response.setContentType("application/json");  // 응답 Content-Type을 JSON으로 설정
 
-            // 엑세스 토큰이 만료된 경우, 리프레시 토큰으로 새로운 엑세스 토큰 발급
-            String refreshToken = getRefreshTokenFromCookies(request);
-            if (refreshToken != null) {
-                // 리프레시 토큰을 사용하여 새 엑세스 토큰을 발급하는 API 호출 (예: /reissue)
-                response.sendRedirect("/reissue");  // 예시로 리디렉션 처리
-                return;
-            }
+            // JSON 형식으로 에러 메시지 작성
+            String errorResponse = "{\"error\": \"Access token expired.\"}";
 
-            //response body
-            PrintWriter writer = response.getWriter();
-            writer.print("access token expired and refresh token missing");
-
-            //response status code
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write(errorResponse);  // 응답 바디에 JSON 형태로 에러 메시지 작성
             return;
         }
 
