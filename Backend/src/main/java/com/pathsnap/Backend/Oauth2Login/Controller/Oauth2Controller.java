@@ -1,5 +1,6 @@
 package com.pathsnap.Backend.Oauth2Login.Controller;
 
+import com.pathsnap.Backend.Oauth2Login.Dto.Res.ReissueResDto;
 import com.pathsnap.Backend.Oauth2Login.Entity.RefreshEntity;
 import com.pathsnap.Backend.Oauth2Login.Jwt.Component.JwtUtil;
 import com.pathsnap.Backend.Oauth2Login.Repository.RefreshRepository;
@@ -105,7 +106,8 @@ public class Oauth2Controller {
 
         System.out.println("new response access = " + response.getHeader("access"));
 
-        return new ResponseEntity<>(HttpStatus.OK);
+
+        return ResponseEntity.ok(new ReissueResDto(newAccess, newRefresh));
     }
 
     private Cookie createCookie(String key, String value){
