@@ -4,14 +4,14 @@ package com.pathsnap.Backend.User.Dto.Req;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
 public class UserUpdateReqDto {
     private String userId;
     private String userName;
-    private Date birthDate;
+    private LocalDate birthDate;
     private String phoneNumber;
     private String imageId;
 

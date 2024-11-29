@@ -22,7 +22,7 @@ public class CalendarResDto {
     @AllArgsConstructor
     public static class CalendarDto {
         private String recordId;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
         private Date startDate;
         private String recordName;
         private ImageResDto image;
