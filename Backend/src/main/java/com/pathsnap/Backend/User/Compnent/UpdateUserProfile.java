@@ -15,15 +15,10 @@ public class UpdateUserProfile {
 
     // 사용자 정보 업데이트 메서드
     public void exec(User1Entity user, UserUpdateReqDto userUpdateReqDto) {
-        if (userUpdateReqDto.getUserName() != null) {
-            user.setUserName(userUpdateReqDto.getUserName());
-        }
-        if (userUpdateReqDto.getBirthDate() != null) {
-            user.setBirthDate(userUpdateReqDto.getBirthDate());
-        }
-        if (userUpdateReqDto.getPhoneNumber() != null) {
-            user.setPhoneNumber(userUpdateReqDto.getPhoneNumber());
-        }
+        user.setUserName(userUpdateReqDto.getUserName());
+        user.setBirthDate(userUpdateReqDto.getBirthDate());
+        user.setPhoneNumber(userUpdateReqDto.getPhoneNumber());
+        user.setAddress(userUpdateReqDto.getAddress());
         if (userUpdateReqDto.getImageId() != null) {
             Image1Entity image = imageCheck.exec(userUpdateReqDto.getImageId());
             user.setImage(image);
