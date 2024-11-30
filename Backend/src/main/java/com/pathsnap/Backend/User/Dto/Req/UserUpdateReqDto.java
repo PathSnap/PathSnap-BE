@@ -13,6 +13,7 @@ public class UserUpdateReqDto {
     private String userName;
     private LocalDate birthDate;
     private String phoneNumber;
+    private String address;
     private String imageId;
 
 }
