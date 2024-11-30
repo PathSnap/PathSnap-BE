@@ -9,7 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -33,7 +33,7 @@ public class User1Entity {
     private List<Friend1Entity> friends;
 
     private String phoneNumber;
-    private Date birthDate;
+    private LocalDate birthDate;
     private String email;
     private String userName;
     private String name;
