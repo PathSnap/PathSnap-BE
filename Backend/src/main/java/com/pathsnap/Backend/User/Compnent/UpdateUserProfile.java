@@ -13,7 +13,7 @@ public class UpdateUserProfile {
 
     private final CheckImage imageCheck;
 
-    // 사용자 정보 업데이트 메서드
+    // 사용자 정보 업데이트
     public void exec(User1Entity user, UserUpdateReqDto userUpdateReqDto) {
         if (userUpdateReqDto.getUserName() != null) {
             user.setUserName(userUpdateReqDto.getUserName());
