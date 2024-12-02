@@ -114,7 +114,7 @@ public class Oauth2Controller {
 
         Cookie cookie = new Cookie(key, value);
         cookie.setMaxAge(24*60*60);
-        cookie.setSecure(true);
+//        cookie.setSecure(true);
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         cookie.setAttribute("SameSite", "None"); // 크로스도메인 전송 허용
