@@ -70,8 +70,8 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
         // 프론트엔드로 리다이렉트
         String redirectUrl = String.format(
-//                    "http://localhost:5173/oauth2/callback?userId=%s&access=%s&redirect=%s",
-                    "https://pathsnap.shop/oauth2/callback?userId=%s&access=%s&redirect=%s",
+                    "http://localhost:5173/oauth2/callback?userId=%s&access=%s&redirect=%s",
+//                    "https://pathsnap.shop/oauth2/callback?userId=%s&access=%s&redirect=%s",
                 userId, access, user1Entity.isFirstLogin() ? "/register" : "/"
         );
         response.sendRedirect(redirectUrl);
