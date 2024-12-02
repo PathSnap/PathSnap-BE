@@ -48,7 +48,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         String role = auth.getAuthority();
 
         //token 발급
-        String access = jwtUtil.createJwt("access",userId,role,600000L);
+        String access = jwtUtil.createJwt("access",userId,role,6000000L);
         String refresh = jwtUtil.createJwt("refresh",userId,role,86400000L);
         System.out.println(access);
         System.out.println(refresh);
