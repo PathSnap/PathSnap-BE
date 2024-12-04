@@ -18,31 +18,26 @@ public class GetPhotoLocationService {
     private final RecordRepository recordRepository;
     private final CheckUser userCheck;
 
-    public List<PhotoLocationResDto> getPhotosWithinRadius(String userId, double lon, double lat, double radius) {
-        List<PhotoLocationResDto> photoLocations = new ArrayList<>();
+    public List<PhotoDataResDto> getPhotosWithinRadius(String userId, double lon, double lat, double radius) {
+        List<PhotoDataResDto> photoLocations = new ArrayList<>();
 
         List<Record1Entity> records= recordRepository.findByUser(userCheck.exec(userId));
 
         records.forEach(record -> {
-            List<PhotoDataResDto> photos = new ArrayList<>(); // 특정 기록에 대한 사진 리스트 초기화
-            
-
             record.getPhotoRecords().stream()
                 .filter(photoRecord -> isWithinRadius(photoRecord.getLat(), photoRecord.getLng(), lat, lon, radius))
                 .forEach(photoRecord ->{
                     photoRecord.getImagePhotos().forEach(imagePhoto -> {
                         PhotoDataResDto photoDataResDto = new PhotoDataResDto(
+                                record.getRecordId(),
                                 photoRecord.getPhotoRecordId(),
                                 imagePhoto.getImage().getUrl(),
                                 photoRecord.getLat(),
                                 photoRecord.getLng()
                         );
-                        photos.add(photoDataResDto);
+                        photoLocations.add(photoDataResDto);
                     });
                 });
-            if (!photos.isEmpty()) { // 사진이 존재할 경우에만 추가
-                photoLocations.add(new PhotoLocationResDto(record.getRecordId(), photos));
-            }
         });
         return photoLocations;
     }

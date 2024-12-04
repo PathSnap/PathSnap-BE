@@ -8,6 +8,7 @@ import lombok.Data;
 @Builder
 @AllArgsConstructor
 public class PhotoDataResDto {
+    private String recordId;
     private String photoId;
     private String url;
     private double lat;
