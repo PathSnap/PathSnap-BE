@@ -2,7 +2,7 @@ package com.pathsnap.Backend.PhotoRecord.Controller;
 
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordCreateReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordEditReqDto;
-import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoLocationResDto;
+import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoDataResDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoSummaryResDto;
 import com.pathsnap.Backend.PhotoRecord.Service.CreatePhotoService;
@@ -49,7 +49,7 @@ public class PhotoRecordController implements  PhotoRecordControllerDocs{
     }
   
     @GetMapping("/{userId}/{lon}/{lat}/{radius}")
-    public ResponseEntity<List<PhotoLocationResDto>> getPhotosWithinRadius(
+    public ResponseEntity<List<PhotoDataResDto>> getPhotosWithinRadius(
             @PathVariable String userId,
             @PathVariable double lon,
             @PathVariable double lat,

@@ -3,7 +3,7 @@ package com.pathsnap.Backend.PhotoRecord.Controller;
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordCreateReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoRecordEditReqDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Req.PhotoUpdateReqDto;
-import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoLocationResDto;
+import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoDataResDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoRecordResDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoSummaryResDto;
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoUpdateResDto;
@@ -91,9 +91,9 @@ public interface PhotoRecordControllerDocs {
         @ApiResponses(value = {
                 @ApiResponse(responseCode = "200", description = "주변 포토 기록 조회 완료", content = @Content (
                         mediaType = "application/json",
-                        schema = @Schema(implementation = PhotoLocationResDto.class)))
+                        schema = @Schema(implementation = PhotoDataResDto.class)))
         })
-        ResponseEntity<List<PhotoLocationResDto>> getPhotosWithinRadius(String userId, double lon,double lat, double radius);
+        ResponseEntity<List<PhotoDataResDto>> getPhotosWithinRadius(String userId, double lon, double lat, double radius);
 
         //Record 삭제 api
         @Parameter(name = "photoId", description = "유저가 삭제하려는 포토 아이디" )
