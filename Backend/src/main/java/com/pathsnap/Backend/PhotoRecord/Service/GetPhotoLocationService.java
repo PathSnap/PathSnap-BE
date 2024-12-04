@@ -1,7 +1,6 @@
 package com.pathsnap.Backend.PhotoRecord.Service;
 
 import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoDataResDto;
-import com.pathsnap.Backend.PhotoRecord.Dto.Res.PhotoLocationResDto;
 import com.pathsnap.Backend.Record.Entity.Record1Entity;
 import com.pathsnap.Backend.Record.Repository.RecordRepository;
 import com.pathsnap.Backend.User.Compnent.CheckUser;
