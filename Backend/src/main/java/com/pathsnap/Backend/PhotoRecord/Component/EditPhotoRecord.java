@@ -14,6 +14,7 @@ public class EditPhotoRecord {
         photoRecord.setSeq(request.getSeq());
         photoRecord.setPhotoTitle(request.getPhotoTitle());
         photoRecord.setPhotoContent(request.getPhotoContent());
+        photoRecord.setPhotoLocation(request.getPhotoLocation());
         photoRecord.setLat(request.getLat());
         photoRecord.setLng(request.getLng());
         photoRecord.setPhotoDate(request.getPhotoDate());

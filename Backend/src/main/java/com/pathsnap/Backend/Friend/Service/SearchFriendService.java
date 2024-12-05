@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.apache.naming.SelectorContext.prefix;
+
 @Service
 @RequiredArgsConstructor
 public class SearchFriendService {
@@ -15,8 +17,8 @@ public class SearchFriendService {
 
     public List<FriendSearchResDto> searchFriends(String userName){
 
-        //유저 이름을 통해 같은 이름의 유저 리스트 조회
-        return userRepository.findByUserName(userName).stream()
+        // 이름이 특정 문자로 시작하는 유저 리스트 조회
+        return userRepository.findByUserNameStartingWith(userName).stream()
                 .map(user -> FriendSearchResDto.builder()
                         .userId(user.getUserId())
                         .name(user.getUserName())
@@ -25,6 +27,5 @@ public class SearchFriendService {
                         .phoneNumber(user.getPhoneNumber())
                         .build())
                 .collect(Collectors.toList());
-
     }
 }

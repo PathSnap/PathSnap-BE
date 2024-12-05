@@ -41,6 +41,7 @@ public class GetPhotoRecord {
                             .seq(photoRecord.getSeq())
                             .images(imageUrls)
                             .photoTitle(photoRecord.getPhotoTitle())
+                            .photoLocation(photoRecord.getPhotoLocation())
                             .photoContent(photoRecord.getPhotoContent())
                             .photoDate(photoRecord.getPhotoDate())
                             .lat(photoRecord.getLat())
