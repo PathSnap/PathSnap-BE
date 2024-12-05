@@ -66,6 +66,7 @@ public class CreatePhotoService {
                 .seq(createdPhotoRecord.getSeq())
                 .images(imageUrls) // 또는 필요한 데이터로 수정
                 .photoTitle(createdPhotoRecord.getPhotoTitle())
+                .photoLocation(createdPhotoRecord.getPhotoLocation())
                 .photoContent(createdPhotoRecord.getPhotoContent())
                 .photoDate(createdPhotoRecord.getPhotoDate()) // 형식 변환 필요할 수 있음
                 .lat(createdPhotoRecord.getLat())

@@ -18,6 +18,7 @@ public class CreatePhotoRecord {
                 .record(record)
                 .photoTitle(request.getPhotoTitle())
                 .seq(request.getSeq())
+                .photoLocation(request.getPhotoLocation())
                 .photoContent(request.getPhotoContent())
                 .lng(request.getLng())
                 .lat(request.getLat())

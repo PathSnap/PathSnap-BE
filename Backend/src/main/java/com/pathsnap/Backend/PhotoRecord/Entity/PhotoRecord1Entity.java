@@ -29,6 +29,7 @@ public class PhotoRecord1Entity {
 
     private int seq;
     private String photoTitle;
+    private String photoLocation;
     private String photoContent;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")

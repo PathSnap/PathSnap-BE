@@ -16,6 +16,7 @@ public class PhotoRecordResDto {
     private Number seq;
     private List<ImageResDto> images;
     private String photoTitle;
+    private String photoLocation;
     private String photoContent;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")

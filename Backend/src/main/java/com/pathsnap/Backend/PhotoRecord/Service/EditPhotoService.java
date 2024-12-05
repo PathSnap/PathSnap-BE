@@ -55,6 +55,7 @@ public class EditPhotoService {
                 .seq(updatedPhotoRecord.getSeq())
                 .images(imageUrls)
                 .photoTitle(updatedPhotoRecord.getPhotoTitle())
+                .photoLocation(updatedPhotoRecord.getPhotoLocation())
                 .photoContent(updatedPhotoRecord.getPhotoContent())
                 .photoDate(updatedPhotoRecord.getPhotoDate())
                 .lat(updatedPhotoRecord.getLat())
