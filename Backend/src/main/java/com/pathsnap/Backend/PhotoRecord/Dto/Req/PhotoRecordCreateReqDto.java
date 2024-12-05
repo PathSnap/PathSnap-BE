@@ -14,6 +14,7 @@ public class PhotoRecordCreateReqDto {
     private int seq;
     private List<ImageReqDto> images = new ArrayList<>();
     private String photoTitle;
+    private String photoLocation;
     private String photoContent;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date photoDate;

@@ -13,4 +13,7 @@ public interface UserRepository extends JpaRepository<User1Entity,String> {
     //String은 UserEntity의 userId 타입을 반환
     List<User1Entity> findByUserName(String userName);
 
+    // 이름이 특정 문자로 시작하는 유저를 조회하는 메서드
+    List<User1Entity> findByUserNameStartingWith(String userName);
+
 }
