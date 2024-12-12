@@ -1,6 +1,7 @@
 package com.pathsnap.Backend.PackTrip.Controller;
 
 import com.pathsnap.Backend.PackTrip.Dto.Req.PackTripReqDto;
+import com.pathsnap.Backend.PackTrip.Dto.Req.UpdatePackTripReqDto;
 import com.pathsnap.Backend.PackTrip.Dto.Res.PackTripResDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -35,5 +36,29 @@ public interface PackTripControllerDocs {
                             schema = @Schema(implementation = PackTripReqDto.class)
                     )
             ) PackTripReqDto packTripReqDTO
+    );
+
+    @Operation(summary = "여행 묶음 수정", description = "기존 여행 묶음을 수정", security = @SecurityRequirement(name = "AuthToken"))
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "여행 묶음 수정 성공",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = PackTripResDto.class)
+                    )
+            )
+    })
+    @PutMapping("/profiles/trips/{userId}/{packTripId}")
+    ResponseEntity<PackTripResDto> updatePackTrip(
+            @PathVariable String userId,
+            @PathVariable String packTripId,
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "수정할 여행 묶음 정보",
+                    required = true,
+                    content = @Content(
+                            schema = @Schema(implementation = UpdatePackTripReqDto.class)
+                    )
+            ) UpdatePackTripReqDto updatePackTripReqDto
     );
 }
