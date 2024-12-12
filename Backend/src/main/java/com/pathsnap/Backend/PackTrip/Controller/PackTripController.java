@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/profiles/trips")
+@RequestMapping("/trips")
 @RequiredArgsConstructor
 public class PackTripController implements PackTripControllerDocs{
 
@@ -27,18 +27,15 @@ public class PackTripController implements PackTripControllerDocs{
         return ResponseEntity.ok(createPackTripService.createPackTrip(packTripReqDTO.getUserId(), packTripReqDTO));
     }
 
-    @PutMapping("/{userId}/{packTripId}")
+    @PutMapping
     public ResponseEntity<PackTripResDto> updatePackTrip(
-            @PathVariable String userId,
-            @PathVariable String packTripId,
             @RequestBody UpdatePackTripReqDto updatePackTripReqDto) {
-        return ResponseEntity.ok(updatePackTripService.updatePackTrip(userId, packTripId, updatePackTripReqDto));
+        return ResponseEntity.ok(updatePackTripService.updatePackTrip(updatePackTripReqDto));
     }
 
-    @DeleteMapping("/{userId}/{packTripId}")
-    public ResponseEntity<Void> deletePackTrip(@PathVariable String userId, @PathVariable String packTripId) {
-
-        deletePackTripService.deletePackTrip(userId, packTripId);
+    @DeleteMapping("/{packTripId}")
+    public ResponseEntity<Void> deletePackTrip(@PathVariable String packTripId) {
+        deletePackTripService.deletePackTrip(packTripId);
         return ResponseEntity.ok().build();
     }
 }

@@ -1,15 +1,11 @@
 package com.pathsnap.Backend.PackTrip.Service;
 
-import com.pathsnap.Backend.PackTrip.Component.CreatePackTrip;
 import com.pathsnap.Backend.PackTrip.Component.CreateTripDate;
-import com.pathsnap.Backend.PackTrip.Dto.Req.PackTripReqDto;
 import com.pathsnap.Backend.PackTrip.Dto.Req.UpdatePackTripReqDto;
 import com.pathsnap.Backend.PackTrip.Dto.Res.PackTripResDto;
 import com.pathsnap.Backend.PackTrip.Entity.PackTrip1Entity;
 import com.pathsnap.Backend.PackTrip.Repository.PackTripRepository;
 import com.pathsnap.Backend.TripDate.Repository.TripDateRepository;
-import com.pathsnap.Backend.User.Compnent.CheckUser;
-import com.pathsnap.Backend.User.Entity.User1Entity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,18 +14,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UpdatePackTripService {
 
-    private final CheckUser userCheck;
     private final CreateTripDate tripDateUpdate;
     private final PackTripRepository packTripRepository;
     private final TripDateRepository tripDateRepository;
 
     // 달력- 여행 날짜 묶기
-    public PackTripResDto updatePackTrip(String userId, String packTripId, UpdatePackTripReqDto updatePackTripReqDto) {
-        // 사용자 확인
-        userCheck.exec(userId);
-
+    public PackTripResDto updatePackTrip(UpdatePackTripReqDto updatePackTripReqDto) {
         // PackTrip 엔티티 찾기
-        PackTrip1Entity packTrip = packTripRepository.findById(packTripId)
+        PackTrip1Entity packTrip = packTripRepository.findById(updatePackTripReqDto.getPackTripId())
                 .orElseThrow(() -> new RuntimeException("PackTrip not found"));
 
         // 패키지 여행 이름 업데이트

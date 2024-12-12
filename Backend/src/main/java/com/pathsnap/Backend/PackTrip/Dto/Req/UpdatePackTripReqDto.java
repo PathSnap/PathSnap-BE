@@ -10,6 +10,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class UpdatePackTripReqDto {
+    private String packTripId;
     private String packTripName;
     private List<String> dates;
 }

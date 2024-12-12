@@ -27,7 +27,7 @@ public interface PackTripControllerDocs {
                     )
             ),
     })
-    @PostMapping("/profiles/trips")
+    @PostMapping("/trips")
     ResponseEntity<PackTripResDto> createPackTrip(
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "제목과 그룹화할 날짜 요청",
@@ -49,10 +49,8 @@ public interface PackTripControllerDocs {
                     )
             )
     })
-    @PutMapping("/profiles/trips/{userId}/{packTripId}")
+    @PutMapping("/trips")
     ResponseEntity<PackTripResDto> updatePackTrip(
-            @PathVariable String userId,
-            @PathVariable String packTripId,
             @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     description = "수정할 여행 묶음 정보",
                     required = true,
@@ -69,9 +67,8 @@ public interface PackTripControllerDocs {
                     description = "여행 묶음 삭제 성공"
             ),
     })
-    @DeleteMapping("/profiles/trips/{userId}/{packTripId}")
+    @DeleteMapping("/trips/{packTripId}")
     ResponseEntity<Void> deletePackTrip(
-            @PathVariable String userId,
             @PathVariable String packTripId  // 삭제할 여행 묶음의 ID
     );
 }
