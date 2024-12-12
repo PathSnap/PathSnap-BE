@@ -20,8 +20,13 @@ public class GetCalendarPackTrip {
     // 달력 불러오기
     public List<PackTripResDto> exec(String userId, Integer year, Integer month) {
 
-        // userId로 packTrip 불러오기
+        // userId로 PackTrip 불러오기
         List<PackTrip1Entity> packTrips = packTripRepository.findByUser_UserId(userId);
+
+        // tripDates 날짜 기준으로 오름차순 정렬
+        packTrips.forEach(packTrip ->
+                packTrip.getTripDates().sort((t1, t2) -> t1.getTripDate().compareTo(t2.getTripDate()))
+        );
 
         // 월 날짜 필터링
         return packTrips.stream()
