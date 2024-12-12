@@ -5,6 +5,7 @@ import com.pathsnap.Backend.User.Entity.User1Entity;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.UUID;
@@ -17,7 +18,7 @@ public class CreateRecord {
                 .user(user)
                 .recordName("여행 제목 없음")
                 .recordIsGroup(recordIsGroup)
-                .startDate(Date.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .startDate(LocalDateTime.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()))
                 .build();
     }
 }

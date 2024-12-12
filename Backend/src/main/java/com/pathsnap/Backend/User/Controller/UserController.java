@@ -43,8 +43,8 @@ public class UserController implements UserControllerDocs{
     }
 
     // 달력 불러오기
-    @GetMapping("/calendar/{userId}/{month}")
-    public ResponseEntity<CalendarResDto> getCalendar(@PathVariable String userId, @PathVariable int month) {
-        return ResponseEntity.ok(calendarService.getCalendar(userId, month));
+    @GetMapping("/calendar/{userId}/{year}/{month}")
+    public ResponseEntity<CalendarResDto> getCalendar(@PathVariable String userId, @PathVariable int year, @PathVariable int month) {
+        return ResponseEntity.ok(calendarService.getCalendar(userId, year, month));
     }
 }
