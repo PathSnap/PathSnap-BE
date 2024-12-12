@@ -18,7 +18,7 @@ public class GetCalendarPackTrip {
     private final PackTripRepository packTripRepository;
 
     // 달력 불러오기
-    public List<PackTripResDto> exec(String userId, Integer month) {
+    public List<PackTripResDto> exec(String userId, Integer year, Integer month) {
 
         // userId로 packTrip 불러오기
         List<PackTrip1Entity> packTrips = packTripRepository.findByUser_UserId(userId);
@@ -32,8 +32,9 @@ public class GetCalendarPackTrip {
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                                 String dateString = sdf.format(tripDate);
                                 // 월 추출, 비교
+                                int tripYear = Integer.parseInt(dateString.split("-")[0]);
                                 int tripMonth = Integer.parseInt(dateString.split("-")[1]);
-                                return tripMonth == month;
+                                return tripYear == year && tripMonth == month;
                             })
                             .map(tripDate -> {
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

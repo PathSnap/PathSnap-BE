@@ -23,20 +23,20 @@ public class GetCalendarService {
     private final GetCalendarPackTrip getCalenderPackTrip;
     private final GetCalendar getCalendar;
 
-    public CalendarResDto getCalendar(String userId, Integer month) {
+    public CalendarResDto getCalendar(String userId, Integer year, Integer month) {
 
         // 1. record 데이터 불러오기
         // 사용자 존재 여부 확인 및 예외 처리
         checkUser.exec(userId);
 
         // 월에 해당하는 레코드만 가져오기
-        List<Record1Entity> records = recordRepository.findByUserIdAndStartDateMonth(userId, month);
+        List<Record1Entity> records = recordRepository.findByUserIdAndStartDateMonth(userId, year, month);
 
         // getCalendar에서 반복문을 사용하여 calendarDto 생성
         List<CalendarResDto.CalendarDto> calendarDtos = getCalendar.exec(records);
 
         // 2. PackTrip 불러오기
-        List<PackTripResDto> newTrips = getCalenderPackTrip.exec(userId, month);
+        List<PackTripResDto> newTrips = getCalenderPackTrip.exec(userId, year, month);
 
         // 최종 결과 반환
         return new CalendarResDto(calendarDtos, newTrips);

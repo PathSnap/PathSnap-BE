@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +40,7 @@ public class Record1Entity {
 
     private String recordName;
     private boolean recordIsGroup;
-    private Date startDate;
+    private LocalDateTime startDate;
     private Date endDate;
 
 }
