@@ -15,7 +15,7 @@ public class PackTripController implements PackTripControllerDocs{
 
     private final CreatePackTripService packTripService;
 
-    @PostMapping("/profiles/trips")
+    @PostMapping
     public ResponseEntity<PackTripResDto> createPackTrip(
             @RequestBody PackTripReqDto packTripReqDTO) {
         return ResponseEntity.ok(packTripService.createPackTrip(packTripReqDTO.getUserId(), packTripReqDTO));
