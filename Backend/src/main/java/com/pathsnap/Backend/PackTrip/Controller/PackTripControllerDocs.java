@@ -61,4 +61,17 @@ public interface PackTripControllerDocs {
                     )
             ) UpdatePackTripReqDto updatePackTripReqDto
     );
+
+    @Operation(summary = "여행 묶음 삭제", description = "여행 묶음을 삭제합니다.", security = @SecurityRequirement(name = "AuthToken"))
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "여행 묶음 삭제 성공"
+            ),
+    })
+    @DeleteMapping("/profiles/trips/{userId}/{packTripId}")
+    ResponseEntity<Void> deletePackTrip(
+            @PathVariable String userId,
+            @PathVariable String packTripId  // 삭제할 여행 묶음의 ID
+    );
 }

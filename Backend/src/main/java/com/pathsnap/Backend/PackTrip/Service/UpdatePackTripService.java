@@ -21,16 +21,16 @@ public class UpdatePackTripService {
     private final CheckUser userCheck;
     private final CreateTripDate tripDateUpdate;
     private final PackTripRepository packTripRepository;
-private final TripDateRepository tripDateRepository;
+    private final TripDateRepository tripDateRepository;
 
     // 달력- 여행 날짜 묶기
     public PackTripResDto updatePackTrip(String userId, String packTripId, UpdatePackTripReqDto updatePackTripReqDto) {
+        // 사용자 확인
+        userCheck.exec(userId);
+
         // PackTrip 엔티티 찾기
         PackTrip1Entity packTrip = packTripRepository.findById(packTripId)
                 .orElseThrow(() -> new RuntimeException("PackTrip not found"));
-
-        // 사용자 확인 (옵션: 이 업데이트 요청자가 해당 PackTrip을 소유한 사용자임을 확인할 수도 있음)
-        User1Entity user = userCheck.exec(userId);
 
         // 패키지 여행 이름 업데이트
         packTrip.setPackTripName(updatePackTripReqDto.getPackTripName());
