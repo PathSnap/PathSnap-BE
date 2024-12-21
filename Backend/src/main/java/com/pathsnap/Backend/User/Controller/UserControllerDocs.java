@@ -89,10 +89,12 @@ public interface UserControllerDocs {
                     )
             )
     })
-    @GetMapping("/calendar/{userId}/{month}")
+    @GetMapping("/calendar/{userId}/{year}/{month}")
     ResponseEntity<CalendarResDto> getCalendar(
             @Parameter(description = "사용자 ID", required = true)
             @PathVariable String userId,
+            @Parameter(description = "조회할 년도", required = true)
+            @PathVariable int year,
             @Parameter(description = "조회할 월", required = true)
             @PathVariable int month
     );
