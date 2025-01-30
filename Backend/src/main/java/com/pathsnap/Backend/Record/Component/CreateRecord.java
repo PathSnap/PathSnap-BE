@@ -18,7 +18,7 @@ public class CreateRecord {
                 .user(user)
                 .recordName("여행 제목 없음")
                 .recordIsGroup(recordIsGroup)
-                .startDate(LocalDateTime.from(LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant()))
+                .startDate(LocalDateTime.now()) // 현재 날짜와 시간
                 .build();
     }
 }
